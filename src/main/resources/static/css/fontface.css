@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'geometry_soft';
+    src: url('/static/fonts/geometry_soft_pro-bold_n-webfont.woff2') format('woff2'),
+         url('/static/fonts/geometry_soft_pro-bold_n-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
