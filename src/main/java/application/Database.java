@@ -16,7 +16,7 @@ public class Database {
             BufferedReader bf = new BufferedReader(new FileReader("critici.txt"));
             String line = null;
             while ((line = bf.readLine()) != null){
-                String [] token = line.split("\t");
+                String [] token = line.split(",");
                 critici.put(token[0],token[1]);
             }
         }catch (IOException e){
