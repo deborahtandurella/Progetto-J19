@@ -46,7 +46,7 @@ h1, h2, h4, h5, h6 {
 /**media Queries**/
 
 .navbar-default {
-  background-color: transparent;
+  background-color: black;
 }
 
 .main-header {
@@ -152,7 +152,6 @@ h1, h2, h4, h5, h6 {
   border: 0px;
   display: inline-block;
   font-size: 16px;
-  /* text-transform: uppercase; */
   padding: 10px 40px;
   font-weight: normal;
   border-radius: 0px;
