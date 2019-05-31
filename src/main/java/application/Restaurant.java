@@ -49,5 +49,4 @@ public class Restaurant {
         this.overviewCritique = Critique.computeMean(this.critiques);
     }
 
-
 }
