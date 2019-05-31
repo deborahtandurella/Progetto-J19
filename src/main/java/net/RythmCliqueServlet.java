@@ -1,5 +1,6 @@
 package net;
 
+import application.HomeCritic;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServlet;
@@ -22,6 +23,12 @@ public class RythmCliqueServlet extends HttpServlet {
                 break;
             case "/critique":
                 write(response, Rythm.render(("critique.html")));
+                break;
+            case "/home_critico":
+                write(response, Rythm.render(("home_critico.html")));
+                break;
+            default:
+                write(response,Rythm.render("warn.html"));
         }
 
 
@@ -33,13 +40,22 @@ public class RythmCliqueServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        if(req.getRequestURI().startsWith("/critique")) {
-            int votoServizio = Integer.parseInt(req.getParameter("votoServizio"));
-            int votoConto = Integer.parseInt(req.getParameter("votoConto"));
-            int votoLocation = Integer.parseInt(req.getParameter("votoLocation"));
-            int votoMenu = Integer.parseInt(req.getParameter("votoMenu"));
-            System.out.println(votoConto+"\n"+votoLocation+"\n"+votoServizio+"\n"+votoMenu);
+        switch (req.getRequestURI()) {
+            case "/home":
+                String username = req.getParameter("username");
+                String password = req.getParameter("password");
+                HomeCritic hc = new HomeCritic();
+                if (hc.logIn(username, password)) {
+                    write(resp, Rythm.render("home_critico.html"));
+                } else
+                    write(resp, Rythm.render("warn.html"));
+                break;
+            case "/critique":
+                int votoServizio = Integer.parseInt(req.getParameter("votoServizio"));
+                int votoConto = Integer.parseInt(req.getParameter("votoConto"));
+                int votoLocation = Integer.parseInt(req.getParameter("votoLocation"));
+                int votoMenu = Integer.parseInt(req.getParameter("votoMenu"));
+                break;
         }
-
     }
 }

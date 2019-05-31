@@ -22,7 +22,7 @@ public class HomeRestaurantOwner {
     public void addRestaurant() throws IOException {
         String[] tmp;
         tmp = this.rr.fileRead();
-        auth.add(RestaurantCatalogue.addRestaurant(tmp[0], tmp[1]));
+        auth.add(RestaurantCatalogue.getInstance().addRestaurant(tmp[0], tmp[1]));
     }
     
     public void addMenu(int key, String path) throws IOException {
@@ -32,13 +32,13 @@ public class HomeRestaurantOwner {
         if (auth.contains(key)) {
             e = mr.fileRead();
         }
-        RestaurantCatalogue.addMenu(e, key);
+        RestaurantCatalogue.getInstance().addMenu(e, key);
     }
     
     public String findRestaurant(int restaurantCode) {
         String tmp = null;
         try {
-            tmp = RestaurantCatalogue.findRestaurant(restaurantCode);
+            tmp = RestaurantCatalogue.getInstance().findRestaurant(restaurantCode);
         } catch (RestaurantNotFoundException e) {
             System.err.println(e.getMessage());
         }
