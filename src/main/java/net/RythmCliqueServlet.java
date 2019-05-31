@@ -1,6 +1,5 @@
 package net;
 
-import application.RestaurantCatalogue;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServlet;

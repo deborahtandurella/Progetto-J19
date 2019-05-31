@@ -4,43 +4,50 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class RestaurantCatalogue {
-    private static Map<Integer, Restaurant> restaurants = new HashMap<>();
-    private static int counter = 0;
+public  class RestaurantCatalogue {
+    private static RestaurantCatalogue instance = null;
+    private  Map<Integer, Restaurant> restaurants;
+    private  int counter;
     
     private RestaurantCatalogue(){
-        
+        this.restaurants = new HashMap<>();
+        this.counter = 0;
+    }
+    public static synchronized RestaurantCatalogue getInstance(){
+        if(instance == null)
+            instance = new RestaurantCatalogue();
+        return instance;
     }
     
-    public static int addRestaurant(String name, String address){
+    public  int addRestaurant(String name, String address){
         
         Restaurant r = new Restaurant(name, address, ++counter);
         restaurants.put(counter, r);
         return counter;
     }
     
-    public static void addMenu(HashMap<DishType,ArrayList<MenuEntry>> a, int key){
+    public  void addMenu(HashMap<DishType,ArrayList<MenuEntry>> a, int key){
         restaurants.get(key).addEntry(a);
     }
     
-    public static String findRestaurant(int k){
+    public  String findRestaurant(int k){
         if(!restaurants.containsKey(k)){
             throw new RestaurantNotFoundException();
         }
         return restaurants.get(k).toString();
     }
     
-    public static void printList(){
+    public  void printList(){
         for(Map.Entry<Integer, Restaurant> e : restaurants.entrySet()){
             System.out.println(e.getKey() + ". " + e.getValue().toString());
         }
     }
     
-    public static void printMenu(int key){
+    public  void printMenu(int key){
        restaurants.get(key).printMenu();
     }
 
-    public static void addCritique(int codResturant, Critique crit){
+    public  void addCritique(int codResturant, Critique crit){
         restaurants.get(codResturant).addCritique(crit);
     }
 

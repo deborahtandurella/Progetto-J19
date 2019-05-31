@@ -22,13 +22,13 @@ public class HomeCritic {
         for (Map.Entry<MenuEntry,Double> t : piattiEVoti.entrySet()) {
                 c.voteDishes(t.getKey(),t.getValue());
         }
-        RestaurantCatalogue.addCritique(codResturant, c);
+        RestaurantCatalogue.getInstance().addCritique(codResturant, c);
     }
 
     public String findRestaurant(int restaurantCode) {
         String tmp = null;
         try {
-            tmp = RestaurantCatalogue.findRestaurant(restaurantCode);
+            tmp = RestaurantCatalogue.getInstance().findRestaurant(restaurantCode);
         } catch (RestaurantNotFoundException e) {
             System.err.println(e.getMessage());
         }
@@ -41,6 +41,10 @@ public class HomeCritic {
             votiD[i] = (double)voti[i];
         }
         return votiD;
+    }
+
+    public boolean logIn(String username, String psw){
+        return Database.getInstance().logIn(username,psw);
     }
 
 }
