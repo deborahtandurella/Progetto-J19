@@ -1,12 +1,15 @@
 package net;
 
 import application.HomeCritic;
+import application.Restaurant;
+import application.RestaurantCatalogue;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class RythmCliqueServlet extends HttpServlet {
@@ -26,6 +29,18 @@ public class RythmCliqueServlet extends HttpServlet {
                 break;
             case "/home_critico":
                 write(response, Rythm.render(("home_critico.html")));
+                break;
+            case "/list":
+                /******DEBUGGING******/
+                //RestaurantCatalogue.getInstance().addRestaurant("a", "b");
+//                Restaurant a = new Restaurant("a", "a", 1);
+//                Restaurant b = new Restaurant("b", "b", 2);
+//                ArrayList<Restaurant>rest = new ArrayList<>();
+                ArrayList<String> rest = new ArrayList<>();
+                rest.add("a");
+                rest.add("b");
+                /*********************/
+                write(response, Rythm.render("list.html", /*RestaurantCatalogue.getInstance().returnList()*/rest));
                 break;
             default:
                 write(response,Rythm.render("warn.html"));

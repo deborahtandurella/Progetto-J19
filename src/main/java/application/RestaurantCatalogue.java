@@ -2,6 +2,7 @@ package application;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public  class RestaurantCatalogue {
@@ -42,7 +43,15 @@ public  class RestaurantCatalogue {
             System.out.println(e.getKey() + ". " + e.getValue().toString());
         }
     }
-    
+
+    public ArrayList<Restaurant> returnList(){
+        ArrayList<Restaurant> rest = new ArrayList<>();
+        for(Map.Entry<Integer, Restaurant> e : restaurants.entrySet()){
+            rest.add(e.getValue());
+        }
+        return rest;
+    }
+
     public  void printMenu(int key){
        restaurants.get(key).printMenu();
     }
