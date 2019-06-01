@@ -45,9 +45,9 @@ h1, h2, h4, h5, h6 {
 
 /**media Queries**/
 
-.navbar-default {
-  background-color: black;
-}
+/*.navbar-default {*/
+/*  background-color: black;*/
+/*}*/
 
 .main-header {
   background: url(../img/banner.png) no-repeat;

@@ -30,6 +30,9 @@ public class RythmCliqueServlet extends HttpServlet {
             case "/home_critico":
                 write(response, Rythm.render(("home_critico.html")));
                 break;
+            case "/home_utente":
+                write(response, Rythm.render(("home_utente.html")));
+                break;
             case "/list":
                 /******DEBUGGING******/
                 //RestaurantCatalogue.getInstance().addRestaurant("a", "b");
