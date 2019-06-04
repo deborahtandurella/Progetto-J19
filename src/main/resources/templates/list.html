@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-@args List<String> rest
+@args List< String > rest
     <html lang="en">
 
     <head>
@@ -13,12 +12,7 @@
         <link rel="stylesheet" type="text/css" href="/static/css/style_list.css">
         <link rel="stylesheet" type="text/css" href="/static/css/fontface.css">
 
-        <!-- =======================================================
-          Theme Name: Bethany
-          Theme URL: https://bootstrapmade.com/bethany-free-onepage-bootstrap-theme/
-          Author: BootstrapMade.com
-          Author URL: https://bootstrapmade.com
-        ======================================================= -->
+
     </head>
 
     <body>
@@ -82,6 +76,7 @@
                 </div>
 
             </div>
+
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -93,10 +88,9 @@
                 </thead>
                 <tbody>
 
-                @for (String r:rest){
+                @for (String s:rest){
                 <tr>
-
-                    <td>@r.toString()</td>
+                    <td>@s</td>
                     <td><input type="submit" value="Scopri"> </td>
                 </tr>
                 }

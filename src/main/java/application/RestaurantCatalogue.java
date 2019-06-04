@@ -44,10 +44,10 @@ public  class RestaurantCatalogue {
         }
     }
 
-    public ArrayList<Restaurant> returnList(){
-        ArrayList<Restaurant> rest = new ArrayList<>();
+    public ArrayList<String> returnList(){
+        ArrayList<String> rest = new ArrayList<>();
         for(Map.Entry<Integer, Restaurant> e : restaurants.entrySet()){
-            rest.add(e.getValue());
+            rest.add(e.getValue().toString());
         }
         return rest;
     }

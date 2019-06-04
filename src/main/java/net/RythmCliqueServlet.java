@@ -25,7 +25,13 @@ public class RythmCliqueServlet extends HttpServlet {
                 write(response, Rythm.render(("home.html")));
                 break;
             case "/critique":
-                write(response, Rythm.render(("critique.html")));
+                /******DEBUGGING******/
+                ArrayList <String> piatti = new ArrayList<>();
+                piatti.add("a");
+                piatti.add("b");
+                piatti.add("c");
+                /*********************/
+                write(response, Rythm.render("critique.html", piatti));
                 break;
             case "/home_critico":
                 write(response, Rythm.render(("home_critico.html")));

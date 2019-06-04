@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@args List< String > piatti
+
 <html lang="en">
 
 <head>
@@ -85,22 +86,26 @@
               <i class="fa fa-cutlery"></i>
             </div>
             <h2>SERVIZIO: <span id="serv_out"></span></h2>
-            <br><input type="range" min="1" max="10" value="1" class="slider" id="serv"><br>
+            <br><input type="range" min="0" max="10" value="0" class="slider" id="serv"><br>
             <div class="icon">
               <i class="fa fa-money"></i>
             </div>
             <h2>CONTO: <span id="conto_out"></span></h2>
-			<br><input type="range" min="1" max="10" value="1" class="slider" id="conto"><br>
+			<br><input type="range" min="0" max="10" value="0" class="slider" id="conto"><br>
             <div class="icon">
               <i class="fa fa-map-marker"></i>
             </div>
             <h2>LOCATION: <span id="loc_out"></span></h2>
-			<br><input type="range" min="1" max="10" value="1" class="slider" id="loc"><br>
+			<br><input type="range" min="0" max="10" value="0" class="slider" id="loc"><br>
             <div class="icon">
               <i class="fa fa-book"></i>
             </div>
-            <h2>MENU: <span id="menu_out"></span></h2>
-			<br><input type="range" min="1" max="10" value="1" class="slider" id="menu"><br>
+            <h2>MENU: </h2>
+<!--			<br><input type="range" min="1" max="10" value="1" class="slider" id="menu"><br>-->
+            @for(String s:piatti){
+              <h2>@s: </h2>
+              <br><input type="range" min="0" max="10" value="0" class="slider" id="@s slider"><br>
+            }
 			<button type="submit" class="btn btn-submit">CONFIRM</button>
           </form>
 		</div>
