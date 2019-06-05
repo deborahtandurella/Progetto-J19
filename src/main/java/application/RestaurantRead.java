@@ -5,10 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-/**
- *
- * @author cl445589
- */
+
 public class RestaurantRead {
     private String line;
     private FileReader file;

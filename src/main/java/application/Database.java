@@ -13,12 +13,8 @@ public class Database {
     private Database() {
         this.critici = new HashMap<>();
         try {
-            BufferedReader bf = new BufferedReader(new FileReader("critici.txt"));
-            String line = null;
-            while ((line = bf.readLine()) != null){
-                String [] token = line.split(",");
-                critici.put(token[0],token[1]);
-            }
+            setUpCritiques("critici.txt");
+            setUpRistoranti("ristoranti.txt");
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -34,5 +30,23 @@ public class Database {
         if(critici.containsKey(username) && critici.get(username).equals(psw))
             return true;
         return false;
+    }
+
+    private void setUpCritiques(String fileName) throws IOException{
+        BufferedReader bf = new BufferedReader(new FileReader(fileName));
+        String line = null;
+        while ((line = bf.readLine()) != null){
+            String [] token = line.split(",");
+            critici.put(token[0],token[1]);
+        }
+    }
+
+    private void setUpRistoranti(String fileName)throws IOException{
+        BufferedReader bf = new BufferedReader(new FileReader(fileName));
+        String line = null;
+        while ((line = bf.readLine()) != null){
+            String [] token = line.split("\t");
+            RestaurantCatalogue.getInstance().addRestaurant(token[0],token[1]);
+        }
     }
 }
