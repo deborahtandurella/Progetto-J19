@@ -1,5 +1,5 @@
 @args Map<Integer, String> rest
-@import java.util.Map
+
 
     <html lang="en">
 
@@ -81,8 +81,8 @@
 
             <form method="post" action="/list">
                 <h2>Ristoranti</h2>
-                @for(key: rest.keySet()){
-                    <input type="radio" name = "restaurant" value =  @key /> @rest.get(key) <br>
+                @for(Map.Entry<Integer,String> s : rest.entrySet()){
+                    <input type="radio" name = "restaurant" value =  @s.getKey() /> @s.getValue() <br>
                 }
 
                 <input type="submit" value="confirm">
