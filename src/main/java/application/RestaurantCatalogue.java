@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// TODO methods for single restaurant's info
 public  class RestaurantCatalogue {
     private static RestaurantCatalogue instance = null;
     private  Map<Integer, Restaurant> restaurants;
@@ -44,7 +45,7 @@ public  class RestaurantCatalogue {
         }
     }
 
-    public ArrayList<String> returnList(){
+    public ArrayList<String> getRestaurantOverview(){
         ArrayList<String> rest = new ArrayList<>();
         for(Map.Entry<Integer, Restaurant> e : restaurants.entrySet()){
             rest.add(e.getValue().toString());
@@ -60,5 +61,12 @@ public  class RestaurantCatalogue {
         restaurants.get(codResturant).addCritique(crit);
     }
 
+    public Map<Integer,String> getRestaurantInfo(){
+        Map<Integer, String> rest = new HashMap<>();
+        for(Map.Entry<Integer, Restaurant> e : restaurants.entrySet()){
+            rest.put(e.getKey(),e.getValue().getRestaurantInfo());
+        }
+        return rest;
+    }
 }
     

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 public class RythmCliqueServlet extends HttpServlet {
@@ -40,16 +42,12 @@ public class RythmCliqueServlet extends HttpServlet {
                 write(response, Rythm.render(("home_utente.html")));
                 break;
             case "/list":
-                /******DEBUGGING******/
-                //RestaurantCatalogue.getInstance().addRestaurant("a", "b");
-//                Restaurant a = new Restaurant("a", "a", 1);
-//                Restaurant b = new Restaurant("b", "b", 2);
-//                ArrayList<Restaurant>rest = new ArrayList<>();
-                ArrayList<String> rest = new ArrayList<>();
-                rest.add("a");
-                rest.add("b");
-                /*********************/
-                write(response, Rythm.render("list.html", /*RestaurantCatalogue.getInstance().returnList()*/rest));
+                Map<Integer,String> tmp = RestaurantCatalogue.getInstance().getRestaurantInfo();
+                List<String> tmp1 = new ArrayList<>();
+                for (Map.Entry<Integer,String> a: RestaurantCatalogue.getInstance().getRestaurantInfo().entrySet()) {
+                    tmp1.add(a.getValue());
+                }
+                write(response, Rythm.render("list.html",tmp1));
                 break;
             default:
                 write(response,Rythm.render("warn.html"));
@@ -78,7 +76,20 @@ public class RythmCliqueServlet extends HttpServlet {
                 int votoServizio = Integer.parseInt(req.getParameter("votoServizio"));
                 int votoConto = Integer.parseInt(req.getParameter("votoConto"));
                 int votoLocation = Integer.parseInt(req.getParameter("votoLocation"));
-                int votoMenu = Integer.parseInt(req.getParameter("votoMenu"));
+                int votoA = Integer.parseInt(req.getParameter("a"));
+                int votoB = Integer.parseInt(req.getParameter("b"));
+                int votoC = Integer.parseInt(req.getParameter("c"));
+                System.out.println(votoServizio);
+                System.out.println(votoConto);
+                System.out.println(votoLocation);
+                System.out.println(votoA);
+                System.out.println(votoB);
+                System.out.println(votoC);
+                break;
+
+            case "/list":
+                String rest = req.getParameter("restaurant");
+                System.out.println(rest);
                 break;
         }
     }

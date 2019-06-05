@@ -1,4 +1,4 @@
-@args List< String > rest
+@args List<String> rest
     <html lang="en">
 
     <head>
@@ -71,68 +71,23 @@
                     <div class="section-title">
                         <h2 class="head-title">RICERCA</h2>
                         <hr class="botm-line">
-                        <p class="sec-para">Clicca su SCOPRI per visualizzare la pagina del ristorante</p>
+                        <p class="sec-para">Clicca su "confirm" per visualizzare la pagina del ristorante</p>
                     </div>
                 </div>
 
             </div>
 
-            <table class="table table-hover">
-                <thead>
-                <tr>
-
-                    <th scope="col">Name</th>
-                    <th scope="col"></th>
-
-                </tr>
-                </thead>
-                <tbody>
-
-                @for (String s:rest){
-                <tr>
-                    <td>@s</td>
-                    <td><input type="submit" value="Scopri"> </td>
-                </tr>
+            <form method="post" action="/list">
+                <h2>Ristoranti</h2>
+                @for(String s : rest){
+                <input type="radio" name = "restaurant" value = @s /> @s<br>
                 }
 
-
-            </table>
+                <input type="submit" value="confirm">
+            </form>
         </div>
     </section>
 
-    <script>
-        var votoServizio = document.getElementById("serv");
-        var servizio = document.getElementById("serv_out");
-        servizio.innerHTML = votoServizio.value;
-
-        votoServizio.oninput = function() {
-            servizio.innerHTML = this.value;
-        }
-
-        var votoConto = document.getElementById("conto");
-        var conto = document.getElementById("conto_out");
-        conto.innerHTML = votoConto.value;
-
-        votoConto.oninput = function() {
-            conto.innerHTML = this.value;
-        }
-
-        var votoLocation = document.getElementById("loc");
-        var loc = document.getElementById("loc_out");
-        loc.innerHTML = votoLocation.value;
-
-        votoLocation.oninput = function() {
-            loc.innerHTML = this.value;
-        }
-
-        var votoMenu = document.getElementById("menu");
-        var menu = document.getElementById("menu_out");
-        menu.innerHTML = votoMenu.value;
-
-        votoMenu.oninput = function() {
-            menu.innerHTML = this.value;
-        }
-    </script>
 
     <section class="section-padding parallax bg-image-2 section wow fadeIn delay-08s" id="cta-2">
         <div class="container">

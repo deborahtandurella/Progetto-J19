@@ -81,22 +81,22 @@
           </div>
         </div>
         <div class="slidecontainer" id="slidercontainer">
-          <form>
+          <form method = "post" action = "/critique">
             <div class="icon">
               <i class="fa fa-cutlery"></i>
             </div>
             <h2>SERVIZIO: <span id="serv_out"></span></h2>
-            <br><input type="range" min="0" max="10" value="0" class="slider" id="serv"><br>
+            <br><input type="range" min="0" max="10" value="0" class="slider" id = "serv" name="votoServizio"><br>
             <div class="icon">
               <i class="fa fa-money"></i>
             </div>
             <h2>CONTO: <span id="conto_out"></span></h2>
-			<br><input type="range" min="0" max="10" value="0" class="slider" id="conto"><br>
+			<br><input type="range" min="0" max="10" value="0" class="slider" id="conto" name="votoConto"><br>
             <div class="icon">
               <i class="fa fa-map-marker"></i>
             </div>
             <h2>LOCATION: <span id="loc_out"></span></h2>
-			<br><input type="range" min="0" max="10" value="0" class="slider" id="loc"><br>
+			<br><input type="range" min="0" max="10" value="0" class="slider" id="loc" name="votoLocation"><br>
             <div class="icon">
               <i class="fa fa-book"></i>
             </div>
@@ -104,9 +104,9 @@
 <!--			<br><input type="range" min="1" max="10" value="1" class="slider" id="menu"><br>-->
             @for(String s:piatti){
               <h2>@s: </h2>
-              <br><input type="range" min="0" max="10" value="0" class="slider" id="@s slider"><br>
+              <br><input type="range" min="0" max="10" value="0" class="slider" id= @s name = @s ><br>
             }
-			<button type="submit" class="btn btn-submit">CONFIRM</button>
+            <button type="submit" class="btn btn-submit">CONFIRM</button>
           </form>
 		</div>
       </div>

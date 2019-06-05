@@ -28,7 +28,7 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return this.name + "; " + this.address + this.overviewCritique.toString();
+        return this.name + "    " + this.address + this.overviewCritique.toString();
     }
     
     public void printMenu(){
@@ -49,4 +49,11 @@ public class Restaurant {
         this.overviewCritique = Critique.computeMean(this.critiques);
     }
 
+    public String getRestaurantInfo(){
+        return this.name + "    " + this.address;
+    }
+
+    public int getCode() {
+        return code;
+    }
 }
