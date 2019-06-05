@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,12 +43,9 @@ public class RythmCliqueServlet extends HttpServlet {
                 write(response, Rythm.render(("home_utente.html")));
                 break;
             case "/list":
-                Map<Integer,String> tmp = RestaurantCatalogue.getInstance().getRestaurantInfo();
-                List<String> tmp1 = new ArrayList<>();
-                for (Map.Entry<Integer,String> a: RestaurantCatalogue.getInstance().getRestaurantInfo().entrySet()) {
-                    tmp1.add(a.getValue());
-                }
-                write(response, Rythm.render("list.html",tmp1));
+                Map<Integer, String> rest = RestaurantCatalogue.getInstance().getRestaurantInfo();
+                System.out.println(rest.toString());
+                write(response, Rythm.render("list.html", rest));
                 break;
             default:
                 write(response,Rythm.render("warn.html"));
