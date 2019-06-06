@@ -29,13 +29,6 @@ public class RythmCliqueServlet extends HttpServlet {
                 write(response, Rythm.render(("home.html")));
                 break;
             case "/critique":
-                /******DEBUGGING******/
-                ArrayList <String> piatti = new ArrayList<>();
-                piatti.add("a");
-                piatti.add("b");
-                piatti.add("c");
-                /*********************/
-                write(response, Rythm.render("critique.html", piatti));
                 break;
             case "/home_critico":
                 write(response, Rythm.render(("home_critico.html")));
@@ -45,8 +38,6 @@ public class RythmCliqueServlet extends HttpServlet {
                 break;
             case "/list":
                 Map<Integer, String> rest = RestaurantCatalogue.getInstance().getRestaurantInfo();
-
-                System.out.println(rest.toString());
                 Map<String, Object> conf = new HashMap<>();
                 conf.put("rest",rest);
                 write(response, Rythm.render("list.html", conf));
@@ -79,15 +70,12 @@ public class RythmCliqueServlet extends HttpServlet {
                 int votoConto = Integer.parseInt(req.getParameter("votoConto"));
                 int votoLocation = Integer.parseInt(req.getParameter("votoLocation"));
                 int votoMenu = Integer.parseInt(req.getParameter("votoMenu"));
-                int votoA = Integer.parseInt(req.getParameter("a"));
-                int votoB = Integer.parseInt(req.getParameter("b"));
-                int votoC = Integer.parseInt(req.getParameter("c"));
+                int restCode = Integer.parseInt(req.getParameter("restCode"));
                 System.out.println(votoServizio);
                 System.out.println(votoConto);
+                System.out.println(votoMenu);
                 System.out.println(votoLocation);
-                System.out.println(votoA);
-                System.out.println(votoB);
-                System.out.println(votoC);
+                System.out.println(restCode);
                 break;
 
             case "/list":
@@ -103,6 +91,7 @@ public class RythmCliqueServlet extends HttpServlet {
                 Map<Integer,String> piatti = RestaurantCatalogue.getInstance().getMenu(rest);
                 Map<String, Object> conf = new HashMap<>();
                 conf.put("piatti", piatti);
+                conf.put("restCode",rest);
                 write(resp,Rythm.render("critique.html", conf));
                 break;
         }

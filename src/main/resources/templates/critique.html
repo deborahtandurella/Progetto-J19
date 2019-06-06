@@ -1,4 +1,4 @@
-@args  Map<Integer, String> piatti
+@args  Map<Integer, String> piatti, int restCode
 
 <html lang="en">
 
@@ -82,6 +82,7 @@
         </div>
         <div class="slidecontainer" id="slidercontainer">
           <form method = "post" action = "/critique">
+            <input type="hidden" id="restCode" name="restCode" value=@restCode>
             <div class="icon">
               <i class="fa fa-cutlery"></i>
             </div>
@@ -101,8 +102,7 @@
               <i class="fa fa-book"></i>
             </div>
             <h2>MENU: </h2>
-			<br><input type="range" min="1" max="10" value="1" class="slider" id="menu"><br>
-
+			<br><input type="range" min="1" max="10" value="1" class="slider" id="menu" name="votoMenu"><br>
             @for(Map.Entry<Integer, String> s: piatti.entrySet()){
               <h2>@s.getValue(): </h2>
               <br><input type="range" min="0" max="10" value="0" class="slider" id= @s.getValue() name = @s.getKey() ><br>
