@@ -69,5 +69,9 @@ public  class RestaurantCatalogue {
         return rest;
     }
 
+    public  Map<Integer, String>  getMenu(int restaurantCode){
+        return this.restaurants.get(restaurantCode).getMenu();
+    }
+
 }
     

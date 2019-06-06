@@ -2,6 +2,8 @@ package application;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class Restaurant {
@@ -55,5 +57,17 @@ public class Restaurant {
 
     public int getCode() {
         return code;
+    }
+
+    public  Map<Integer, String> getMenu(){
+        //HashMap<DishType, HashMap<Integer, String>> temp = new HashMap<>();
+        Map<Integer,String> temp = new HashMap<>();
+        for (Map.Entry<DishType,ArrayList<MenuEntry>> a: this.menu.entrySet()) {
+            for (MenuEntry me:a.getValue()) {
+                temp.put(me.getCod(),me.getDish());
+            }
+        }
+
+        return temp;
     }
 }

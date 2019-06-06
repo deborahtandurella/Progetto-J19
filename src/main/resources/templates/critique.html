@@ -1,4 +1,4 @@
-@args List< String > piatti
+@args  Map<Integer, String> piatti
 
 <html lang="en">
 
@@ -101,11 +101,12 @@
               <i class="fa fa-book"></i>
             </div>
             <h2>MENU: </h2>
-<!--			<br><input type="range" min="1" max="10" value="1" class="slider" id="menu"><br>-->
-            @for(String s:piatti){
-              <h2>@s: </h2>
-              <br><input type="range" min="0" max="10" value="0" class="slider" id= @s name = @s ><br>
-            }
+			<br><input type="range" min="1" max="10" value="1" class="slider" id="menu"><br>
+
+            @for(Map.Entry<Integer, String> s: piatti.entrySet()){
+              <h2>@s.getValue(): </h2>
+              <br><input type="range" min="0" max="10" value="0" class="slider" id= @s.getValue() name = @s.getKey() ><br>
+              }
             <button type="submit" class="btn btn-submit">CONFIRM</button>
           </form>
 		</div>

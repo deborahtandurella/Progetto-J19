@@ -21,14 +21,15 @@ public class MenuRead {
     protected HashMap<DishType,ArrayList<MenuEntry>> fileRead() throws IOException{
         HashMap<DishType,ArrayList<MenuEntry>> a = new HashMap<>();
         initializeMenu(a);
-
+        int tmp = 1;
         while ((line = buffer.readLine()) != null) {
-            String[] result = line.split("\t");
+            String[] result = line.split(",");
             //System.out.println(result.length+"a");
-            MenuEntry e = new MenuEntry( result[1], Double.parseDouble(result[2]));
+            MenuEntry e = new MenuEntry( result[1], Double.parseDouble(result[2]), tmp);
             DishType en = switchFumction(result[0]);
             //System.out.println(en);
             a.get(en).add(e);
+            tmp++;
         }
         file.close();
         return a;
@@ -36,9 +37,10 @@ public class MenuRead {
 
     private DishType switchFumction(String choice){
         switch (choice){
-            case "antipasto" : return DishType.ANTIPASTI;
-            case "primo piatto": return DishType.PRIMI;
-            case "secondo piatto": return DishType.SECONDI;
+            case "antipasto" :
+                return DishType.ANTIPASTI;
+            case "primo": return DishType.PRIMI;
+            case "secondo": return DishType.SECONDI;
             case "dolce": return DishType.DOLCI;
             default: return null;
         }

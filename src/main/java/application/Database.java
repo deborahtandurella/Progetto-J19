@@ -3,6 +3,7 @@ package application;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +40,7 @@ public class Database {
             String [] token = line.split(",");
             critici.put(token[0],token[1]);
         }
+        bf.close();
     }
 
     private void setUpRistoranti(String fileName)throws IOException{
@@ -48,5 +50,12 @@ public class Database {
             String [] token = line.split("\t");
             RestaurantCatalogue.getInstance().addRestaurant(token[0],token[1]);
         }
+        bf.close();
+    }
+    public void addMenu(int key, String path) throws IOException {
+        MenuRead mr = new MenuRead(path);
+        HashMap<DishType, ArrayList<MenuEntry>> e = null;
+        e = mr.fileRead();
+        RestaurantCatalogue.getInstance().addMenu(e, key);
     }
 }

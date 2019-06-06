@@ -4,10 +4,11 @@ public class MenuEntry {
 
     private final String dish;
     private final double price;
-    
-    public MenuEntry( String dish, double price){
-        this.dish = dish;
+    private int cod;
 
+    public MenuEntry( String dish, double price, int cod){
+        this.dish = dish;
+        this.cod = cod;
         this.price = price;
     }
 
@@ -24,7 +25,7 @@ public class MenuEntry {
         return price;
     }
 
-
-    
-    
+    public int getCod() {
+        return cod;
+    }
 }

@@ -1,0 +1,26 @@
+antipasto,Ostriche,19.00
+antipasto,Mare e terra,20.00
+antipasto,Piemonte,18.00
+antipasto,Assiette di salumi misti nostrani,12
+antipasto,Tuberi in fermento,12
+antipasto,Zucchina ripiena,13
+primo piatto,Riso tra Puglia e Liguria,15
+primo piatto,Guazzetto di primavera,16
+primo piatto,Caprese,16
+primo piatto,Maltagliati alla farina di piselli,13
+primo piatto,Orzotto risottatto con bronoise di verdure in gelatina,13
+primo piatto,Zuppa alla pavese,13
+secondo piatto,Guancetta di rana pescatrice,20
+secondo piatto,Sfoglia di calamaro ripiena di trota affumicata,20
+secondo piatto,Coniglio in Spagna,20
+secondo piatto,Costolette di agnello,25
+secondo piatto,Frittelle di verdure,16
+secondo piatto,Tagliata di Angus americano,25
+secondo piatto,Coppa di maiale cotta in LTC,18
+secondo piatto,Selezione di formaggi,18
+dolce,Cuore nero,8
+dolce,Tartelletta di frolla montata,9
+dolce,Sfoglia laccata al miele,8
+dolce,Frutta fresca,8
+dolce,Pera cotta in sottovuoto,8
+dolce,Gelo al cucchiaio,6

@@ -1,0 +1,28 @@
+﻿antipasto,Parmigiana di melanzane nel cestino di parmigiano e la sua fonduta,11
+antipasto,Calamaretti ripieni alla pugliese salsa al finocchio e capperi in fiore,11
+antipasto,Tartare di tonno in salsa tonnata acciuga del Cantabrico e crackers al sesamo,12
+antipasto,Culatello di Zibello DOP con focaccia calda,16
+antipasto,Foie gras cotto nel torchon con marmellata di pere e pan brioche,18
+antipasto,Patè di fegatini d'anatra con purea di mele e pan brioche,11
+antipasto,Prosciutto crudo San Prospero,11
+antipasto,Lardo di Colonnata e Arnad servito con miele di melata e crostini caldi,11
+antipasto,Salumi misti,11
+antipasto,Carpaccio di petto d'oca affumicato,12
+primo,Risi e bisi,11
+primo,Pappardelle al timo con ragù di faraona,11
+primo,Zuppa di pesce,12
+primo,Gnocchi di patate e fagioli neri broccoletti romani e code di gambero,12
+primo,Ravioli con ripieno di asparagi robiola e ricotto al burro fuso di Normandia,11
+primo,Tagliolini al nero di seppia con alici uvetta pinoli crumble di pane al finocchietto,12
+secondo,Costoletta di agnello agli aromi con flan di carote,16.50
+secondo,Stinco di vitello di razza alpina arrosto con verdurine,16
+secondo,Spiedino d'anatra con friggitelli alla piastra,16.50
+secondo,Filetto di orata con asparagi cipolle rosse caramellate e vinaigrette di ricotta,16.50
+secondo,Filetto di manzo steccato allo spack salsa al marsala e patate al vapore,18
+dolce,Il mio tiramisù,6.50
+dolce,Tartelletta di pasta frolla montata con ganache di gianduia e fragole,6.50
+dolce,Creme caramel con frutti di bosco gelato al caramello e crema vaniglia,6.50
+dolce,Semifreddo al pistacchio con salsa al cioccolato e riso soffiato al cioccolato,6.50
+dolce,Bavarese alla pera crumble speziato e salsa al caramello,6.50
+dolce,Cantucci e Vin Santo,8
+dolce,Trisgelato a scelta,6

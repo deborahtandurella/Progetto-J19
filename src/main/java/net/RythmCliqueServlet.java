@@ -1,5 +1,6 @@
 package net;
 
+import application.DishType;
 import application.HomeCritic;
 import application.Restaurant;
 import application.RestaurantCatalogue;
@@ -77,6 +78,7 @@ public class RythmCliqueServlet extends HttpServlet {
                 int votoServizio = Integer.parseInt(req.getParameter("votoServizio"));
                 int votoConto = Integer.parseInt(req.getParameter("votoConto"));
                 int votoLocation = Integer.parseInt(req.getParameter("votoLocation"));
+                int votoMenu = Integer.parseInt(req.getParameter("votoMenu"));
                 int votoA = Integer.parseInt(req.getParameter("a"));
                 int votoB = Integer.parseInt(req.getParameter("b"));
                 int votoC = Integer.parseInt(req.getParameter("c"));
@@ -89,8 +91,19 @@ public class RythmCliqueServlet extends HttpServlet {
                 break;
 
             case "/list":
-                String rest = req.getParameter("restaurant");
-                System.out.println(rest);
+                int rest = Integer.parseInt(req.getParameter("restaurant"));
+                //System.out.println(rest);
+                /*HashMap<DishType, HashMap<Integer, String>> piatti = RestaurantCatalogue.getInstance().getMenu(rest);
+                String [] name = {"antipasti","primi","secondi", "dolci"};
+                for(DishType e : DishType.values()){
+                    for (Map.Entry<Integer, String> ma : piatti.get(e).entrySet()){
+
+                    }
+                }*/
+                Map<Integer,String> piatti = RestaurantCatalogue.getInstance().getMenu(rest);
+                Map<String, Object> conf = new HashMap<>();
+                conf.put("piatti", piatti);
+                write(resp,Rythm.render("critique.html", conf));
                 break;
         }
     }

@@ -60,8 +60,8 @@ public class Tester {
 
         HomeCritic hc = new HomeCritic();
         HashMap<MenuEntry, Double> prova = new HashMap<>();
-        MenuEntry p1 = new MenuEntry("Spaghettone con limone, menta e peperoncino",	11);
-        MenuEntry p2 = new MenuEntry("Cannellone di branzino su fonduta di spinaci",	13);
+        MenuEntry p1 = new MenuEntry("Spaghettone con limone, menta e peperoncino",	11, 0);
+        MenuEntry p2 = new MenuEntry("Cannellone di branzino su fonduta di spinaci",	13, 0);
         prova.put(p1,7.);
         prova.put(p2,6.);
         hc.writeCritique(2,6,8,7,9,prova);
