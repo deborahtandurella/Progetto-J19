@@ -68,8 +68,20 @@ public  class RestaurantCatalogue {
         return rest;
     }
 
-    public  Map<Integer, String>  getMenu(int restaurantCode){
-        return this.restaurants.get(restaurantCode).getMenu();
+    public  Map<Integer, String>  getMenuInfo(int restaurantCode){
+        return this.restaurants.get(restaurantCode).getMenuInfo();
+    }
+
+    public ArrayList<Integer> getMenuCode(int restCode){
+        return this.restaurants.get(restCode).getMenuCode();
+    }
+
+    public MenuEntry getDish(int restCod, int dishCod){
+        return this.restaurants.get(restCod).getDish(dishCod);
+    }
+
+    public void printRestaurantOverview(int restCod){
+        System.out.println(this.restaurants.get(restCod).toString());
     }
 
 }

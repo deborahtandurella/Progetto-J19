@@ -23,11 +23,10 @@ public class MenuRead {
         initializeMenu(a);
         int tmp = 1;
         while ((line = buffer.readLine()) != null) {
-            String[] result = line.split(",");
-            //System.out.println(result.length+"a");
+            String[] result = line.split("&");
             MenuEntry e = new MenuEntry( result[1], Double.parseDouble(result[2]), tmp);
             DishType en = switchFumction(result[0]);
-            //System.out.println(en);
+
             a.get(en).add(e);
             tmp++;
         }
@@ -37,11 +36,11 @@ public class MenuRead {
 
     private DishType switchFumction(String choice){
         switch (choice){
-            case "antipasto" :
+            case "Antipasto" :
                 return DishType.ANTIPASTI;
-            case "primo": return DishType.PRIMI;
-            case "secondo": return DishType.SECONDI;
-            case "dolce": return DishType.DOLCI;
+            case "Primo": return DishType.PRIMI;
+            case "Secondo": return DishType.SECONDI;
+            case "Dolce": return DishType.DOLCI;
             default: return null;
         }
     }

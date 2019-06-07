@@ -29,11 +29,9 @@ public class Critique {
         }
     }
 
-    public void voteDishes(MenuEntry dish, double voto){
+    public void voteDishes(HashMap<MenuEntry, Double> dv){
         try{
-            double[] t = {voto};
-            checkNumber(t);
-            this.dishes.put(dish, voto);
+            this.dishes = dv;
             this.sections.replace(CritiqueSections.CUCINA,meanDishes());
         }
         catch (InvalidNumberException e){
@@ -110,9 +108,12 @@ public class Critique {
 
     private  double meanDishes(){
         double tmp = 0.;
-        int length = this.dishes.values().size();
+        int length = 0;
         for (double d: this.dishes.values()) {
-            tmp+= d ;
+            if(d!=0){
+                tmp+= d ;
+                length++;
+            }
         }
         return tmp/length;
     }
