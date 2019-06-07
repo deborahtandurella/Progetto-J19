@@ -52,7 +52,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-3 wow fadeInLeft delay-05s">
-          <hr class="section-title">
+          <div class="section-title">
             <h2 class="head-title">COSA VUOI FARE?</h2>
             <hr class="botm-line">
             <p class="sec-para">Scrivi una critica su un ristorante o scoprine di nuovi</p>
@@ -66,52 +66,24 @@
             <div class="icon-text">
               <h2 class="txt-tl">RICERCA</h2>
               <p class="txt-para">Scegli il ristorante che vuoi esplorare</p>
-			  <div class="dropdown">
-				<button onclick="myFunction()" class="dropbtn">SCOPRI</button>
-			    <div id="myDropdown" class="dropdown-content">
-				  <a href="#home">Ristorante 1</a>
-				  <a href="#about">Ristorante 2</a>
-				  <a href="#contact">Ristorante 3</a>
-			    </div>
-			  </div>
-			  <script>
-				/* When the user clicks on the button, 
-				toggle between hiding and showing the dropdown content */
-				function myFunction() {
-				document.getElementById("myDropdown").classList.toggle("show");
-				}
-
-				// Close the dropdown if the user clicks outside of it
-				window.onclick = function(event) {
-				if (!event.target.matches('.dropbtn')) {
-					var dropdowns = document.getElementsByClassName("dropdown-content");
-					var i;
-					for (i = 0; i < dropdowns.length; i++) {
-						var openDropdown = dropdowns[i];
-						if (openDropdown.classList.contains('show')) {
-							openDropdown.classList.remove('show');
-						}
-					}
-				}
-				}
-			  </script>
-			  
+              <a href="/list" class="btn btn-submit">SCOPRI</a>
             </div>
-          
-		  <div class="icon">
+
+            <div class="icon">
               <i class="fa fa-pencil"></i>
             </div>
             <div class="icon-text">
               <h2 class="txt-tl">CRITICA</h2>
-              <p class="txt-para">Racconta a tutti la tua esperienza</p>
-			  <button type="submit" class="btn btn-submit">SCRIVI</button>
+              <p class="txt-para">Dacci il tuo parere da esperto!</p>
+              <a href="/list" class="btn btn-submit">SCRIVI</a>
             </div>
-		  
-		  </div>
+
+          </div>
 
         </div>
       </div>
     </div>
+
   </section>
   <!---->
   <section class="section-padding parallax bg-image-2 section wow fadeIn delay-08s" id="cta-2">
