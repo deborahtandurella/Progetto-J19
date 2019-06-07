@@ -13,12 +13,7 @@
   <link rel="stylesheet" type="text/css" href="/static/css/style_critique.css">
   <link rel="stylesheet" type="text/css" href="/static/css/fontface.css">
 
-  <!-- =======================================================
-    Theme Name: Bethany
-    Theme URL: https://bootstrapmade.com/bethany-free-onepage-bootstrap-theme/
-    Author: BootstrapMade.com
-    Author URL: https://bootstrapmade.com
-  ======================================================= -->
+
 </head>
 
 <body>
@@ -48,17 +43,12 @@
       </nav>
       <!--/ nav-->
       <div class="container text-center">
-        <!-- <div class="wrapper wow fadeInUp delay-05s">
-          <h2 class="top-title"></h2>
-          <h3 class="title">CliQue</h3>
-          <h4 class="sub-title">IL PARERE DEGLI ESPERTI</h4>
-          <button type="submit" class="btn btn-submit">SIGN IN</button>
-        </div> -->
       </div>
     </div>
   </header>
+
   <!--/ header-->
-  <!---->
+
   <section id="cta-1">
     <div class="container">
       <div class="row">
@@ -68,7 +58,6 @@
       </div>
     </div>
   </section>
-  <!---->
   <!---->
   <section id="feature" class="section-padding">
     <div class="container">
@@ -86,26 +75,46 @@
             <div class="icon">
               <i class="fa fa-cutlery"></i>
             </div>
-            <h2>SERVIZIO: <span id="serv_out"></span></h2>
+            <h2>SERVIZIO:</h2>
             <br><input type="range" min="0" max="10" value="0" class="slider" id = "serv" name="votoServizio"><br>
+            <div class="index">
+            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
+          </div>
             <div class="icon">
               <i class="fa fa-money"></i>
             </div>
-            <h2>CONTO: <span id="conto_out"></span></h2>
+            <h2>CONTO:</h2>
 			<br><input type="range" min="0" max="10" value="0" class="slider" id="conto" name="votoConto"><br>
+            <div class="index">
+            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
+          </div>
             <div class="icon">
               <i class="fa fa-map-marker"></i>
             </div>
-            <h2>LOCATION: <span id="loc_out"></span></h2>
+            <h2>LOCATION:</h2>
 			<br><input type="range" min="0" max="10" value="0" class="slider" id="loc" name="votoLocation"><br>
+            <div class="index">
+            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
+          </div>
             <div class="icon">
               <i class="fa fa-book"></i>
             </div>
-            <h2>MENU: </h2>
+            <h2>MENU:</h2>
 			<br><input type="range" min="1" max="10" value="1" class="slider" id="menu" name="votoMenu"><br>
+            <div class="index">
+            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
+          </div>
+
+            <div class="icon">
+              <i class="fa fa-random"></i>
+            </div>
+            <h2>CUCINA:</h2>
             @for(Map.Entry<Integer, String> s: piatti.entrySet()){
-              <h2>@s.getValue(): </h2>
-              <br><input type="range" min="0" max="10" value="0" class="slider" id= @s.getValue() name = @s.getKey() ><br>
+              <br></Integer><h7>@s.getValue(): </h7>
+              <br><br><input type="range" min="0" max="10" value="0" class="slider" id= @s.getValue() name = @s.getKey() ><br><div class="index">
+            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
+          </div>
+
               }
             <button type="submit" class="btn btn-submit">CONFIRM</button>
           </form>
@@ -113,40 +122,6 @@
       </div>
     </div>
   </section>
-  
-  <script>
-	var votoServizio = document.getElementById("serv");
-	var servizio = document.getElementById("serv_out");
-	servizio.innerHTML = votoServizio.value;
-
-	votoServizio.oninput = function() {
-	servizio.innerHTML = this.value;
-	}
-
-	var votoConto = document.getElementById("conto");
-	var conto = document.getElementById("conto_out");
-	conto.innerHTML = votoConto.value;
-
-	votoConto.oninput = function() {
-	conto.innerHTML = this.value;
-	}
-
-	var votoLocation = document.getElementById("loc");
-	var loc = document.getElementById("loc_out");
-	loc.innerHTML = votoLocation.value;
-
-	votoLocation.oninput = function() {
-	loc.innerHTML = this.value;
-	}
-
-	var votoMenu = document.getElementById("menu");
-	var menu = document.getElementById("menu_out");
-	menu.innerHTML = votoMenu.value;
-
-	votoMenu.oninput = function() {
-	menu.innerHTML = this.value;
-	}
-  </script>
   
   <section class="section-padding parallax bg-image-2 section wow fadeIn delay-08s" id="cta-2">
     <div class="container">
@@ -167,10 +142,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-7 footer-copyright">
-          <!-- © Bethany Theme - All rights reserved -->
           <div class="credits">
-            
-            <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
           </div>
         </div>
         <div class="col-sm-5 footer-social">
@@ -185,7 +157,7 @@
       </div>
     </div>
   </footer>
-  <!---->
+
   <!--contact ends-->
   <script src="/static/js/jquery.min.js"></script>
   <script src="/static/js/jquery.easing.min.js"></script>
