@@ -1,9 +1,6 @@
 package net;
 
-import application.DishType;
-import application.HomeCritic;
-import application.Restaurant;
-import application.RestaurantCatalogue;
+import application.*;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServlet;
@@ -59,41 +56,41 @@ public class RythmCliqueServlet extends HttpServlet {
             case "/home":
                 String username = req.getParameter("username");
                 String password = req.getParameter("password");
-                HomeCritic hc = new HomeCritic();
-                if (hc.logIn(username, password)) {
+                if (HomeCritic.getInstance().logIn(username, password)) {
                     write(resp, Rythm.render("home_critico.html"));
                 } else
                     write(resp, Rythm.render("warn.html"));
                 break;
             case "/critique":
-                int votoServizio = Integer.parseInt(req.getParameter("votoServizio"));
-                int votoConto = Integer.parseInt(req.getParameter("votoConto"));
-                int votoLocation = Integer.parseInt(req.getParameter("votoLocation"));
-                int votoMenu = Integer.parseInt(req.getParameter("votoMenu"));
-                int restCode = Integer.parseInt(req.getParameter("restCode"));
-                System.out.println(votoServizio);
-                System.out.println(votoConto);
-                System.out.println(votoMenu);
-                System.out.println(votoLocation);
-                System.out.println(restCode);
+                writeCritique(req);
                 break;
 
             case "/list":
                 int rest = Integer.parseInt(req.getParameter("restaurant"));
-                //System.out.println(rest);
-                /*HashMap<DishType, HashMap<Integer, String>> piatti = RestaurantCatalogue.getInstance().getMenu(rest);
-                String [] name = {"antipasti","primi","secondi", "dolci"};
-                for(DishType e : DishType.values()){
-                    for (Map.Entry<Integer, String> ma : piatti.get(e).entrySet()){
 
-                    }
-                }*/
-                Map<Integer,String> piatti = RestaurantCatalogue.getInstance().getMenu(rest);
+                Map<Integer,String> piatti = RestaurantCatalogue.getInstance().getMenuInfo(rest);
                 Map<String, Object> conf = new HashMap<>();
                 conf.put("piatti", piatti);
                 conf.put("restCode",rest);
                 write(resp,Rythm.render("critique.html", conf));
                 break;
         }
+    }
+
+    private void writeCritique(HttpServletRequest req){
+        double [] voti = new double[4];
+        String [] nomeVoti = {"votoMenu", "votoLocation", "votoServizio", "votoConto" };
+        for(int i = 0; i < voti.length; i++){
+            voti[i] = Double.parseDouble(req.getParameter(nomeVoti[i]));
+        }
+        int restCode = Integer.parseInt(req.getParameter("restCode"));
+
+        ArrayList<Integer> menu = RestaurantCatalogue.getInstance().getMenuCode(restCode);
+        HashMap<MenuEntry, Double> dv = new HashMap<>();
+        for (Integer i :menu) {
+            dv.put(RestaurantCatalogue.getInstance().getDish(restCode, i), Double.parseDouble(req.getParameter(Integer.toString(i))));
+        }
+        HomeCritic.getInstance().writeCritique(restCode, voti, dv);
+        RestaurantCatalogue.getInstance().printRestaurantOverview(restCode);
     }
 }

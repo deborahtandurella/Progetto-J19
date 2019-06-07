@@ -59,8 +59,7 @@ public class Restaurant {
         return code;
     }
 
-    public  Map<Integer, String> getMenu(){
-        //HashMap<DishType, HashMap<Integer, String>> temp = new HashMap<>();
+    public  Map<Integer, String> getMenuInfo(){
         Map<Integer,String> temp = new HashMap<>();
         for (Map.Entry<DishType,ArrayList<MenuEntry>> a: this.menu.entrySet()) {
             for (MenuEntry me:a.getValue()) {
@@ -69,5 +68,26 @@ public class Restaurant {
         }
 
         return temp;
+    }
+
+    public ArrayList<Integer> getMenuCode(){
+        ArrayList<Integer> tmp = new ArrayList<>();
+        for (DishType e : this.menu.keySet()) {
+            for(MenuEntry me: this.menu.get(e)){
+                tmp.add(me.getCod());
+            }
+        }
+        return tmp;
+    }
+
+    public MenuEntry getDish(int cod){
+        for (Map.Entry<DishType,ArrayList<MenuEntry>> a: this.menu.entrySet()) {
+            for (MenuEntry me:a.getValue()) {
+                if(me.getCod() == cod) {
+                    return me;
+                }
+            }
+        }
+        return null;
     }
 }
