@@ -25,6 +25,9 @@ public class RythmCliqueServlet extends HttpServlet {
             case "/home":
                 write(response, Rythm.render(("home.html")));
                 break;
+            case "/restaurant_view":
+                write(response, Rythm.render(("restaurant_viewPROVA.html")));
+                break;
             case "/critique":
                 break;
             case "/home_critico":
