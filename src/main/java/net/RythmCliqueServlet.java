@@ -45,6 +45,9 @@ public class RythmCliqueServlet extends HttpServlet {
             case "/home_utente":
                 write(response, Rythm.render(("home_utente.html")));
                 break;
+            case "/add_restaurant":
+                write(response, Rythm.render(("add_restaurant.html")));
+                break;
             case "/list":
                 Map<Integer, String> rest = RestaurantCatalogue.getInstance().getRestaurantInfo();
                 Map<String, Object> conf = new HashMap<>();
