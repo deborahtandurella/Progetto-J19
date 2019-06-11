@@ -27,7 +27,7 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return this.name + "    " + this.address + this.overviewCritique.toString();
+        return this.name + "&" + this.address + "&" + this.overviewCritique.toString();
     }
     
     public void printMenu(){
@@ -56,10 +56,16 @@ public class Restaurant {
         return code;
     }
 
-    public SortedMap<Integer, String> getMenuInfo(){
+    public Map<Integer, String> getMenuInfo(){
 
-        SortedMap<Integer,String> sortedTemp = sortDishByType(this.menu);
-        return sortedTemp;
+        Map<Integer,String> temp = new HashMap<>();
+        for (Map.Entry<DishType,ArrayList<MenuEntry>> a: this.menu.entrySet()) {
+            for (MenuEntry me:a.getValue()) {
+                temp.put(me.getCod(),me.getDish());
+            }
+        }
+
+        return temp;
     }
 
     public ArrayList<Integer> getMenuCode(){
@@ -83,7 +89,7 @@ public class Restaurant {
         return null;
     }
 
-    private SortedMap<Integer,String> sortDishByType(HashMap<DishType,ArrayList<MenuEntry>> menu){
+    /*private SortedMap<Integer,String> sortDishByType(HashMap<DishType,ArrayList<MenuEntry>> menu){
 
         SortedMap<Integer,String> tmp = new TreeMap<>();
         Integer key = 0;
@@ -99,6 +105,6 @@ public class Restaurant {
             }
         }
         return tmp;
-    }
+    }*/
 
 }

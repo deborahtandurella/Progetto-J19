@@ -86,13 +86,17 @@ public class RythmCliqueServlet extends HttpServlet {
                 String action = req.getParameter("switch");
                 Map<String, Object> conf = new HashMap<>();
                 if (action.equals("write")) {
-                    SortedMap<Integer, String> piatti = RestaurantCatalogue.getInstance().getMenuInfo(restCode);
+                    Map<Integer, String> piatti = RestaurantCatalogue.getInstance().getMenuInfo(restCode);
                     conf.put("piatti", piatti);
                     conf.put("restCode", restCode);
                     write(resp, Rythm.render("critique.html", conf));
 
                 }
                 else {
+                    String [] temp = RestaurantCatalogue.getInstance().getRestaurantOverview(restCode).split("&");
+                    conf.put("name",temp[0]);
+                    conf.put("address",temp[1]);
+                    conf.put("overview",temp[2]);
                     write(resp, Rythm.render("restaurant_viewPROVA.html", conf));
                 }
                 break;
@@ -113,6 +117,6 @@ public class RythmCliqueServlet extends HttpServlet {
             dv.put(RestaurantCatalogue.getInstance().getDish(restCode, i), Double.parseDouble(req.getParameter(Integer.toString(i))));
         }
         HomeCritic.getInstance().writeCritique(restCode, voti, dv);
-        RestaurantCatalogue.getInstance().printRestaurantOverview(restCode);
+        System.out.println(RestaurantCatalogue.getInstance().getRestaurantOverview(restCode));
     }
 }

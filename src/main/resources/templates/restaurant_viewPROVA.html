@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+@args String name, String address, String overview
         <html lang="en">
 
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Clique - Korte dei Sapori Persi</title>
+            <title>Clique - @name</title>
             <script src="https://kit.fontawesome.com/f1c30800c7.js"></script>
             <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300|Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
             <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
@@ -41,8 +42,8 @@
         <div class="container text-center">
             <div class="wrapper wow fadeInUp delay-05s">
                 <h2 class="top-title"></h2>
-                <h3 class="title">Korte dei Sapori Persi</h3>
-                <h4 class="sub-title">Piazza Borgo Calvenzano 1</h4>
+                <h3 class="title">@name</h3>
+                <h4 class="sub-title">@address</h4>
 
 
 
@@ -56,7 +57,7 @@
     <div class="container">
         <div class="row">
             <div class="cta-info text-center">
-                <h2><span class="dec-tec">“</span>Accoglienza ottima e location piacevole. Menu da urlo ma occhio ai prezzi!<span class="dec-tec">”</span></h2>
+                <h2><span class="dec-tec">“</span>@overview<span class="dec-tec">”</span></h2>
             </div>
         </div>
     </div>

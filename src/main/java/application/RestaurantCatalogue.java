@@ -69,7 +69,7 @@ public  class RestaurantCatalogue {
         return rest;
     }
 
-    public SortedMap<Integer, String>  getMenuInfo(int restaurantCode){
+    public Map<Integer, String>  getMenuInfo(int restaurantCode){
         return this.restaurants.get(restaurantCode).getMenuInfo();
     }
 
@@ -81,8 +81,8 @@ public  class RestaurantCatalogue {
         return this.restaurants.get(restCod).getDish(dishCod);
     }
 
-    public void printRestaurantOverview(int restCod){
-        System.out.println(this.restaurants.get(restCod).toString());
+    public String getRestaurantOverview(int restCod){
+        return this.restaurants.get(restCod).toString();
     }
 
 }
