@@ -3,6 +3,7 @@ package application;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedMap;
 
 // TODO methods for single restaurant's info
 public  class RestaurantCatalogue {
@@ -68,7 +69,7 @@ public  class RestaurantCatalogue {
         return rest;
     }
 
-    public  Map<Integer, String>  getMenuInfo(int restaurantCode){
+    public SortedMap<Integer, String>  getMenuInfo(int restaurantCode){
         return this.restaurants.get(restaurantCode).getMenuInfo();
     }
 

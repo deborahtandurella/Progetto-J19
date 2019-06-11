@@ -7,10 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class RythmCliqueServlet extends HttpServlet {
@@ -83,8 +80,8 @@ public class RythmCliqueServlet extends HttpServlet {
             case "/list":
                 int rest = Integer.parseInt(req.getParameter("restaurant"));
 
-                Map<Integer,String> piatti = RestaurantCatalogue.getInstance().getMenuInfo(rest);
-                Map<String, Object> conf = new HashMap<>();
+                SortedMap<Integer,String> piatti = RestaurantCatalogue.getInstance().getMenuInfo(rest);
+                SortedMap<String, Object> conf = new TreeMap<String, Object>();
                 conf.put("piatti", piatti);
                 conf.put("restCode",rest);
                 write(resp,Rythm.render("critique.html", conf));

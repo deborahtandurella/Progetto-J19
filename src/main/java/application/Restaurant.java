@@ -1,9 +1,6 @@
 package application;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class Restaurant {
@@ -59,15 +56,10 @@ public class Restaurant {
         return code;
     }
 
-    public  Map<Integer, String> getMenuInfo(){
-        Map<Integer,String> temp = new HashMap<>();
-        for (Map.Entry<DishType,ArrayList<MenuEntry>> a: this.menu.entrySet()) {
-            for (MenuEntry me:a.getValue()) {
-                temp.put(me.getCod(),me.getDish());
-            }
-        }
+    public SortedMap<Integer, String> getMenuInfo(){
 
-        return temp;
+        SortedMap<Integer,String> sortedTemp = sortDishByType(this.menu);
+        return sortedTemp;
     }
 
     public ArrayList<Integer> getMenuCode(){
@@ -90,4 +82,23 @@ public class Restaurant {
         }
         return null;
     }
+
+    private SortedMap<Integer,String> sortDishByType(HashMap<DishType,ArrayList<MenuEntry>> menu){
+
+        SortedMap<Integer,String> tmp = new TreeMap<>();
+        Integer key = 0;
+
+        for(DishType dT: DishType.values()){
+            for(Map.Entry<DishType,ArrayList<MenuEntry>> m : menu.entrySet()) {
+                if (m.getKey().compareTo(dT) == 0) {
+                    for (MenuEntry me:m.getValue()) {
+                        tmp.put(key,me.getDish());
+                        key++;
+                    }
+                }
+            }
+        }
+        return tmp;
+    }
+
 }
