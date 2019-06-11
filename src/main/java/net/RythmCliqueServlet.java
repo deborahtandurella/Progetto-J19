@@ -45,12 +45,7 @@ public class RythmCliqueServlet extends HttpServlet {
             case "/add_restaurant":
                 write(response, Rythm.render(("add_restaurant.html")));
                 break;
-            case "/list":
-                Map<Integer, String> rest = RestaurantCatalogue.getInstance().getRestaurantInfo();
-                Map<String, Object> conf = new HashMap<>();
-                conf.put("rest",rest);
-                write(response, Rythm.render("list.html", conf));
-                break;
+            
             default:
                 write(response,Rythm.render("warn.html"));
         }
@@ -73,18 +68,33 @@ public class RythmCliqueServlet extends HttpServlet {
                 } else
                     write(resp, Rythm.render("warn.html"));
                 break;
+            case "/home_critico":
+                String tmp = req.getParameter("switch");
+                System.out.println(tmp);
+                Map<Integer, String> rest = RestaurantCatalogue.getInstance().getRestaurantInfo();
+                Map<String, Object> param = new HashMap<>();
+                param.put("rest",rest);
+                param.put("sw",tmp);
+                write(resp, Rythm.render("list.html", param));
+                break;
             case "/critique":
                 writeCritique(req);
                 break;
 
             case "/list":
-                int rest = Integer.parseInt(req.getParameter("restaurant"));
+                int restCode = Integer.parseInt(req.getParameter("restaurant"));
+                String action = req.getParameter("switch");
+                Map<String, Object> conf = new HashMap<>();
+                if (action.equals("write")) {
+                    SortedMap<Integer, String> piatti = RestaurantCatalogue.getInstance().getMenuInfo(restCode);
+                    conf.put("piatti", piatti);
+                    conf.put("restCode", restCode);
+                    write(resp, Rythm.render("critique.html", conf));
 
-                SortedMap<Integer,String> piatti = RestaurantCatalogue.getInstance().getMenuInfo(rest);
-                SortedMap<String, Object> conf = new TreeMap<String, Object>();
-                conf.put("piatti", piatti);
-                conf.put("restCode",rest);
-                write(resp,Rythm.render("critique.html", conf));
+                }
+                else {
+                    write(resp, Rythm.render("restaurant_viewPROVA.html", conf));
+                }
                 break;
         }
     }
