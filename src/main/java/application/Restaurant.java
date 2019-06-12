@@ -1,5 +1,8 @@
 package application;
 
+import application.RestaurantException.EmptyMenuException;
+import application.RestaurantException.NoCritiquesException;
+
 import java.util.*;
 
 
@@ -49,16 +52,17 @@ public class Restaurant {
     }
 
     public String getRestaurantInfo(){
-        return this.name + "    " + this.address;
+        return this.name + "," + this.address;
     }
 
     public int getCode() {
         return code;
     }
 
-    public Map<Integer, String> getMenuInfo(){
-
-        Map<Integer,String> temp = new HashMap<>();
+    public LinkedHashMap<Integer, String> getMenuInfo () {
+        if(this.menu == null)
+            throw new EmptyMenuException();
+        LinkedHashMap<Integer,String> temp = new LinkedHashMap<>();
         for (Map.Entry<DishType,ArrayList<MenuEntry>> a: this.menu.entrySet()) {
             for (MenuEntry me:a.getValue()) {
                 temp.put(me.getCod(),me.getDish());
@@ -89,22 +93,30 @@ public class Restaurant {
         return null;
     }
 
-    /*private SortedMap<Integer,String> sortDishByType(HashMap<DishType,ArrayList<MenuEntry>> menu){
-
-        SortedMap<Integer,String> tmp = new TreeMap<>();
-        Integer key = 0;
-
-        for(DishType dT: DishType.values()){
-            for(Map.Entry<DishType,ArrayList<MenuEntry>> m : menu.entrySet()) {
-                if (m.getKey().compareTo(dT) == 0) {
-                    for (MenuEntry me:m.getValue()) {
-                        tmp.put(key,me.getDish());
-                        key++;
-                    }
-                }
-            }
+    public HashMap<String, String> getOverview(){
+        if(this.critiques.isEmpty())
+            throw new NoCritiquesException();
+        HashMap<String, String> temp = new HashMap<>();
+        temp.put("name", this.name);
+        temp.put("address", this.address);
+        String all = "";
+        String separetor = "&";
+        for (Critique c : this.critiques){
+            all = all +c.toString() + "\n" + separetor;
         }
-        return tmp;
-    }*/
+        temp.put("overview", all);
+        return temp;
+    }
+
+    public HashMap<String, Double> getMeanCritique(){
+        HashMap<String, Double> temp = new HashMap<>();
+        for (CritiqueSections i : CritiqueSections.values()) {
+            temp.put((String.valueOf(i)), this.overviewCritique.getSections().get(i));
+        }
+        System.out.println(String.valueOf(CritiqueSections.CUCINA));
+        return temp;
+    }
+
+
 
 }

@@ -1,9 +1,14 @@
 package application;
 
+import application.RestaurantException.EmptyMenuException;
+import application.RestaurantException.NoCritiquesException;
+import application.RestaurantException.RestaurantNotFoundException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.SortedMap;
+
 
 // TODO methods for single restaurant's info
 public  class RestaurantCatalogue {
@@ -36,7 +41,7 @@ public  class RestaurantCatalogue {
         if(!restaurants.containsKey(k)){
             throw new RestaurantNotFoundException();
         }
-        return restaurants.get(k).toString();
+        return restaurants.get(k).getRestaurantInfo();
     }
     
     public  void printList(){
@@ -69,7 +74,7 @@ public  class RestaurantCatalogue {
         return rest;
     }
 
-    public Map<Integer, String>  getMenuInfo(int restaurantCode){
+    public LinkedHashMap<Integer, String>  getMenuInfo(int restaurantCode){
         return this.restaurants.get(restaurantCode).getMenuInfo();
     }
 
@@ -81,8 +86,12 @@ public  class RestaurantCatalogue {
         return this.restaurants.get(restCod).getDish(dishCod);
     }
 
-    public String getRestaurantOverview(int restCod){
-        return this.restaurants.get(restCod).toString();
+    public HashMap<String,String> getRestaurantOverview(int restCod){
+        return this.restaurants.get(restCod).getOverview();
+    }
+
+    public HashMap<String,Double> getRestaurantMeanCritique(int restCod){
+        return this.restaurants.get(restCod).getMeanCritique();
     }
 
 }

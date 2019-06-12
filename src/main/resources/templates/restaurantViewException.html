@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-@args String name,String address, Map<Integer, String> meanCritique, List<String> crit
-<html lang="en">
+@args String name, String address
+        <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Clique - @name</title>
-    <script src="https://kit.fontawesome.com/f1c30800c7.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300|Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/animate.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/restaurant_viewPROVA.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/fontface.css">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Clique - @name</title>
+            <script src="https://kit.fontawesome.com/f1c30800c7.js"></script>
+            <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300|Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
+            <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css">
+            <link rel="stylesheet" type="text/css" href="/static/css/animate.css">
+            <link rel="stylesheet" type="text/css" href="/static/css/restaurant_viewPROVA.css">
+            <link rel="stylesheet" type="text/css" href="/static/css/fontface.css">
 
-</head>
+        </head>
 
 <body>
 <!--header-->
@@ -43,7 +43,7 @@
             <div class="wrapper wow fadeInUp delay-05s">
                 <h2 class="top-title"></h2>
                 <h3 class="title">@name</h3>
-                <h4 class="sub-title">@address</h4>
+
 
 
 
@@ -54,15 +54,13 @@
 <!--/ header-->
 <!---->
 <section id="cta-1">
-    @for(String ov : crit){
     <div class="container">
         <div class="row">
             <div class="cta-info text-center">
-                <h2><span class="dec-tec"></span>@ov<span class="dec-tec"></span></h2>
+                <h2><span class="dec-tec"></span>Spiacenti al momento non è presente ancora alcuna critica!<br>Sii tu il primo a lasciare un parere.<span class="dec-tec"></span></h2>
             </div>
         </div>
     </div>
-    }
 </section>
 <!---->
 <!---->
@@ -74,7 +72,7 @@
             <div class="col-md-8">
                 <div class="cta-txt">
 
-                </div>
+                    </div>
             </div>
             <div class="col-md-4 text-center">
 
@@ -86,15 +84,8 @@
 <!---->
 <section class="section-padding wow fadeInUp delay-02s" id="portfolio">
     <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-12">
-                <div class="section-title">
-                    <h2 class="head-title">CRITICHE</h2>
-                    <hr class="botm-line">
-                    <p class="sec-para">Cosa ne pensa la nostra clique?</p>
-                </div>
-            </div>
-            <div class="col-md-9 col-sm-12">
+        <div class="row">         
+           <div class="col-md-9 col-sm-12">
                 <div class="col-md-4 col-sm-6 padding-right-zero">
                     <div class="portfolio-box design">
 
@@ -115,58 +106,7 @@
                         <!-- <img src="img/port04.jpg" alt="" class="img-responsive"> -->
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 padding-right-zero" >
-                    <div class="portfolio-box design" >
-                        <h7 class="txt-tl">VOTO MEDIO:<br>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star-half-full checked"></span>
-                        </h7>
-                        <br><br><h8 class="txt-tl">Servizio @meanCritique.get("SERVIZIO"):&nbsp&nbsp</h8>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star-o checked"></span>
-
-                        <br><h8 class="txt-tl">Conto @meanCritique.get("CONTO"):&nbsp&nbsp&nbsp&nbsp&nbsp</h8>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star-o checked"></span>
-                        <span class="fa fa-star-o checked"></span>
-
-                        <br><h8 class="txt-tl">Location @meanCritique.get("LOCATION"):</h8>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star-o checked"></span>
-
-                        <br><h8 class="txt-tl">Menu @meanCritique.get("MENU"): &nbsp&nbsp&nbsp&nbsp&nbsp</h8>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-
-                        <br><h8 class="txt-tl">Cucina @meanCritique.get("CUCINA"):&nbsp&nbsp&nbsp&nbsp</h8>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star-o checked"></span>
-
-                        <a href="/detail" class="btn btn-submit">DETTAGLI</a>
-
-                        <br><br><br><br>
-
-                        <h7 class="txt-tl"><span class = "fa fa-book"></span> MENU </h7><br>
-                        <a href="/detail" class="btn btn-submit">VISUALIZZA</a>
-                    </div>
-                </div>
+               
                 <div class="col-md-4 col-sm-6 padding-right-zero">
                     <div class="portfolio-box design">
                         <!-- <img src="img/port06.jpg" alt="" class="img-responsive"> -->
@@ -222,7 +162,7 @@
                 <div class="col-md-4 col-sm-6">
                     <h2 class="cont-title">Visit Us</h2>
                     <div class="location-info">
-                        <p class="white"><span aria-hidden="true" class="fa fa-map-marker"></span>Piazza Borgo Calvenzano 1, Pavia, Italy</p>
+                        <p class="white"><span aria-hidden="true" class="fa fa-map-marker"></span>@address</p>
                         <p class="white"><span aria-hidden="true" class="fa fa-phone"></span>Phone: 666 666 666</p>
                         <p class="white"><span aria-hidden="true" class="fa fa-envelope"></span>Email: <a href="" class="link-dec">lalo.magni<i class="fa fa-at"></i>unipv.it</a></p>
                     </div>

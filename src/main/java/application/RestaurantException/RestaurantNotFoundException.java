@@ -1,4 +1,4 @@
-package application;
+package application.RestaurantException;
 
 public class RestaurantNotFoundException extends RuntimeException {
 

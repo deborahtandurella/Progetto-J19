@@ -10,12 +10,14 @@ public class Critique {
     public final static CritiqueSections [] CRITIQUE_SECTIONS = CritiqueSections.values();
     private HashMap<CritiqueSections, Double> sections;
     private HashMap<MenuEntry, Double> dishes;
+    private String comment;
 
     public Critique(double votoMenu, double votoLocation , double votoServizio, double votoConto) {
         this.sections = new HashMap<>();
         this.dishes = new HashMap<>();
         writeCritique( votoMenu, votoServizio, votoConto, votoLocation );
         this.sections.put(CritiqueSections.CUCINA, 0.);
+        this.comment= null;
     }
 
     private void writeCritique(double votoMenu, double votoServizio, double votoConto, double votoLocation){
@@ -40,7 +42,11 @@ public class Critique {
     }
     @Override
     public String toString() {
-        return this.sectionsToString();
+        return this.sectionsToString() + "\n" + this.comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     private String sectionsToString(){

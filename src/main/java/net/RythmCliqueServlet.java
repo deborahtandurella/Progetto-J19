@@ -1,6 +1,8 @@
 package net;
 
 import application.*;
+import application.RestaurantException.EmptyMenuException;
+import application.RestaurantException.NoCritiquesException;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServlet;
@@ -22,11 +24,6 @@ public class RythmCliqueServlet extends HttpServlet {
             case "/home":
                 write(response, Rythm.render(("home.html")));
                 break;
-            case "/restaurant_view":
-                write(response, Rythm.render(("restaurant_viewPROVA.html")));
-                break;
-            case "/critique":
-                break;
             case "/sign_up":
                 write(response, Rythm.render(("sign_up.html")));
                 break;
@@ -45,7 +42,7 @@ public class RythmCliqueServlet extends HttpServlet {
             case "/add_restaurant":
                 write(response, Rythm.render(("add_restaurant.html")));
                 break;
-            
+
             default:
                 write(response,Rythm.render("warn.html"));
         }
@@ -86,18 +83,38 @@ public class RythmCliqueServlet extends HttpServlet {
                 String action = req.getParameter("switch");
                 Map<String, Object> conf = new HashMap<>();
                 if (action.equals("write")) {
-                    Map<Integer, String> piatti = RestaurantCatalogue.getInstance().getMenuInfo(restCode);
-                    conf.put("piatti", piatti);
-                    conf.put("restCode", restCode);
-                    write(resp, Rythm.render("critique.html", conf));
+                    try{
+                        LinkedHashMap<Integer, String> piatti = RestaurantCatalogue.getInstance().getMenuInfo(restCode);
+                        conf.put("piatti", piatti);
+                        conf.put("restCode", restCode);
+                        write(resp, Rythm.render("critique.html", conf));
+                    }catch(EmptyMenuException e){
+                        write(resp,Rythm.render("warn.html"));
+                    }
 
                 }
                 else {
-                    String [] temp = RestaurantCatalogue.getInstance().getRestaurantOverview(restCode).split("&");
-                    conf.put("name",temp[0]);
-                    conf.put("address",temp[1]);
-                    conf.put("overview",temp[2]);
-                    write(resp, Rythm.render("restaurant_viewPROVA.html", conf));
+                    try{
+                        Map<String, String> info = RestaurantCatalogue.getInstance().getRestaurantOverview(restCode);
+                        Map<String, Double> meanCritique = RestaurantCatalogue.getInstance()
+                                .getRestaurantMeanCritique(restCode);
+                        String [] c = info.get("overview").split("&");
+                        ArrayList<String> crit = new ArrayList<>();
+                        for(String i: c)
+                            crit.add(i);
+                        conf.put("name", info.get("name"));
+                        conf.put("address", info.get("address"));
+                        conf.put("meanCritique", meanCritique);
+                        conf.put("crit",crit);
+                        write(resp, Rythm.render("restaurant_viewPROVA.html", conf));
+                    }catch (NoCritiquesException e){
+                        String [] restInfo = RestaurantCatalogue.getInstance().findRestaurant(restCode)
+                                .split(",");
+                        conf.put("name",restInfo[0]);
+                        conf.put("address",restInfo[1]);
+                        write(resp,Rythm.render("restaurantViewException.html",conf));
+
+                    }
                 }
                 break;
         }
@@ -106,6 +123,7 @@ public class RythmCliqueServlet extends HttpServlet {
     private void writeCritique(HttpServletRequest req){
         double [] voti = new double[4];
         String [] nomeVoti = {"votoMenu", "votoLocation", "votoServizio", "votoConto" };
+        String comment = req.getParameter("comment");
         for(int i = 0; i < voti.length; i++){
             voti[i] = Double.parseDouble(req.getParameter(nomeVoti[i]));
         }
@@ -116,7 +134,7 @@ public class RythmCliqueServlet extends HttpServlet {
         for (Integer i :menu) {
             dv.put(RestaurantCatalogue.getInstance().getDish(restCode, i), Double.parseDouble(req.getParameter(Integer.toString(i))));
         }
-        HomeCritic.getInstance().writeCritique(restCode, voti, dv);
-        System.out.println(RestaurantCatalogue.getInstance().getRestaurantOverview(restCode));
+        HomeCritic.getInstance().writeCritique(restCode, voti, dv, comment);
+
     }
 }

@@ -15,7 +15,7 @@ public class Database {
         this.critici = new HashMap<>();
         try {
             setUpCritiques("critici.txt");
-            setUpRistoranti("ristoranti.txt");
+            setUpRistoranti("ristoranti_ridotto.txt");
         }catch (IOException e){
             e.printStackTrace();
         }

@@ -1,7 +1,8 @@
 package application;
 
+import application.RestaurantException.RestaurantNotFoundException;
+
 import java.util.HashMap;
-import java.util.Map;
 
 public class HomeCritic {
     private static HomeCritic instance = null;
@@ -16,10 +17,11 @@ public class HomeCritic {
         return instance;
     }
 
-    public void writeCritique(int codResturant, double [] voti, HashMap<MenuEntry,Double> votiPiatti){
+    public void writeCritique(int codResturant, double [] voti, HashMap<MenuEntry,Double> votiPiatti, String comment){
 
         Critique c = new Critique( voti[0], voti[1],  voti[2], voti[3]);
         c.voteDishes(votiPiatti);
+        c.setComment(comment);
         RestaurantCatalogue.getInstance().addCritique(codResturant, c);
     }
 
