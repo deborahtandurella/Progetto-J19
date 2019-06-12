@@ -43,63 +43,30 @@ h1, h2, h4, h5, h6 {
     font-family: 'Lato', sans-serif;
 }
 
-
-
-/** Sliders style **/
-
-
-.slidecontainer {
-    width: 30%;
-    margin: auto;
-    margin-top: 8%;
+h7{
+    font-family: 'Lato', sans-serif;
+    font-size: 25px;
 }
 
-.slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 5px;
-    border-radius: 8px;
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
+h8{
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
 }
-
-.slider:hover {
-    opacity: 1;
-}
-
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #2d292a;
-    cursor: pointer;
-}
-
-.slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #2d292a;
-    cursor: pointer;
-}
-
-
 
 /**media Queries**/
+
+.checked {
+    color: orange;
+}
 
 .navbar-default {
     background-color: transparent;
 }
 
 .main-header {
-    background-color: black;
+    background: url(../img/korte.jpg) no-repeat;
     background-size: cover;
-    min-height: 80px;
+    min-height: 530px;
 }
 
 .bg-color {
@@ -199,7 +166,6 @@ h1, h2, h4, h5, h6 {
     border: 0px;
     display: inline-block;
     font-size: 16px;
-    /* text-transform: uppercase; */
     padding: 10px 40px;
     font-weight: normal;
     border-radius: 0px;
@@ -308,7 +274,7 @@ h3.txt-tl {
 }
 
 .bg-image-2 {
-    background: url('../img/cta-list.jpeg') no-repeat center fixed;
+    background: url('../img/korte2.jpg') no-repeat center fixed;
     -webkit-background-size: 100% auto;
     -moz-background-size: 100% auto;
     -o-background-size: 100% auto;

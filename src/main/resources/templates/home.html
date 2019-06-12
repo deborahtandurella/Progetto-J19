@@ -13,6 +13,7 @@
   <link rel="stylesheet" type="text/css" href="/static/css/style_home.css">
   <link rel="stylesheet" type="text/css" href="/static/css/fontface.css">
 
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -46,7 +47,7 @@
         <h2 class="top-title"></h2>
         <h3 class="title">CliQue</h3>
         <h4 class="sub-title">IL PARERE DEGLI ESPERTI</h4>
-        <a href="#" class="btn btn-submit">SIGN IN</a>
+        <a href="/sign_up" class="btn btn-submit">SIGN UP</a>
 
 
       </div>
@@ -148,7 +149,7 @@
         </div>
       </div>
       <div class="col-md-4 text-center">
-        <a href="#" class="btn btn-submit">SIGN IN</a>
+        <a href="/sign_up" class="btn btn-submit">SIGN UP</a>
       </div>
     </div>
   </div>
@@ -194,6 +195,9 @@
               <input type="text" name="username"><br>
               Password:<br>
               <input type="password" name="password"><br>
+              <br><br>
+              <div class="g-recaptcha" data-sitekey="6LfP0qcUAAAAACsrmIVaM_we3zNYwHcafKfFXu2j"></div>
+              <br>
               <button type="submit" class="btn btn-submit">LOGIN</button>
             </form>
           </div>

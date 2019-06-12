@@ -17,154 +17,160 @@
 </head>
 
 <body>
-  <!--header-->
-  <header class="main-header" id="header">
-    <div class="bg-color">
-      <!--nav-->
-      <nav class="nav navbar-default navbar-fixed-top">
-        <div class="container">
-          <div class="col-md-12">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
-                            <span class="fa fa-bars"></span>
-                        </button>
-              <a href="/home" class="navbar-brand">CliQue</a>
-            </div>
-            <div class="collapse navbar-collapse navbar-right" id="mynavbar">
-              <ul class="nav navbar-nav">
-                <!-- <li class="active"><a href="#header">HOME</a></li>
-                <li><a href="#feature">SEEEEEEK</a></li>
-                <li><a href="#portfolio">LOGIN</a></li>
-                <li><a href="#contact">CONTACT</a></li> -->
-              </ul>
-            </div>
+<!--header-->
+<header class="main-header" id="header">
+  <div class="bg-color">
+    <!--nav-->
+    <nav class="nav navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="col-md-12">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
+              <span class="fa fa-bars"></span>
+            </button>
+            <a href="/home" class="navbar-brand">CliQue</a>
           </div>
-        </div>
-      </nav>
-      <!--/ nav-->
-      <div class="container text-center">
-      </div>
-    </div>
-  </header>
-
-  <!--/ header-->
-
-  <section id="cta-1">
-    <div class="container">
-      <div class="row">
-        <div class="cta-info text-center">
-          <h2><span class="dec-tec"></span>Dacci il tuo parere da esperto!<span class="dec-tec"></span></h2>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!---->
-  <section id="feature" class="section-padding">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 wow fadeInLeft delay-05s">
-          <div class="section-title">
-            <h2 class="head-title">CRITICA</h2>
-            <hr class="botm-line">
-            <p class="sec-para">Inserisci i voti e crea la tua critica. Essere critici non è sempre un male!</p>
-          </div>
-        </div>
-        <div class="slidecontainer" id="slidercontainer">
-          <form method = "post" action = "/critique">
-            <input type="hidden" id="restCode" name="restCode" value=@restCode>
-            <div class="icon">
-              <i class="fa fa-cutlery"></i>
-            </div>
-            <h2>SERVIZIO:</h2>
-            <br><input type="range" min="0" max="10" value="0" class="slider" id = "serv" name="votoServizio"><br>
-            <div class="index">
-            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
-          </div>
-            <div class="icon">
-              <i class="fa fa-money"></i>
-            </div>
-            <h2>CONTO:</h2>
-			<br><input type="range" min="0" max="10" value="0" class="slider" id="conto" name="votoConto"><br>
-            <div class="index">
-            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
-          </div>
-            <div class="icon">
-              <i class="fa fa-map-marker"></i>
-            </div>
-            <h2>LOCATION:</h2>
-			<br><input type="range" min="0" max="10" value="0" class="slider" id="loc" name="votoLocation"><br>
-            <div class="index">
-            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
-          </div>
-            <div class="icon">
-              <i class="fa fa-book"></i>
-            </div>
-            <h2>MENU:</h2>
-			<br><input type="range" min="1" max="10" value="1" class="slider" id="menu" name="votoMenu"><br>
-            <div class="index">
-            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
-          </div>
-
-            <div class="icon">
-              <i class="fa fa-random"></i>
-            </div>
-            <h2>CUCINA:</h2>
-            @for(Map.Entry<Integer, String> s: piatti.entrySet()){
-              <br></Integer><h7>@s.getValue(): </h7>
-              <br><br><input type="range" min="0" max="10" value="0" class="slider" id= @s.getValue() name = @s.getKey() ><br><div class="index">
-            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
-          </div>
-
-              }
-            <button type="submit" class="btn btn-submit">CONFIRM</button>
-          </form>
-		</div>
-      </div>
-    </div>
-  </section>
-  
-  <section class="section-padding parallax bg-image-2 section wow fadeIn delay-08s" id="cta-2">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          <div class="cta-txt">
-			
-            </div>
-        </div>
-        <div class="col-md-4 text-center">
-          
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <footer class="" id="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-7 footer-copyright">
-          <div class="credits">
-          </div>
-        </div>
-        <div class="col-sm-5 footer-social">
-          <div class="pull-right hidden-xs hidden-sm">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-dribbble"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-google-plus"></i></a>
-            <a href="#"><i class="fa fa-pinterest"></i></a>
+          <div class="collapse navbar-collapse navbar-right" id="mynavbar">
+            <ul class="nav navbar-nav">
+              <!-- <li class="active"><a href="#header">HOME</a></li>
+              <li><a href="#feature">SEEEEEEK</a></li>
+              <li><a href="#portfolio">LOGIN</a></li>
+              <li><a href="#contact">CONTACT</a></li> -->
+            </ul>
           </div>
         </div>
       </div>
+    </nav>
+    <!--/ nav-->
+    <div class="container text-center">
     </div>
-  </footer>
+  </div>
+</header>
 
-  <!--contact ends-->
-  <script src="/static/js/jquery.min.js"></script>
-  <script src="/static/js/jquery.easing.min.js"></script>
-  <script src="/static/js/bootstrap.min.js"></script>
-  <script src="/static/js/wow.js"></script>
-  <script src="/static/js/custom.js"></script>
-  <script src="/static/contactform/contactform.js"></script>
+<!--/ header-->
+
+<section id="cta-1">
+  <div class="container">
+    <div class="row">
+      <div class="cta-info text-center">
+        <h2><span class="dec-tec"></span>Dacci il tuo parere da esperto!<span class="dec-tec"></span></h2>
+      </div>
+    </div>
+  </div>
+</section>
+<!---->
+<section id="feature" class="section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 wow fadeInLeft delay-05s">
+        <div class="section-title">
+          <h2 class="head-title">CRITICA</h2>
+          <hr class="botm-line">
+          <p class="sec-para">Inserisci i voti e crea la tua critica. Essere critici non è sempre un male!</p>
+        </div>
+      </div>
+      <div class="slidecontainer" id="slidercontainer">
+        <form method = "post" action = "/critique">
+          <input type="hidden" id="restCode" name="restCode" value=@restCode>
+          <div class="icon">
+            <i class="fa fa-cutlery"></i>
+          </div>
+          <h2>SERVIZIO:</h2>
+          <br><input type="range" min="0" max="10" value="0" class="slider" id = "serv" name="votoServizio"><br>
+          <div class="index">
+            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
+          </div>
+          <div class="icon">
+            <i class="fa fa-money"></i>
+          </div>
+          <h2>CONTO:</h2>
+          <br><input type="range" min="0" max="10" value="0" class="slider" id="conto" name="votoConto"><br>
+          <div class="index">
+            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
+          </div>
+          <div class="icon">
+            <i class="fa fa-map-marker"></i>
+          </div>
+          <h2>LOCATION:</h2>
+          <br><input type="range" min="0" max="10" value="0" class="slider" id="loc" name="votoLocation"><br>
+          <div class="index">
+            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
+          </div>
+          <div class="icon">
+            <i class="fa fa-book"></i>
+          </div>
+          <h2>MENU:</h2>
+          <br><input type="range" min="1" max="10" value="1" class="slider" id="menu" name="votoMenu"><br>
+          <div class="index">
+            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
+          </div>
+
+          <div class="icon">
+            <i class="fa fa-random"></i>
+          </div>
+          <h2>CUCINA:</h2>
+          @for(Map.Entry<Integer, String> s: piatti.entrySet()){
+          <br></Integer><h7>@s.getValue(): </h7>
+          <br><br><input type="range" min="0" max="10" value="0" class="slider" id= @s.getValue() name = @s.getKey() ><br><div class="index">
+          &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
+        </div>
+          }
+          <div class="icon">
+            <i class="fa fa-random"></i>
+          </div>
+          <h2>Dacci il tuo parare di esperto! Scrivi pure un commento :)</h2>
+          <br><input type="text" name="comment" maxlength="250" size="100,300"><br>
+
+          <button type="submit" class="btn btn-submit">CONFIRM</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-padding parallax bg-image-2 section wow fadeIn delay-08s" id="cta-2">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="cta-txt">
+
+        </div>
+      </div>
+      <div class="col-md-4 text-center">
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="" id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-7 footer-copyright">
+        <div class="credits">
+        </div>
+      </div>
+      <div class="col-sm-5 footer-social">
+        <div class="pull-right hidden-xs hidden-sm">
+          <a href="#"><i class="fa fa-facebook"></i></a>
+          <a href="#"><i class="fa fa-dribbble"></i></a>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+          <a href="#"><i class="fa fa-google-plus"></i></a>
+          <a href="#"><i class="fa fa-pinterest"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!--contact ends-->
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/jquery.easing.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/wow.js"></script>
+<script src="/static/js/custom.js"></script>
+<script src="/static/contactform/contactform.js"></script>
 
 </body>
 </html>
+

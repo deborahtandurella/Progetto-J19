@@ -1,9 +1,9 @@
 package application;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import application.RestaurantException.EmptyMenuException;
+import application.RestaurantException.NoCritiquesException;
+
+import java.util.*;
 
 
 public class Restaurant {
@@ -30,7 +30,7 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return this.name + "    " + this.address + this.overviewCritique.toString();
+        return this.name + "&" + this.address + "&" + this.overviewCritique.toString();
     }
     
     public void printMenu(){
@@ -52,15 +52,17 @@ public class Restaurant {
     }
 
     public String getRestaurantInfo(){
-        return this.name + "    " + this.address;
+        return this.name + "," + this.address;
     }
 
     public int getCode() {
         return code;
     }
 
-    public  Map<Integer, String> getMenuInfo(){
-        Map<Integer,String> temp = new HashMap<>();
+    public LinkedHashMap<Integer, String> getMenuInfo () {
+        if(this.menu == null)
+            throw new EmptyMenuException();
+        LinkedHashMap<Integer,String> temp = new LinkedHashMap<>();
         for (Map.Entry<DishType,ArrayList<MenuEntry>> a: this.menu.entrySet()) {
             for (MenuEntry me:a.getValue()) {
                 temp.put(me.getCod(),me.getDish());
@@ -90,4 +92,31 @@ public class Restaurant {
         }
         return null;
     }
+
+    public HashMap<String, String> getOverview(){
+        if(this.critiques.isEmpty())
+            throw new NoCritiquesException();
+        HashMap<String, String> temp = new HashMap<>();
+        temp.put("name", this.name);
+        temp.put("address", this.address);
+        String all = "";
+        String separetor = "&";
+        for (Critique c : this.critiques){
+            all = all +c.toString() + "\n" + separetor;
+        }
+        temp.put("overview", all);
+        return temp;
+    }
+
+    public HashMap<String, Double> getMeanCritique(){
+        HashMap<String, Double> temp = new HashMap<>();
+        for (CritiqueSections i : CritiqueSections.values()) {
+            temp.put((String.valueOf(i)), this.overviewCritique.getSections().get(i));
+        }
+        System.out.println(String.valueOf(CritiqueSections.CUCINA));
+        return temp;
+    }
+
+
+
 }
