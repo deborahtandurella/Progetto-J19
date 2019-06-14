@@ -2,6 +2,7 @@ package net;
 
 
 import application.*;
+import net.request_handler.RythmCliqueServlet;
 
 import java.util.HashMap;
 
@@ -18,6 +19,7 @@ public class Main {
         new CliqueServer(8282, new RythmCliqueServlet())
                 .withRythm()
                 .start();
+
 
     }
     /**

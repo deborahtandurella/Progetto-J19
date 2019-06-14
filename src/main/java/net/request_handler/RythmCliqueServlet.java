@@ -1,4 +1,4 @@
-package net;
+package net.request_handler;
 
 import application.*;
 import application.RestaurantException.EmptyMenuException;
