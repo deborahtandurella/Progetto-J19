@@ -24,9 +24,9 @@ public  class RestaurantCatalogue {
         return instance;
     }
     
-    public  int addRestaurant(String name, String address){
+    public  int addRestaurant(String name, String address, String owner){
         
-        Restaurant r = new Restaurant(name, address, ++counter);
+        Restaurant r = new Restaurant(name, address, ++counter, owner);
         restaurants.put(counter, r);
         return counter;
     }

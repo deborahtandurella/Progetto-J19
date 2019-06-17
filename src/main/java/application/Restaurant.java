@@ -13,14 +13,16 @@ public class Restaurant {
     private HashMap<DishType,ArrayList<MenuEntry>> menu ;
     private ArrayList<Critique> critiques;
     private Critique overviewCritique;
+    private String owner = null;
 
-    public Restaurant(String name, String address, int code){
+    public Restaurant(String name, String address, int code, String owner){
         this.name = name;
         this.address = address;
         this.code = code;
         this.menu = null;
         this.critiques = new ArrayList<>();
         this.overviewCritique = null;
+        this.owner = owner;
     }
 
 

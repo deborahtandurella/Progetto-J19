@@ -36,7 +36,7 @@ public class HomeCritic {
     }
 
     public boolean logIn(String username, String psw){
-        return Database.getInstance().logIn(username,psw);
+        return Database.getInstance().logInCritico(username,psw);
     }
 
 }
