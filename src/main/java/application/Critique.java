@@ -11,6 +11,7 @@ public class Critique {
     private HashMap<CritiqueSections, Double> sections;
     private HashMap<MenuEntry, Double> dishes;
     private String comment;
+    private String critico;
 
     public Critique(double votoMenu, double votoLocation , double votoServizio, double votoConto) {
         this.sections = new HashMap<>();

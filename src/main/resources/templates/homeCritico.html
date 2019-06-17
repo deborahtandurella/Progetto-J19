@@ -1,3 +1,4 @@
+@args String username
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,6 +69,7 @@
               <p class="txt-para">Scegli il ristorante che vuoi esplorare</p>
               <form method="post" action="homeCritico">
                 <input type="hidden"  name="switch" value="discover">
+                <input type="hidden"  name="username" value=@username>
                 <button type="submit" class="btn btn-submit">SCOPRI</button>
               </form>
             </div>
@@ -80,6 +82,7 @@
               <p class="txt-para">Dacci il tuo parere da esperto!</p>
               <form method="post" action="homeCritico">
                 <input type="hidden"  name="switch" value="write">
+                <input type="hidden"  name="username" value=@username>
                 <button type="submit" class="btn btn-submit">SCRIVI</button>
               </form>
             </div>

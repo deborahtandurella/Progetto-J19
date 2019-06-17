@@ -13,7 +13,7 @@ public class HomeCriticoRequest extends AbstractRequestStrategy {
 
     private static HomeCriticoRequest instance = null;
 
-    private HomeCriticoRequest(){
+    protected HomeCriticoRequest(){
     }
 
     public static HomeCriticoRequest getInstance(){
@@ -29,10 +29,12 @@ public class HomeCriticoRequest extends AbstractRequestStrategy {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String tmp = req.getParameter("switch");
+        String username = req.getParameter("username");
         Map<Integer, String> restaurant = RestaurantCatalogue.getInstance().getRestaurantInfo();
         Map<String, Object> param = new HashMap<>();
         param.put("restaurant",restaurant);
         param.put("sw",tmp);
+        param.put("username", username);
         write(resp, Rythm.render("list.html", param));
     }
 }

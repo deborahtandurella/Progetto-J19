@@ -1,4 +1,4 @@
-@args Map<Integer, String> restaurant, String sw
+@args Map<Integer, String> restaurant, String sw, String username
 
 
     <html lang="en">
@@ -76,6 +76,7 @@
                                                        <input type="radio" name = "restaurant" value =  @s.getKey() /> @s.getValue() <br>
                                                    }
                                 <input type="hidden"  name="switch" value=@sw>
+                                <input type="hidden"  name="username" value=@username>
                                 <button type="submit" class="btn btn-submit">CONFIRM</button>
                             </form>
                                                         </div>

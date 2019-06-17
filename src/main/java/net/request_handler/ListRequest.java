@@ -36,24 +36,26 @@ public class ListRequest extends AbstractRequestStrategy {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int restauantCode = Integer.parseInt(req.getParameter("restaurant"));
         String action = req.getParameter("switch");
+        String username = req.getParameter("username");
         if(action.equals("write"))
-            sendCritiqueModule(restauantCode,resp);
+            sendCritiqueModule(restauantCode,resp,username);
         else
-            sendRestaurantOverview(restauantCode,resp);
+            sendRestaurantOverview(restauantCode,resp, username);
     }
 
-    private void sendCritiqueModule(int restaurantCode, HttpServletResponse resp) throws IOException {
+    private void sendCritiqueModule(int restaurantCode, HttpServletResponse resp, String username) throws IOException {
         Map<String, Object> conf = new HashMap<>();
         try{
             LinkedHashMap<Integer, String> piatti = RestaurantCatalogue.getInstance().getMenuInfo(restaurantCode);
             conf.put("piatti", piatti);
             conf.put("restCode", restaurantCode);
+            conf.put("username", username);
             write(resp, Rythm.render("critique.html", conf));
         }catch(EmptyMenuException e){
             write(resp,Rythm.render("warn.html"));
         }
     }
-    private void sendRestaurantOverview(int restaurantCode,HttpServletResponse resp)throws IOException{
+    private void sendRestaurantOverview(int restaurantCode,HttpServletResponse resp, String username)throws IOException{
         Map<String, Object> conf = new HashMap<>();
         try{
             Map<String, String> info = RestaurantCatalogue.getInstance().getRestaurantOverview(restaurantCode);
@@ -64,6 +66,7 @@ public class ListRequest extends AbstractRequestStrategy {
             conf.put("address", info.get("address"));
             conf.put("meanCritique", meanCritique);
             conf.put("crit",this.ArrayToList(info.get("overview").split("&")));
+            conf.put("username",username);
             write(resp, Rythm.render("restaurant_viewPROVA.html", conf));
         }catch (NoCritiquesException e){
             NoCritiquesExceptionhandler(restaurantCode,conf,resp);

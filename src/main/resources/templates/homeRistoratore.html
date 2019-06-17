@@ -1,3 +1,4 @@
+@args String username
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,7 +67,12 @@
                     <div class="icon-text">
                         <h2 class="txt-tl">RICERCA</h2>
                         <p class="txt-para">Scegli il ristorante che vuoi esplorare</p>
-                        <a href="/list" class="btn btn-submit">SCOPRI</a>
+                        <form method="post" action="homeRistoratore">
+                            <input type="hidden" name="switch" value="discover">
+                            <input type="hidden" name="username" value=@username>
+                            <button type="hidden" class="btn btn-submit">SCOPRI</button>
+                        </form>
+
                     </div>
 
                     <div class="icon">
@@ -75,7 +81,11 @@
                     <div class="icon-text">
                         <h2 class="txt-tl">AGGIUNGI</h2>
                         <p class="txt-para">Pronto a ricevere le critiche dei migliori esperti?</p>
-                        <a href="/add_restaurant" class="btn btn-submit">UNISCITI</a>
+                        <form method="post" action="homeRistoratore">
+                            <input type="hidden" name="switch" value="discover">
+                            <input type="hidden" name="username" value=@username>
+                            <button type="hidden" class="btn btn-submit">UNISCITI</button>
+                        </form>
                     </div>
 
                 </div>
