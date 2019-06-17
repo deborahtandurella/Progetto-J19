@@ -1,8 +1,6 @@
 package application;
 
-import application.RestaurantException.EmptyMenuException;
-import application.RestaurantException.NoCritiquesException;
-import application.RestaurantException.RestaurantNotFoundException;
+import application.restaurant_exception.RestaurantNotFoundException;
 
 import java.util.ArrayList;
 import java.util.HashMap;

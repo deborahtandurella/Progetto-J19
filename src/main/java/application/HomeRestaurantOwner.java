@@ -1,6 +1,6 @@
 package application;
 
-import application.RestaurantException.RestaurantNotFoundException;
+import application.restaurant_exception.RestaurantNotFoundException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

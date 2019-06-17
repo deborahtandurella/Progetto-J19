@@ -1,7 +1,7 @@
 package application;
 
-import application.RestaurantException.EmptyMenuException;
-import application.RestaurantException.NoCritiquesException;
+import application.restaurant_exception.EmptyMenuException;
+import application.restaurant_exception.NoCritiquesException;
 
 import java.util.*;
 

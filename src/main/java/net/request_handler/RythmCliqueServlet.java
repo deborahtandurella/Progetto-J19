@@ -1,6 +1,6 @@
 package net.request_handler;
 
-import application.RestaurantException.EmptyMenuException;
+import net.net_exception.InvalidURIException;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,23 +15,18 @@ public class RythmCliqueServlet extends HttpServlet {
 
 
 
-    private RequestStrategy setRequestStrategy(String URI) {
+    private RequestStrategy setRequestStrategy(String URI) throws InvalidURIException {
         RequestStrategy rs = null;
-        if(!isURIValid(URI)){
-            throw new EmptyMenuException();
-        }
-        String tmp = parseURI(URI);
+
         try {
+            isURIValid(URI);
+            String tmp = parseURI(URI);
             rs = (RequestStrategy)Class.forName(tmp).getMethod("getInstance").invoke(null);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (ClassNotFoundException |NoSuchMethodException |InvocationTargetException
+                | IllegalAccessException e) {
             e.printStackTrace();
         }
+
         return rs;
     }
 
@@ -40,8 +35,12 @@ public class RythmCliqueServlet extends HttpServlet {
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
         String tmp = request.getRequestURI();
-        System.out.println(tmp);
-        setRequestStrategy(tmp).doGet(response);
+
+        try {
+            setRequestStrategy(tmp).doGet(response);
+        }catch (InvalidURIException e){
+
+        }
     }
 
     @Override
@@ -49,13 +48,18 @@ public class RythmCliqueServlet extends HttpServlet {
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
 
-        setRequestStrategy(request.getRequestURI()).doPost(request, response);
+        try {
+            setRequestStrategy(request.getRequestURI()).doPost(request, response);
+        }catch (InvalidURIException e){
+
+        }
     }
 
 
-    private boolean isURIValid(String URI){
+    private void isURIValid(String URI){
         ArrayList<String> requestList =  ArrayToList(this.rightRequest);
-        return requestList.contains(URI);
+        if(!(requestList.contains(URI)))
+            throw new InvalidURIException();
     }
 
 

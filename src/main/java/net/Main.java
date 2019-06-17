@@ -19,14 +19,7 @@ public class Main {
         new CliqueServer(8282, new RythmCliqueServlet())
                 .withRythm()
                 .start();
-        String uri = "banale";
-        String uri1 = String.valueOf(uri.toCharArray(), 1,1);
-        String uri2 = String.valueOf(uri.toCharArray(), 2,uri.length()-2);
-        uri1 = uri1.toUpperCase();
 
-        uri = uri1 + uri2;
-
-        System.out.println(uri);
 
     }
     /**

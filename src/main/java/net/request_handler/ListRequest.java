@@ -1,8 +1,8 @@
 package net.request_handler;
 
 import application.RestaurantCatalogue;
-import application.RestaurantException.EmptyMenuException;
-import application.RestaurantException.NoCritiquesException;
+import application.restaurant_exception.EmptyMenuException;
+import application.restaurant_exception.NoCritiquesException;
 import org.rythmengine.Rythm;
 
 
