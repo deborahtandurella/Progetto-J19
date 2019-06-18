@@ -43,6 +43,7 @@ public class CritiqueRequest extends AbstractRequestStrategy {
         // or set the string of nomeVoti as attributes
 
         String comment = req.getParameter("comment");
+        String critico = req.getParameter("username");
         for(int i = 0; i < voti.length; i++){
             voti[i] = Double.parseDouble(req.getParameter(nomeVoti[i]));
         }
@@ -53,7 +54,7 @@ public class CritiqueRequest extends AbstractRequestStrategy {
         for (Integer i :menu) {
             dishVote.put(RestaurantCatalogue.getInstance().getDish(restCode, i), Double.parseDouble(req.getParameter(Integer.toString(i))));
         }
-        HomeCritic.getInstance().writeCritique(restCode, voti, dishVote, comment);
+        HomeCritic.getInstance().writeCritique(restCode, voti, dishVote, comment, critico);
 
     }
 }

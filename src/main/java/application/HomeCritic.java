@@ -4,7 +4,7 @@ import application.restaurant_exception.RestaurantNotFoundException;
 
 import java.util.HashMap;
 
-public class HomeCritic {
+public class HomeCritic implements Home {
     private static HomeCritic instance = null;
 
     private HomeCritic() {
@@ -17,9 +17,10 @@ public class HomeCritic {
         return instance;
     }
 
-    public void writeCritique(int codResturant, double [] voti, HashMap<MenuEntry,Double> votiPiatti, String comment){
+    public void writeCritique(int codResturant, double [] voti, HashMap<MenuEntry,Double> votiPiatti,
+                              String comment,String critico){
 
-        Critique c = new Critique( voti[0], voti[1],  voti[2], voti[3]);
+        Critique c = new Critique( voti[0], voti[1],  voti[2], voti[3],critico);
         c.voteDishes(votiPiatti);
         c.setComment(comment);
         RestaurantCatalogue.getInstance().addCritique(codResturant, c);
@@ -37,6 +38,10 @@ public class HomeCritic {
 
     public boolean logIn(String username, String psw){
         return Database.getInstance().logInCritico(username,psw);
+    }
+
+    public void signUp(String username, String password){
+        Database.getInstance().criticSignUp(username, password);
     }
 
 }

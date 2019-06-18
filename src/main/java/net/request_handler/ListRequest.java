@@ -65,6 +65,7 @@ public class ListRequest extends AbstractRequestStrategy {
             conf.put("name", info.get("name"));
             conf.put("address", info.get("address"));
             conf.put("meanCritique", meanCritique);
+            System.out.println(meanCritique);
             conf.put("crit",this.ArrayToList(info.get("overview").split("&")));
             conf.put("username",username);
             write(resp, Rythm.render("restaurant_viewPROVA.html", conf));

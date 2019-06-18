@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 public class RythmCliqueServlet extends HttpServlet {
-    private String [] rightRequest = {"/home", "/homeCritico", "/list", "/critique","/homeRistoratore"};
+    private String [] rightRequest = {"/home", "/homeCritico", "/list", "/critique","/homeRistoratore", "/signUp"};
 
 
 
@@ -35,7 +35,6 @@ public class RythmCliqueServlet extends HttpServlet {
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
         String tmp = request.getRequestURI();
-
         try {
             setRequestStrategy(tmp).doGet(response);
         }catch (InvalidURIException e){
@@ -51,7 +50,7 @@ public class RythmCliqueServlet extends HttpServlet {
         try {
             setRequestStrategy(request.getRequestURI()).doPost(request, response);
         }catch (InvalidURIException e){
-
+            // todo /fav.ico
         }
     }
 

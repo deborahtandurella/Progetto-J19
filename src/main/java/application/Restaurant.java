@@ -12,7 +12,7 @@ public class Restaurant {
     private final int code;
     private HashMap<DishType,ArrayList<MenuEntry>> menu ;
     private ArrayList<Critique> critiques;
-    private Critique overviewCritique;
+    private RestaurantOverview overview;
     private String owner = null;
 
     public Restaurant(String name, String address, int code, String owner){
@@ -21,7 +21,7 @@ public class Restaurant {
         this.code = code;
         this.menu = null;
         this.critiques = new ArrayList<>();
-        this.overviewCritique = null;
+        this.overview = new RestaurantOverview();
         this.owner = owner;
     }
 
@@ -32,7 +32,7 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return this.name + "&" + this.address + "&" + this.overviewCritique.toString();
+        return this.name + "&" + this.address + "&" + this.overview.toString();
     }
     
     public void printMenu(){
@@ -50,7 +50,7 @@ public class Restaurant {
     public void addCritique(Critique crit){
 
         this.critiques.add(crit);
-        this.overviewCritique = Critique.computeMean(this.critiques);
+        this.overview.computeMean(this.critiques);
     }
 
     public String getRestaurantInfo(){
@@ -113,9 +113,8 @@ public class Restaurant {
     public HashMap<String, Double> getMeanCritique(){
         HashMap<String, Double> temp = new HashMap<>();
         for (CritiqueSections i : CritiqueSections.values()) {
-            temp.put((String.valueOf(i)), this.overviewCritique.getSections().get(i));
+            temp.put((String.valueOf(i)), this.overview.getSections().get(i));
         }
-        System.out.println(String.valueOf(CritiqueSections.CUCINA));
         return temp;
     }
 

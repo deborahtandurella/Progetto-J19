@@ -32,12 +32,12 @@ public class Main {
         MenuEntry cibo = new MenuEntry("cibo",0.0,0);
         piatti.put(cibo,4.0);
         String comment = "prova commento della critica del ristorante";
-        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment);
-        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment);
-        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment);
-        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment);
-        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment);
-        HomeCritic.getInstance().writeCritique(2,voti,piatti,comment);
-        HomeCritic.getInstance().writeCritique(4,voti,piatti,comment);
+        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment,"ajeje");
+        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment, "ajeje");
+        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment, "ajeje");
+        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment, "ajeje");
+        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment, "ajeje");
+        HomeCritic.getInstance().writeCritique(2,voti,piatti,comment, "ajeje");
+        HomeCritic.getInstance().writeCritique(4,voti,piatti,comment, "ajeje");
     }
 }

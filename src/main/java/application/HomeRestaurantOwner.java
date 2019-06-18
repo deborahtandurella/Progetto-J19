@@ -1,8 +1,9 @@
 package application;
 
 
+import application.database_exception.InvalidUsernameException;
 
-public class HomeRestaurantOwner {
+public class HomeRestaurantOwner implements Home {
 
     private static HomeRestaurantOwner instance = null;
 
@@ -20,4 +21,10 @@ public class HomeRestaurantOwner {
     public boolean logIn(String username, String psw){
         return Database.getInstance().logInRistoratore(username,psw);
     }
+
+    public void signUp(String username, String password)throws InvalidUsernameException {
+        Database.getInstance().ristoratoriSignUp(username,password);
+    }
+
+
 }

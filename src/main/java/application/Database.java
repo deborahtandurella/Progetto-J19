@@ -1,8 +1,8 @@
 package application;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import application.database_exception.InvalidUsernameException;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +42,7 @@ public class Database {
         return false;
     }
 
+    // TODO rename in setUpCritics
     private void setUpCritiques(String fileName) throws IOException{
         BufferedReader bf = new BufferedReader(new FileReader(fileName));
         String line = null;
@@ -76,5 +77,33 @@ public class Database {
         HashMap<DishType, ArrayList<MenuEntry>> e = null;
         e = mr.fileRead();
         RestaurantCatalogue.getInstance().addMenu(e, key);
+    }
+
+    public void criticSignUp(String username,String password){
+        if(this.critici.containsKey(username))
+            throw new InvalidUsernameException("Username already taken!");
+        this.critici.put(username,password);
+        updateDB(this.critici,"critici.txt");
+    }
+
+    public void ristoratoriSignUp(String username, String password){
+        if(this.ristoratori.containsKey(username))
+            throw new InvalidUsernameException("Username already taken!");
+        this.ristoratori.put(username,password);
+        updateDB(this.ristoratori,"ristoratori.txt");
+    }
+
+    private void updateDB(Map<String,String> info,String fileName){
+        try {
+            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(fileName)));
+            for (Map.Entry<String,String> a: info.entrySet()) {
+                pw.println(a.getKey()+"&"+a.getValue());
+            }
+
+            pw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
