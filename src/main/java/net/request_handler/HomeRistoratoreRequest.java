@@ -1,5 +1,7 @@
 package net.request_handler;
 
+import org.rythmengine.Rythm;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,5 +27,8 @@ public class HomeRistoratoreRequest extends HomeCriticoRequest {
 
         if (req.getParameter("switch").equals("discover"))
             super.doPost(req, resp);
+        else if(req.getParameter("switch").equals("add"))
+
+            write(resp, Rythm.render("addRestaurant.html",req.getParameter("username")));
     }
 }

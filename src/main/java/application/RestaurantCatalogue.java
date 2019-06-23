@@ -1,6 +1,8 @@
 package application;
 
+import application.restaurant_exception.RestaurantAlreadyExistingException;
 import application.restaurant_exception.RestaurantNotFoundException;
+import org.rythmengine.utils.S;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,11 +26,13 @@ public  class RestaurantCatalogue {
         return instance;
     }
     
-    public  int addRestaurant(String name, String address, String owner){
-        
+    public  int addRestaurant(String name, String address, String owner) throws RestaurantAlreadyExistingException{
+
+        checkExisting(name, address);
         Restaurant r = new Restaurant(name, address, ++counter, owner);
         restaurants.put(counter, r);
         return counter;
+
     }
     
     public  void addMenu(HashMap<DishType,ArrayList<MenuEntry>> a, int key){
@@ -40,20 +44,6 @@ public  class RestaurantCatalogue {
             throw new RestaurantNotFoundException();
         }
         return restaurants.get(k).getRestaurantInfo();
-    }
-    
-    public  void printList(){
-        for(Map.Entry<Integer, Restaurant> e : restaurants.entrySet()){
-            System.out.println(e.getKey() + ". " + e.getValue().toString());
-        }
-    }
-
-    public ArrayList<String> getRestaurantOverview(){
-        ArrayList<String> rest = new ArrayList<>();
-        for(Map.Entry<Integer, Restaurant> e : restaurants.entrySet()){
-            rest.add(e.getValue().toString());
-        }
-        return rest;
     }
 
     public  void printMenu(int key){
@@ -88,8 +78,21 @@ public  class RestaurantCatalogue {
         return this.restaurants.get(restCod).getOverview();
     }
 
-    public HashMap<String,Double> getRestaurantMeanCritique(int restCod){
+    public HashMap<String,String> getRestaurantMeanCritique(int restCod){
         return this.restaurants.get(restCod).getMeanCritique();
+    }
+
+    private void checkExisting(String name, String address){
+        if(this.restaurants.isEmpty())
+            return;
+        for (int i:this.restaurants.keySet()) {
+            if (checkInfo(i,name,address))
+                throw new RestaurantAlreadyExistingException("Il ristorante è già presente nel sistema !");
+        }
+    }
+    private boolean checkInfo(int code,String name, String address){
+        return this.restaurants.get(code).getName().equals(name) &&
+                this.restaurants.get(code).getAddress().equals(address);
     }
 
 }

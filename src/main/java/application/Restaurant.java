@@ -110,14 +110,19 @@ public class Restaurant {
         return temp;
     }
 
-    public HashMap<String, Double> getMeanCritique(){
-        HashMap<String, Double> temp = new HashMap<>();
+    public HashMap<String, String> getMeanCritique(){
+        HashMap<String, String> temp = new HashMap<>();
         for (CritiqueSections i : CritiqueSections.values()) {
-            temp.put((String.valueOf(i)), this.overview.getSections().get(i));
+            temp.put((String.valueOf(i)), String.format("%.2f", this.overview.getSections().get(i)).replace(",","."));
         }
         return temp;
     }
 
+    public String getName() {
+        return name;
+    }
 
-
+    public String getAddress() {
+        return address;
+    }
 }

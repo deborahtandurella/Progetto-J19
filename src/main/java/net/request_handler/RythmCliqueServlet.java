@@ -11,7 +11,8 @@ import java.util.ArrayList;
 
 
 public class RythmCliqueServlet extends HttpServlet {
-    private String [] rightRequest = {"/home", "/homeCritico", "/list", "/critique","/homeRistoratore", "/signUp"};
+    private String [] rightRequest = {"/home", "/homeCritico", "/list", "/critique","/homeRistoratore", "/signUp"
+            ,"/addRestaurant"};
 
 
 

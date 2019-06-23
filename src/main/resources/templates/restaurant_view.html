@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-@args String name,String address, Map<String, Double> meanCritique, List<String> crit
+﻿<!DOCTYPE html>
+@args String name,String address, Map<String, String> meanCritique, List<String> crit, String votoMedio
 <html lang="en">
 
 <head>
@@ -43,7 +43,7 @@
             <div class="wrapper wow fadeInUp delay-05s">
                 <h2 class="top-title"></h2>
                 <h3 class="title">@name</h3>
-                <h4 class="sub-title">@address</h4>
+                <h4 class="sub-title"></h4>
 
 
 
@@ -54,19 +54,10 @@
 <!--/ header-->
 <!---->
 <section id="cta-1">
-    @for(String ov : crit){
-    <div class="container">
-        <div class="row">
-            <div class="cta-info text-center">
-                <h2><span class="dec-tec"></span>@ov<span class="dec-tec"></span></h2>
-            </div>
-        </div>
-    </div>
-    }
+
 </section>
 <!---->
 <!---->
-
 <!---->
 <section class="section-padding parallax bg-image-2 section wow fadeIn delay-08s" id="cta-2">
     <div class="container">
@@ -85,6 +76,80 @@
 <!---->
 <!---->
 <section class="section-padding wow fadeInUp delay-02s" id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-12">
+                <div class="section-title">
+                    <h2 class="head-title">PANORAMICA</h2>
+                    <hr class="botm-line">
+                    <p class="sec-para">Un'idea generale</p>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-12">
+                <div class="col-md-4 col-sm-6 padding-right-zero">
+                    <div class="portfolio-box design">
+
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 padding-right-zero">
+                    <div class="portfolio-box design">
+
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 padding-right-zero">
+                    <div class="portfolio-box design">
+                        <!-- <img src="img/port03.jpg" alt="" class="img-responsive"> -->
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 padding-right-zero">
+                    <div class="portfolio-box design">
+
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 padding-right-zero" >
+                    <div class="portfolio-box design" >
+                        <h7 class="txt-tl">VOTO MEDIO: @votoMedio<br>
+                            @for(int i = 1; i <= (Double.parseDouble(votoMedio)/2); i++){
+                                <span class="fa fa-star checked"></span>
+                            }
+                            @if(Double.parseDouble(votoMedio)%2 >= 1){
+                            <span class="fa fa-star-half-full checked"></span>
+                            }
+                            @for(int j=1; j <= (10-Double.parseDouble(votoMedio))/2; j++){
+                            <span class="fa fa-star-o checked"></span>
+                            }
+                        </h7>
+                        <br><br><br><br>
+                        @for(Map.Entry<String, String> ov: meanCritique.entrySet()){
+                            <br><br><h8 class="txt-tl">@ov.getKey() @ov.getValue() :&nbsp&nbsp</h8>
+                            @for(int i = 1; i <= (Double.parseDouble(ov.getValue()))/2; i++){
+                            <span class="fa fa-star checked"></span>
+                            }
+                            @if((Double.parseDouble(ov.getValue()))%2 >= 1){
+                            <span class="fa fa-star-half-full checked"></span>
+                            }
+                            @for(int j=1; j <= (10 - Double.parseDouble(ov.getValue()))/2; j++){
+                            <span class="fa fa-star-o checked"></span>
+                            }
+                        }
+
+                        <a href="/detail" class="btn btn-submit">DETTAGLI</a>
+
+                        <br><br>
+
+                        <h7 class="txt-tl"><span class = "fa fa-book"></span> MENU </h7><br>
+                        <a href="/detail" class="btn btn-submit">VISUALIZZA</a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 padding-right-zero">
+                    <div class="portfolio-box design">
+                        <!-- <img src="img/port06.jpg" alt="" class="img-responsive"> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-sm-12">
@@ -111,65 +176,34 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 padding-right-zero">
-                    <div class="portfolio-box design">
-                        <!-- <img src="img/port04.jpg" alt="" class="img-responsive"> -->
-                    </div>
+
                 </div>
                 <div class="col-md-4 col-sm-6 padding-right-zero" >
                     <div class="portfolio-box design" >
-                        <h7 class="txt-tl">VOTO MEDIO:<br>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star-half-full checked"></span>
-                        </h7>
-                        <br><br><h8 class="txt-tl">Servizio @meanCritique.get("SERVIZIO"):&nbsp&nbsp</h8>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star-o checked"></span>
+                        <div class="portfolio-box design">
+                            @for(int t = 0; t < crit.size() - 11;t = t +11 ){
+                                @for(int i=0;i < 8;i = i+2){
+                                    <h7><br>@crit.get(t+i): @crit.get(t+i+1)<br></h7>
+                                    @for(int k = 1; k <= (Double.parseDouble(crit.get(t+i+1)))/2; k++){
+                                    <span class="fa fa-star checked"></span>
+                                    }
+                                    @if((Double.parseDouble(crit.get(t+i+1)))%2 >= 1){
+                                    <span class="fa fa-star-half-full checked"></span>
+                                    }
+                                    @for(int j=1; j <= (10 - (Double.parseDouble(crit.get(t+i+1))))/2; j++){
+                                    <span class="fa fa-star-o checked"></span>
+                                }
+                            }
+                            <h7><br>COMMENTO :<br></h7>
+                            <h7>@crit.get(t+10);<br></h7>
 
-                        <br><h8 class="txt-tl">Conto @meanCritique.get("CONTO"):&nbsp&nbsp&nbsp&nbsp&nbsp</h8>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star-o checked"></span>
-                        <span class="fa fa-star-o checked"></span>
-
-                        <br><h8 class="txt-tl">Location @meanCritique.get("LOCATION"):</h8>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star-o checked"></span>
-
-                        <br><h8 class="txt-tl">Menu @meanCritique.get("MENU"): &nbsp&nbsp&nbsp&nbsp&nbsp</h8>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-
-                        <br><h8 class="txt-tl">Cucina @meanCritique.get("CUCINA"):&nbsp&nbsp&nbsp&nbsp</h8>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star-o checked"></span>
-
-                        <a href="/detail" class="btn btn-submit">DETTAGLI</a>
-
-                        <br><br><br><br>
-
-                        <h7 class="txt-tl"><span class = "fa fa-book"></span> MENU </h7><br>
-                        <a href="/detail" class="btn btn-submit">VISUALIZZA</a>
+                            }
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 padding-right-zero">
                     <div class="portfolio-box design">
-                        <!-- <img src="img/port06.jpg" alt="" class="img-responsive"> -->
+
                     </div>
                 </div>
             </div>
@@ -222,7 +256,7 @@
                 <div class="col-md-4 col-sm-6">
                     <h2 class="cont-title">Visit Us</h2>
                     <div class="location-info">
-                        <p class="white"><span aria-hidden="true" class="fa fa-map-marker"></span>Piazza Borgo Calvenzano 1, Pavia, Italy</p>
+                        <p class="white"><span aria-hidden="true" class="fa fa-map-marker"></span>@address</p>
                         <p class="white"><span aria-hidden="true" class="fa fa-phone"></span>Phone: 666 666 666</p>
                         <p class="white"><span aria-hidden="true" class="fa fa-envelope"></span>Email: <a href="" class="link-dec">lalo.magni<i class="fa fa-at"></i>unipv.it</a></p>
                     </div>
@@ -275,9 +309,5 @@
 <script src="/static/contactform/contactform.js"></script>
 
 </body>
-</html></title>
-</head>
-<body>
 
-</body>
 </html>

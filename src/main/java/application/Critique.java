@@ -39,7 +39,7 @@ public class Critique extends RestaurantOverview{
     }
     @Override
     public String toString() {
-        return this.sectionsToString() + "\n" + this.comment;
+        return this.sectionsToString() + this.comment;
     }
 
     public void setComment(String comment) {
@@ -48,13 +48,11 @@ public class Critique extends RestaurantOverview{
 
     private String sectionsToString(){
         StringBuilder stb =  new StringBuilder();
-        String enter =  "\n";
-        String tab =  "\t";
-        stb.append(enter);
+        String separator =  "£";
         for( int i = 0 ;i < CRITIQUE_SECTIONS.length; i++){
             CritiqueSections  en = CRITIQUE_SECTIONS[i];
             double voto = this.sections.get(en);
-            stb.append(en.toString()+tab+String.format("%.1f", voto)+enter);
+            stb.append(en.toString()+separator+String.format("%.2f", voto).replace(",",".")+separator);
         }
         return stb.toString();
     }

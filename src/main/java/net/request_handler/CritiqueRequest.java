@@ -1,5 +1,6 @@
 package net.request_handler;
 
+import application.CritiqueSections;
 import application.HomeCritic;
 import application.MenuEntry;
 import application.RestaurantCatalogue;
@@ -36,25 +37,29 @@ public class CritiqueRequest extends AbstractRequestStrategy {
 
 
     private void writeCritique(HttpServletRequest req){
-        double [] voti = new double[4];
-        String [] nomeVoti = {"votoMenu", "votoLocation", "votoServizio", "votoConto" };
-        // TODO
-        // change the parameters' name in the template in order to use here CritiqueSections.values()
-        // or set the string of nomeVoti as attributes
 
-        String comment = req.getParameter("comment");
-        String critico = req.getParameter("username");
-        for(int i = 0; i < voti.length; i++){
-            voti[i] = Double.parseDouble(req.getParameter(nomeVoti[i]));
-        }
         int restCode = Integer.parseInt(req.getParameter("restCode"));
 
+        HomeCritic.getInstance().writeCritique(restCode, getVoti(req), this.voteDishes(req,restCode),
+                req.getParameter("comment"), req.getParameter("username"));
+
+    }
+    private HashMap<MenuEntry,Double> voteDishes(HttpServletRequest req,int restCode){
         ArrayList<Integer> menu = RestaurantCatalogue.getInstance().getMenuCode(restCode);
         HashMap<MenuEntry, Double> dishVote = new HashMap<>();
         for (Integer i :menu) {
             dishVote.put(RestaurantCatalogue.getInstance().getDish(restCode, i), Double.parseDouble(req.getParameter(Integer.toString(i))));
         }
-        HomeCritic.getInstance().writeCritique(restCode, voti, dishVote, comment, critico);
-
+        return dishVote;
     }
+
+    private double [] getVoti(HttpServletRequest req){
+        double [] voti = new double[4];
+        CritiqueSections [] nomeVoti = CritiqueSections.values();
+        for(int i = 0; i < voti.length; i++){
+            voti[i] = Double.parseDouble(req.getParameter(nomeVoti[i].toString()));
+        }
+        return voti;
+    }
+
 }

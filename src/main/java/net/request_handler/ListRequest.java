@@ -9,10 +9,7 @@ import org.rythmengine.Rythm;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ListRequest extends AbstractRequestStrategy {
     private static ListRequest instance = null;
@@ -59,27 +56,22 @@ public class ListRequest extends AbstractRequestStrategy {
         Map<String, Object> conf = new HashMap<>();
         try{
             Map<String, String> info = RestaurantCatalogue.getInstance().getRestaurantOverview(restaurantCode);
-            Map<String, Double> meanCritique = RestaurantCatalogue.getInstance()
+            Map<String, String> meanCritique = RestaurantCatalogue.getInstance()
                     .getRestaurantMeanCritique(restaurantCode);
 
             conf.put("name", info.get("name"));
             conf.put("address", info.get("address"));
             conf.put("meanCritique", meanCritique);
-            System.out.println(meanCritique);
-            conf.put("crit",this.ArrayToList(info.get("overview").split("&")));
+            conf.put("crit",this.parseCritique(info.get("overview").split("&")));
             conf.put("username",username);
-            write(resp, Rythm.render("restaurant_viewPROVA.html", conf));
+            conf.put("votoMedio",votoMedio(meanCritique));
+            write(resp, Rythm.render("restaurant_view.html", conf));
         }catch (NoCritiquesException e){
             NoCritiquesExceptionhandler(restaurantCode,conf,resp);
         }
     }
 
-    private ArrayList<String> ArrayToList(String [] s){
-        ArrayList<String> list = new ArrayList<>();
-        for(String i: s)
-            list.add(i);
-        return list;
-    }
+
     private void NoCritiquesExceptionhandler(int restaurantCode,Map<String, Object> conf,HttpServletResponse resp)
             throws IOException {
         String [] restInfo = RestaurantCatalogue.getInstance().findRestaurant(restaurantCode)
@@ -87,6 +79,25 @@ public class ListRequest extends AbstractRequestStrategy {
         conf.put("name",restInfo[0]);
         conf.put("address",restInfo[1]);
         write(resp,Rythm.render("restaurantViewException.html",conf));
+    }
+
+    private LinkedList<String> parseCritique(String[] critique){
+        LinkedList<String> token = new LinkedList<>();
+        for(String cr : critique){
+            String tmp [] = cr.split("£");
+            for(int i=0;i < tmp.length; i++){
+                token.add(tmp[i]);
+            }
+        }
+        return token;
+    }
+
+    private String votoMedio(Map<String, String> meanCritique) {
+        double votoMedio = 0;
+        for (Map.Entry<String, String> a : meanCritique.entrySet()) {
+            votoMedio = Double.parseDouble(a.getValue()) + votoMedio;
+        }
+        return String.format("%.2f", votoMedio/meanCritique.size()).replace(",",".");
     }
 
 }
