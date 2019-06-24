@@ -1,4 +1,4 @@
-package application;
+package application.controller;
 
 public interface Home {
     void signUp(String username, String password);

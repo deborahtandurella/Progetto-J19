@@ -2,6 +2,7 @@ package net;
 
 
 import application.*;
+import application.controller.*;
 import net.request_handler.RythmCliqueServlet;
 
 import java.util.HashMap;
@@ -32,12 +33,12 @@ public class Main {
         MenuEntry cibo = new MenuEntry("cibo",0.0,0);
         piatti.put(cibo,4.0);
         String comment = "prova commento della critica del ristorante";
-        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment,"ajeje");
-        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment, "ajeje");
-        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment, "ajeje");
-        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment, "ajeje");
-        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment, "ajeje");
-        HomeCritic.getInstance().writeCritique(2,voti,piatti,comment, "ajeje");
-        HomeCritic.getInstance().writeCritique(4,voti,piatti,comment, "ajeje");
+        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment,"giacomoporetti");
+        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment, "giacomoporetti");
+        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment, "giacomoporetti");
+        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment, "giacomoporetti");
+        HomeCritic.getInstance().writeCritique(1,voti,piatti,comment, "giacomoporetti");
+        HomeCritic.getInstance().writeCritique(2,voti,piatti,comment, "giacomoporetti");
+        HomeCritic.getInstance().writeCritique(4,voti,piatti,comment, "giacomoporetti");
     }
 }

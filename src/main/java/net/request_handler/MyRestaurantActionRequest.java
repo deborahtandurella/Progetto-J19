@@ -27,6 +27,7 @@ public class MyRestaurantActionRequest extends ListRequest {
             sendRestaurantOverview(Integer.parseInt(req.getParameter("restaurant")), resp, req.getParameter("username"));
 
         else if(req.getParameter("switch").equals("modifyMenu"))
+            //todo costruire metodo che modifica il menu
             System.out.println("costruire metedo modifica menu");
     }
 }

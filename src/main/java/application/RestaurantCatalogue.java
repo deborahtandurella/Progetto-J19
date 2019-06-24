@@ -1,5 +1,6 @@
 package application;
 
+import application.restaurant_exception.NoCritiquesException;
 import application.restaurant_exception.RestaurantAlreadyExistingException;
 import application.restaurant_exception.RestaurantNotFoundException;
 import java.util.ArrayList;
@@ -13,10 +14,12 @@ public  class RestaurantCatalogue {
     private static RestaurantCatalogue instance = null;
     private  Map<Integer, Restaurant> restaurants;
     private  int counter;
-    
+    private  int counterCrit;
+
     private RestaurantCatalogue(){
         this.restaurants = new HashMap<>();
         this.counter = 0;
+        this.counterCrit = 0;
     }
     public static synchronized RestaurantCatalogue getInstance(){
         if(instance == null)
@@ -49,6 +52,7 @@ public  class RestaurantCatalogue {
     }
 
     public  void addCritique(int codResturant, Critique crit){
+        crit.setCode(++counterCrit);
         restaurants.get(codResturant).addCritique(crit);
     }
 
@@ -99,7 +103,22 @@ public  class RestaurantCatalogue {
             if (restaurant.getValue().getOwner().equals(owner))
                 myRest.put(restaurant.getKey(), restaurant.getValue().getName());
         }
+        if(myRest.isEmpty())
+            throw new RestaurantNotFoundException("Nessun ristorante in tuo possesso");
         return myRest;
+    }
+
+    public ArrayList<String> myCritique(String critic){
+        ArrayList<String> critique = new ArrayList<>();
+        for(Map.Entry<Integer, Restaurant> restaurant: this.restaurants.entrySet()) {
+            for(Critique crit : restaurant.getValue().getCritiques()) {
+                if (crit.getCritico().equals(critic))
+                    critique.add(crit.myCritique(restaurant.getValue().getName()));
+            }
+        }
+        if(critique.isEmpty())
+            throw new NoCritiquesException("Nessuna critica ancora compilata!");
+        return critique;
     }
 
     public void addMenuEntry(int restaurantCode,String dishType,String dish, double price) {

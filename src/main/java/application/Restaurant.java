@@ -150,4 +150,8 @@ public class Restaurant {
     public String getOwner() {
         return owner;
     }
+
+    public ArrayList<Critique> getCritiques() {
+        return critiques;
+    }
 }

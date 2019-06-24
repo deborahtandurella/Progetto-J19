@@ -1,7 +1,7 @@
 package net.request_handler;
 
-import application.HomeCritic;
-import application.HomeRestaurantOwner;
+import application.controller.HomeCritic;
+import application.controller.HomeRestaurantOwner;
 import application.RestaurantCatalogue;
 import org.rythmengine.Rythm;
 
@@ -62,7 +62,7 @@ public class HomeRequest extends  AbstractRequestStrategy {
     private void logRistoratore(HttpServletResponse resp, String username, String password) throws IOException{
         if(HomeRestaurantOwner.getInstance().logIn(username,password)) {
             Map<String, Object> conf = new HashMap<>();
-            conf.put("myRest", RestaurantCatalogue.getInstance().myRestaurant(username));
+            conf.put("myRest", HomeRestaurantOwner.getInstance().getOwnedRestaurant(username));
             conf.put("username", username);
             write(resp, Rythm.render("homeRistoratore.html", conf));
         }

@@ -1,8 +1,15 @@
-package application;
+package application.controller;
 
+import application.Critique;
+import application.Database;
+import application.MenuEntry;
+import application.RestaurantCatalogue;
+import application.restaurant_exception.NoCritiquesException;
 import application.restaurant_exception.RestaurantNotFoundException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class HomeCritic implements Home {
     private static HomeCritic instance = null;
@@ -44,4 +51,14 @@ public class HomeCritic implements Home {
         Database.getInstance().criticSignUp(username, password);
     }
 
+    public ArrayList<Integer> getMenuCode(int restCode){
+        return RestaurantCatalogue.getInstance().getMenuCode(restCode);
+    }
+    public MenuEntry getDish(int restCod, int dishCod){
+        return RestaurantCatalogue.getInstance().getDish(restCod, dishCod);
+    }
+
+    public ArrayList<String> myCritique(String critic) throws NoCritiquesException {
+        return RestaurantCatalogue.getInstance().myCritique(critic);
+    }
 }

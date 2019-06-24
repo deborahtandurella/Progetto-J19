@@ -1,6 +1,6 @@
 package net.request_handler;
 
-import application.RestaurantCatalogue;
+import application.controller.HomeRestaurantOwner;
 import application.restaurant_exception.RestaurantAlreadyExistingException;
 import org.rythmengine.Rythm;
 
@@ -46,6 +46,6 @@ public class AddRestaurantRequest extends AbstractRequestStrategy {
         String name = req.getParameter("name");
         String address = req.getParameter("address");
         String ownerUsername = req.getParameter("owner");
-        return RestaurantCatalogue.getInstance().addRestaurant(name,address,ownerUsername);
+        return HomeRestaurantOwner.getInstance().addRestaurant(name,address,ownerUsername);
     }
 }

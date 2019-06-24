@@ -1,7 +1,7 @@
 package net.request_handler;
 
-import application.HomeCritic;
-import application.HomeRestaurantOwner;
+import application.controller.HomeCritic;
+import application.controller.HomeRestaurantOwner;
 import application.database_exception.InvalidUsernameException;
 import org.rythmengine.Rythm;
 
