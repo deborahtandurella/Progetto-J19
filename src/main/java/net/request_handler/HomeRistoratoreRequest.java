@@ -28,7 +28,14 @@ public class HomeRistoratoreRequest extends HomeCriticoRequest {
         if (req.getParameter("switch").equals("discover"))
             super.doPost(req, resp);
         else if(req.getParameter("switch").equals("add"))
-
             write(resp, Rythm.render("addRestaurant.html",req.getParameter("username")));
+        else if(req.getParameter("switch").equals("viewMyRest"))
+            myRest(req,resp);
+    }
+
+    private void myRest(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+        int restCode = Integer.parseInt(req.getParameter("restaurant"));
+        String username = req.getParameter("username");
+        write(resp, Rythm.render("myRestaurantAction.html", restCode, username));
     }
 }

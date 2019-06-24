@@ -83,17 +83,17 @@ public class Database {
         if(this.critici.containsKey(username))
             throw new InvalidUsernameException("Username already taken!");
         this.critici.put(username,password);
-        updateDB(this.critici,"critici.txt");
+        updateDBUser(this.critici,"critici.txt");
     }
 
     public void ristoratoriSignUp(String username, String password){
         if(this.ristoratori.containsKey(username))
             throw new InvalidUsernameException("Username already taken!");
         this.ristoratori.put(username,password);
-        updateDB(this.ristoratori,"ristoratori.txt");
+        updateDBUser(this.ristoratori,"ristoratori.txt");
     }
 
-    private void updateDB(Map<String,String> info,String fileName){
+    private void updateDBUser(Map<String,String> info,String fileName){
         try {
             PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(fileName)));
             for (Map.Entry<String,String> a: info.entrySet()) {

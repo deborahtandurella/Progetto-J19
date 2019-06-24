@@ -3,6 +3,7 @@ package net.request_handler;
 import application.RestaurantCatalogue;
 import application.restaurant_exception.EmptyMenuException;
 import application.restaurant_exception.NoCritiquesException;
+import net.net_exception.MissingFormParameterException;
 import org.rythmengine.Rythm;
 
 
@@ -14,7 +15,7 @@ import java.util.*;
 public class ListRequest extends AbstractRequestStrategy {
     private static ListRequest instance = null;
 
-    private ListRequest() {
+    protected ListRequest() {
 
     }
 
@@ -31,13 +32,19 @@ public class ListRequest extends AbstractRequestStrategy {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int restauantCode = Integer.parseInt(req.getParameter("restaurant"));
-        String action = req.getParameter("switch");
-        String username = req.getParameter("username");
-        if(action.equals("write"))
-            sendCritiqueModule(restauantCode,resp,username);
-        else
-            sendRestaurantOverview(restauantCode,resp, username);
+
+        try{
+            String restaurantCode = req.getParameter("restaurant");
+            checkNumber(restaurantCode);
+            String action = req.getParameter("switch");
+            String username = req.getParameter("username");
+            if(action.equals("write"))
+                sendCritiqueModule(Integer.parseInt(restaurantCode),resp,username);
+            else
+                sendRestaurantOverview(Integer.parseInt(restaurantCode),resp, username);
+        }catch (MissingFormParameterException e){
+            write(resp,Rythm.render("warn.html",e.getMessage()));
+        }
     }
 
     private void sendCritiqueModule(int restaurantCode, HttpServletResponse resp, String username) throws IOException {
@@ -52,7 +59,7 @@ public class ListRequest extends AbstractRequestStrategy {
             write(resp,Rythm.render("warn.html"));
         }
     }
-    private void sendRestaurantOverview(int restaurantCode,HttpServletResponse resp, String username)throws IOException{
+    protected void sendRestaurantOverview(int restaurantCode,HttpServletResponse resp, String username)throws IOException{
         Map<String, Object> conf = new HashMap<>();
         try{
             Map<String, String> info = RestaurantCatalogue.getInstance().getRestaurantOverview(restaurantCode);
@@ -98,6 +105,11 @@ public class ListRequest extends AbstractRequestStrategy {
             votoMedio = Double.parseDouble(a.getValue()) + votoMedio;
         }
         return String.format("%.2f", votoMedio/meanCritique.size()).replace(",",".");
+    }
+
+    private void checkNumber(String restaurantCode){
+        if(restaurantCode == null)
+            throw new MissingFormParameterException("Scegliere un ristorante per continuare");
     }
 
 }

@@ -1,0 +1,36 @@
+@args int restCode, String username
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Restaurant</title>
+    <div class="icon-text">
+        <h2 class="txt-tl">VISUALIZZA RISTORANTE</h2>
+        <p class="txt-para">Scegli il ristorante che vuoi esplorare</p>
+        <form method="post" action="myRestaurantAction">
+            <input type="hidden" name="switch" value="discover">
+            <input type="hidden" name="username" value=@username>
+            <input type="hidden" name="restaurant" value=@restCode>
+            <button type="hidden" class="btn btn-submit">VIEW</button>
+        </form>
+
+    </div>
+
+    <div class="icon">
+        <i class="fa fa-plus-circle"></i>
+    </div>
+    <div class="icon-text">
+        <h2 class="txt-tl">MODIFICA MENU</h2>
+        <p class="txt-para">Pronto a ricevere le critiche dei migliori esperti?</p>
+        <form method="post" action="myRestaurantAction">
+            <input type="hidden" name="switch" value="modifyMenu">
+            <input type="hidden" name="restaurant" value=@restCode>
+            <input type="hidden" name="username" value=@username>
+            <button type="hidden" class="btn btn-submit">MENU</button>
+        </form>
+    </div>
+</head>
+<body>
+
+</body>
+</html>

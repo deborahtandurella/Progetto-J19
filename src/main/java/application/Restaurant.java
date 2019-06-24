@@ -13,7 +13,7 @@ public class Restaurant {
     private HashMap<DishType,ArrayList<MenuEntry>> menu ;
     private ArrayList<Critique> critiques;
     private RestaurantOverview overview;
-    private String owner = null;
+    private String owner ;
 
     public Restaurant(String name, String address, int code, String owner){
         this.name = name;
@@ -26,7 +26,7 @@ public class Restaurant {
     }
 
 
-    public void addEntry(HashMap<DishType,ArrayList<MenuEntry>> a){
+    public void addMenu(HashMap<DishType,ArrayList<MenuEntry>> a){
         menu = a;
     }
 
@@ -57,9 +57,6 @@ public class Restaurant {
         return this.name + "," + this.address;
     }
 
-    public int getCode() {
-        return code;
-    }
 
     public LinkedHashMap<Integer, String> getMenuInfo () {
         if(this.menu == null)
@@ -104,7 +101,7 @@ public class Restaurant {
         String all = "";
         String separetor = "&";
         for (Critique c : this.critiques){
-            all = all +c.toString() + "\n" + separetor;
+            all = all + c.toString() + "\n" + separetor;        // TODO use StringBuilder
         }
         temp.put("overview", all);
         return temp;
@@ -118,11 +115,39 @@ public class Restaurant {
         return temp;
     }
 
+    public void addMenuEntry(String dishType,String dish, double price){
+        if(this.menu == null){
+            this.menu = new HashMap<>();
+            this.menu = MenuHandler.getInstance().initializeMenu(this.menu);
+            addDishToMenu(dishType,dish,price,1);
+        }
+        else{
+            int code = MenuHandler.getInstance().getLastCode(this.menu) + 1;
+            MenuHandler.getInstance().checkExistance(dish,this.menu);
+            addDishToMenu(dishType,dish,price,code);
+        }
+        printMenu();
+
+
+    }
+    private void addDishToMenu(String dishType,String dish, double price, int code){
+        this.menu.get(MenuHandler.getInstance().stringConverter(dishType))
+                .add(new MenuEntry(dish,price,code));
+    }
+
+    public int getCode() {
+        return code;
+    }
+
     public String getName() {
         return name;
     }
 
     public String getAddress() {
         return address;
+    }
+
+    public String getOwner() {
+        return owner;
     }
 }

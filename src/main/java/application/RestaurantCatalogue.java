@@ -2,8 +2,6 @@ package application;
 
 import application.restaurant_exception.RestaurantAlreadyExistingException;
 import application.restaurant_exception.RestaurantNotFoundException;
-import org.rythmengine.utils.S;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -36,7 +34,7 @@ public  class RestaurantCatalogue {
     }
     
     public  void addMenu(HashMap<DishType,ArrayList<MenuEntry>> a, int key){
-        restaurants.get(key).addEntry(a);
+        restaurants.get(key).addMenu(a);
     }
     
     public  String findRestaurant(int k){
@@ -93,6 +91,19 @@ public  class RestaurantCatalogue {
     private boolean checkInfo(int code,String name, String address){
         return this.restaurants.get(code).getName().equals(name) &&
                 this.restaurants.get(code).getAddress().equals(address);
+    }
+
+    public Map<Integer, String> myRestaurant(String owner){
+        HashMap<Integer,String> myRest = new HashMap<>();
+        for(Map.Entry<Integer, Restaurant> restaurant: this.restaurants.entrySet()) {
+            if (restaurant.getValue().getOwner().equals(owner))
+                myRest.put(restaurant.getKey(), restaurant.getValue().getName());
+        }
+        return myRest;
+    }
+
+    public void addMenuEntry(int restaurantCode,String dishType,String dish, double price) {
+        this.restaurants.get(restaurantCode).addMenuEntry(dishType,dish,price);
     }
 
 }

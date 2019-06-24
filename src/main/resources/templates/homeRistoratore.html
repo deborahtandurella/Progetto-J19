@@ -1,4 +1,4 @@
-@args String username
+@args String username, Map<Integer, String> myRest
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,6 +86,18 @@
                             <input type="hidden" name="username" value=@username>
                             <button type="hidden" class="btn btn-submit">UNISCITI</button>
                         </form>
+                    </div>
+
+                    <div class="icon-text">
+                        <h2 class="txt-tl">I miei ristoranti</h2>
+                    <form method="post" action="/homeRistoratore">
+                        @for(Map.Entry<Integer,String> rest : myRest.entrySet()){
+                        <input type="radio" name = "restaurant" value =  @rest.getKey() /> @rest.getValue()  <br>
+                        }
+                        <input type="hidden"  name="switch" value="viewMyRest">
+                        <input type="hidden"  name="username" value=@username>
+                        <button type="submit" class="btn btn-submit">CONFIRM</button>
+                    </form>
                     </div>
 
                 </div>

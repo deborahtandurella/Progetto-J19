@@ -2,12 +2,15 @@ package net.request_handler;
 
 import application.HomeCritic;
 import application.HomeRestaurantOwner;
+import application.RestaurantCatalogue;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.InvalidParameterException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomeRequest extends  AbstractRequestStrategy {
 
@@ -57,7 +60,11 @@ public class HomeRequest extends  AbstractRequestStrategy {
 
 
     private void logRistoratore(HttpServletResponse resp, String username, String password) throws IOException{
-        if(HomeRestaurantOwner.getInstance().logIn(username,password))
-            write(resp, Rythm.render("homeRistoratore.html",username));
+        if(HomeRestaurantOwner.getInstance().logIn(username,password)) {
+            Map<String, Object> conf = new HashMap<>();
+            conf.put("myRest", RestaurantCatalogue.getInstance().myRestaurant(username));
+            conf.put("username", username);
+            write(resp, Rythm.render("homeRistoratore.html", conf));
+        }
     }
 }

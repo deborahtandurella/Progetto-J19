@@ -7,6 +7,8 @@ import org.rythmengine.Rythm;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddRestaurantRequest extends AbstractRequestStrategy {
     private static  AddRestaurantRequest instance = null;
@@ -29,6 +31,12 @@ public class AddRestaurantRequest extends AbstractRequestStrategy {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             int restaurantCode = addRestaurant(req);
+            System.out.println(restaurantCode);
+            Map<String, Object> conf = new HashMap<>();
+            conf.put("username", req.getParameter("owner"));
+            conf.put("rCode",Integer.toString(restaurantCode));
+            conf.put("rName",req.getParameter("name"));
+            write(resp,Rythm.render("addMenu.html",conf));
         }catch (RestaurantAlreadyExistingException e){
             write(resp,Rythm.render("warn.html",e.getMessage()));
         }
