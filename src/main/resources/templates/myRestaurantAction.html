@@ -1,36 +1,146 @@
 @args int restCode, String username
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>My Restaurant</title>
-    <div class="icon-text">
-        <h2 class="txt-tl">VISUALIZZA RISTORANTE</h2>
-        <p class="txt-para">Scegli il ristorante che vuoi esplorare</p>
-        <form method="post" action="myRestaurantAction">
-            <input type="hidden" name="switch" value="discover">
-            <input type="hidden" name="username" value=@username>
-            <input type="hidden" name="restaurant" value=@restCode>
-            <button type="hidden" class="btn btn-submit">VIEW</button>
-        </form>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clique - My Restaurant</title>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300|Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/style_home_critico.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/fontface.css">
 
-    </div>
 
-    <div class="icon">
-        <i class="fa fa-plus-circle"></i>
-    </div>
-    <div class="icon-text">
-        <h2 class="txt-tl">MODIFICA MENU</h2>
-        <p class="txt-para">Pronto a ricevere le critiche dei migliori esperti?</p>
-        <form method="post" action="myRestaurantAction">
-            <input type="hidden" name="switch" value="modifyMenu">
-            <input type="hidden" name="restaurant" value=@restCode>
-            <input type="hidden" name="username" value=@username>
-            <button type="hidden" class="btn btn-submit">MENU</button>
-        </form>
-    </div>
 </head>
+
 <body>
+<!--header-->
+<header class="main-header" id="header">
+    <div class="bg-color">
+        <!--nav-->
+        <nav class="nav navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="fa fa-bars"></span>
+                        </button>
+                        <a href="../templates/home.html" class="navbar-brand">CliQue</a>
+                    </div>
+                    <div class="collapse navbar-collapse navbar-right" id="mynavbar">
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!--/ nav-->
+        <div class="container text-center">
+            <div class="wrapper wow fadeInUp delay-05s">
+                <h2 class="top-title">La tua Home</h2>
+                <h3 class="title">CliQue</h3>
+                <h4 class="sub-title">GESTIONE RISTORANTI</h4>
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--/ header-->
+
+<section id="feature" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 wow fadeInLeft delay-05s">
+                <div class="section-title">
+                    <h2 class="head-title">COSA VUOI FARE?</h2>
+                    <hr class="botm-line">
+                    <p class="sec-para">Aggiorna i menu o controlla la pagina del ristorante</p>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="col-md-6 wow fadeInRight delay-02s">
+                    <div class="icon">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <div class="icon-text">
+                        <h2 class="txt-tl">VISUALIZZA RISTORANTE</h2>
+                        <p class="txt-para">Scegli il ristorante che vuoi esplorare</p>
+                        <form method="post" action="myRestaurantAction">
+                            <input type="hidden" name="switch" value="discover">
+                            <input type="hidden" name="username" value=@username>
+                            <input type="hidden" name="restaurant" value=@restCode>
+                            <button type="hidden" class="btn btn-submit">VIEW</button>
+                        </form>
+                    </div>
+
+                    <div class="icon">
+                        <i class="fa fa-plus-circle"></i>
+                    </div>
+                    <div class="icon-text">
+                        <h2 class="txt-tl">MODIFICA MENU</h2>
+                        <p class="txt-para">Pronto a ricevere le critiche dei migliori esperti?</p>
+                        <form method="post" action="myRestaurantAction">
+                            <input type="hidden" name="switch" value="modifyMenu">
+                            <input type="hidden" name="restaurant" value=@restCode>
+                            <input type="hidden" name="username" value=@username>
+                            <button type="hidden" class="btn btn-submit">MENU</button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+<!---->
+<section class="section-padding parallax bg-image-2 section wow fadeIn delay-08s" id="cta-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="cta-txt">
+
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--->
+<footer class="" id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7 footer-copyright">
+                <div class="credits">
+                </div>
+            </div>
+
+            <div class="col-sm-5 footer-social">
+                <div class="pull-right hidden-xs hidden-sm">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-dribbble"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!--contact ends-->
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/jquery.easing.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/wow.js"></script>
+<script src="/static/js/custom.js"></script>
+<script src="/static/contactform/contactform.js"></script>
 
 </body>
 </html>

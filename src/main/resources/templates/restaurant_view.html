@@ -119,7 +119,7 @@
                             <span class="fa fa-star-o checked"></span>
                             }
                         </h7>
-                        <br><br><br><br>
+                        <br><br>
                         @for(Map.Entry<String, String> ov: meanCritique.entrySet()){
                             <br><br><h8 class="txt-tl">@ov.getKey() @ov.getValue() :&nbsp&nbsp</h8>
                             @for(int i = 1; i <= (Double.parseDouble(ov.getValue()))/2; i++){
@@ -135,7 +135,7 @@
 
                         <a href="/detail" class="btn btn-submit">DETTAGLI</a>
 
-                        <br><br>
+                        <br><br><br><br>
 
                         <h7 class="txt-tl"><span class = "fa fa-book"></span> MENU </h7><br>
                         <a href="/detail" class="btn btn-submit">VISUALIZZA</a>
@@ -180,7 +180,7 @@
                 </div>
                 <div class="col-md-4 col-sm-6 padding-right-zero" >
                     <div class="portfolio-box design" >
-                        <div class="portfolio-box design">
+                        <div class="portfolio-box design" style="overflow-y: scroll; height:400px; width: 600px;">
                             @for(int t = 0; t < crit.size() - 11;t = t +11 ){
                                 @for(int i=0;i < 8;i = i+2){
                                     <h7><br>@crit.get(t+i): @crit.get(t+i+1)<br></h7>
