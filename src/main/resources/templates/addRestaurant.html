@@ -1,3 +1,4 @@
+@args String username
 <html lang="en">
 
 <head>
@@ -67,11 +68,12 @@
                 <div class="col-md-6 wow fadeInRight delay-02s">
 
                     <div class="icon-text">
-                        <form method="post" action="/static/php/upload.php" enctype="multipart/form-data">
+                        <form method="post" action="addRestaurant" >
+                            <input type="hidden" name="owner" value=@username>
                             <h6>Nome del ristorante:<br></h6>
-                            <input type="text" name="name"><br>
+                            <input type="text" name="name" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
                             <h6>Indirizzo: <br></h6>
-                            <input type="text" name="address"><br>
+                            <input type="text" name="address" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
 
                             <h6>Scegli un'immagine per la tua copertina:<br><br></h6>
                             <input type="file" name="img1" id="img1"><br>

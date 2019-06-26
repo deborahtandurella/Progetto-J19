@@ -1,4 +1,4 @@
-@args Map<Integer, String> rest, String sw
+@args Map<Integer, String> restaurant, String sw, String username
 
 
     <html lang="en">
@@ -72,10 +72,11 @@
                         <div class="icon-text">
                             <form method="post" action="/list">
                                                    <h2>Ristoranti</h2>
-                                                  @for(Map.Entry<Integer,String> s : rest.entrySet()){
+                                                  @for(Map.Entry<Integer,String> s : restaurant.entrySet()){
                                                        <input type="radio" name = "restaurant" value =  @s.getKey() /> @s.getValue() <br>
                                                    }
                                 <input type="hidden"  name="switch" value=@sw>
+                                <input type="hidden"  name="username" value=@username>
                                 <button type="submit" class="btn btn-submit">CONFIRM</button>
                             </form>
                                                         </div>

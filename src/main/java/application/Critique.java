@@ -2,22 +2,27 @@ package application;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
-public class Critique {
+public class Critique extends RestaurantOverview{
 
-    public final static int  MINVOTO = 1;
-    public final static int  MAXVOTO = 10;
-    public final static CritiqueSections [] CRITIQUE_SECTIONS = CritiqueSections.values();
-    private HashMap<CritiqueSections, Double> sections;
     private HashMap<MenuEntry, Double> dishes;
     private String comment;
+    private String critico;
+    private int code;
 
-    public Critique(double votoMenu, double votoLocation , double votoServizio, double votoConto) {
+    public Critique(double votoMenu, double votoLocation , double votoServizio, double votoConto, String critico) {
         this.sections = new HashMap<>();
         this.dishes = new HashMap<>();
         writeCritique( votoMenu, votoServizio, votoConto, votoLocation );
         this.sections.put(CritiqueSections.CUCINA, 0.);
-        this.comment= null;
+        this.critico = critico;
+        this.comment=null;
+        this.code = 0;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
     private void writeCritique(double votoMenu, double votoServizio, double votoConto, double votoLocation){
@@ -33,6 +38,7 @@ public class Critique {
 
     public void voteDishes(HashMap<MenuEntry, Double> dv){
         try{
+            dv = this.removeNullDishes(dv);
             this.dishes = dv;
             this.sections.replace(CritiqueSections.CUCINA,meanDishes());
         }
@@ -42,7 +48,7 @@ public class Critique {
     }
     @Override
     public String toString() {
-        return this.sectionsToString() + "\n" + this.comment;
+        return this.sectionsToString() + this.comment;
     }
 
     public void setComment(String comment) {
@@ -51,13 +57,26 @@ public class Critique {
 
     private String sectionsToString(){
         StringBuilder stb =  new StringBuilder();
-        String enter =  "\n";
-        String tab =  "\t";
-        stb.append(enter);
+        String separator =  "£";
         for( int i = 0 ;i < CRITIQUE_SECTIONS.length; i++){
             CritiqueSections  en = CRITIQUE_SECTIONS[i];
             double voto = this.sections.get(en);
-            stb.append(en.toString()+tab+voto+enter);
+            stb.append(en.toString()+separator+String.format("%.2f", voto).replace(",",".")+separator);
+        }
+        return stb.toString();
+    }
+
+    private String critToString(){
+        StringBuilder stb =  new StringBuilder();
+        String separator =  "£";
+        for( int i = 0 ;i < CRITIQUE_SECTIONS.length; i++){
+            CritiqueSections  en = CRITIQUE_SECTIONS[i];
+            double voto = this.sections.get(en);
+            stb.append(en.toString()+": "+String.format("%.2f", voto).replace(",",".")+separator);
+        }
+        stb.append("Piatti assaggiati: "+separator);
+        for(Map.Entry<MenuEntry, Double> dish : this.dishes.entrySet()){
+            stb.append(dish.getKey().getDish() + ": " + String.format("%.2f", dish.getValue()).replace(",",".")+separator);
         }
         return stb.toString();
     }
@@ -77,51 +96,36 @@ public class Critique {
         }
     }
 
-    public HashMap<CritiqueSections, Double> getSections() {
-        return sections;
-    }
-
-    public static Critique computeMean(ArrayList<Critique> list){
-        int t = CRITIQUE_SECTIONS.length;
-        double votiOv [] =  new double[t];
-        int numberOfVotiOv [] =  new int[t];
-        for( int i =0 ; i < t ; i++){
-            votiOv[i]=0.0;
-            numberOfVotiOv[i]=0;
-        }
-
-        for (int i =0 ; i< t ; i++){
-            for (Critique c:list ) {
-                votiOv[i] += c.getSections().get(CRITIQUE_SECTIONS[i]);
-                numberOfVotiOv[i]+=1;
-            }
-        }
-        double medieVoti [] = new double[t];
-        for(int i=0; i< t ; i++){
-            if(numberOfVotiOv[i] != 0){
-                medieVoti[i] = (votiOv[i]/numberOfVotiOv[i]);
-            }
-            else {
-                medieVoti[i] = 0;
-            }
-        }
-        Critique temp = new Critique(medieVoti[0],medieVoti[1],medieVoti[2],medieVoti[3]);
-        temp.getSections().replace(CritiqueSections.CUCINA, medieVoti[4]);
-        return temp;
-
-    }
-
-
-    private  double meanDishes(){
+    private double meanDishes(){
         double tmp = 0.;
         int length = 0;
         for (double d: this.dishes.values()) {
-            if(d!=0){
                 tmp+= d ;
                 length++;
-            }
         }
         return tmp/length;
     }
 
+    private HashMap<MenuEntry, Double> removeNullDishes(HashMap<MenuEntry, Double> dv){
+       ArrayList<MenuEntry> temp = new ArrayList<>();
+        for (Map.Entry<MenuEntry, Double> dish : dv.entrySet()){
+            if(dish.getValue() == 0){
+                temp.add(dish.getKey());
+            }
+        }
+        for (MenuEntry dish : temp){
+            dv.remove(dish);
+        }
+        return dv;
+    }
+
+    public String getCritico() {
+        return critico;
+    }
+
+    public String myCritique(String restaurant){
+        String temp ="Ristorante: " + restaurant + "£";
+        temp = temp + this.critToString();
+        return temp;
+    }
 }

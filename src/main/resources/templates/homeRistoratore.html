@@ -1,3 +1,4 @@
+@args String username, Map<Integer, String> myRest
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,7 +67,12 @@
                     <div class="icon-text">
                         <h2 class="txt-tl">RICERCA</h2>
                         <p class="txt-para">Scegli il ristorante che vuoi esplorare</p>
-                        <a href="/list" class="btn btn-submit">SCOPRI</a>
+                        <form method="post" action="homeRistoratore">
+                            <input type="hidden" name="switch" value="discover">
+                            <input type="hidden" name="username" value=@username>
+                            <button type="hidden" class="btn btn-submit">SCOPRI</button>
+                        </form>
+
                     </div>
 
                     <div class="icon">
@@ -75,7 +81,23 @@
                     <div class="icon-text">
                         <h2 class="txt-tl">AGGIUNGI</h2>
                         <p class="txt-para">Pronto a ricevere le critiche dei migliori esperti?</p>
-                        <a href="/add_restaurant" class="btn btn-submit">UNISCITI</a>
+                        <form method="post" action="homeRistoratore">
+                            <input type="hidden" name="switch" value="add">
+                            <input type="hidden" name="username" value=@username>
+                            <button type="hidden" class="btn btn-submit">UNISCITI</button>
+                        </form>
+                    </div>
+
+                    <div class="icon-text">
+                        <h2 class="txt-tl">I miei ristoranti</h2>
+                    <form method="post" action="/homeRistoratore">
+                        @for(Map.Entry<Integer,String> rest : myRest.entrySet()){
+                        <input type="radio" name = "restaurant" value =  @rest.getKey() /> @rest.getValue()  <br>
+                        }
+                        <input type="hidden"  name="switch" value="viewMyRest">
+                        <input type="hidden"  name="username" value=@username>
+                        <button type="submit" class="btn btn-submit">CONFIRM</button>
+                    </form>
                     </div>
 
                 </div>

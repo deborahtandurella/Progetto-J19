@@ -1,0 +1,27 @@
+@args String rCode, String rName, String username
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clique-Add Menù</title>
+</head>
+<body>
+<h2>AGGIUNGI PIATTI AL MENU DI : @rName</h2>
+    <form method="post" action="/addMenu">
+        <input type="hidden" name="restaurantCode" value=@rCode>
+        <input type="hidden" name="username" value=@username>
+        <h3>Seleziona il tipo del piatto</h3><br>
+        <input type="radio" name = "dishType" value = "antipasto" /> antipasto <br>
+        <input type="radio" name = "dishType" value = "primo" /> primo <br>
+        <input type="radio" name = "dishType" value = "secondo" /> secondo<br>
+        <input type="radio" name = "dishType" value = "dolce" /> dolce <br>
+        <h3>Dicci il nome del piatto</h3><br>
+        <input type="text" name="dishName" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
+        <h3>Dicci anche il prezzo!</h3>
+        <input type="number" min="0" step="0.01" name="dishPrice" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
+        <br>
+        <input type="submit" value="Inserisci un altro piatto" name="action">
+        <input type="submit" value="Termina" name="action">
+</form>
+</body>
+</html>

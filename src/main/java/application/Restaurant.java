@@ -1,7 +1,7 @@
 package application;
 
-import application.RestaurantException.EmptyMenuException;
-import application.RestaurantException.NoCritiquesException;
+import application.restaurant_exception.EmptyMenuException;
+import application.restaurant_exception.NoCritiquesException;
 
 import java.util.*;
 
@@ -12,25 +12,27 @@ public class Restaurant {
     private final int code;
     private HashMap<DishType,ArrayList<MenuEntry>> menu ;
     private ArrayList<Critique> critiques;
-    private Critique overviewCritique;
+    private RestaurantOverview overview;
+    private String owner ;
 
-    public Restaurant(String name, String address, int code){
+    public Restaurant(String name, String address, int code, String owner){
         this.name = name;
         this.address = address;
         this.code = code;
         this.menu = null;
         this.critiques = new ArrayList<>();
-        this.overviewCritique = null;
+        this.overview = new RestaurantOverview();
+        this.owner = owner;
     }
 
 
-    public void addEntry(HashMap<DishType,ArrayList<MenuEntry>> a){
+    public void addMenu(HashMap<DishType,ArrayList<MenuEntry>> a){
         menu = a;
     }
 
     @Override
     public String toString() {
-        return this.name + "&" + this.address + "&" + this.overviewCritique.toString();
+        return this.name + "&" + this.address + "&" + this.overview.toString();
     }
     
     public void printMenu(){
@@ -48,16 +50,13 @@ public class Restaurant {
     public void addCritique(Critique crit){
 
         this.critiques.add(crit);
-        this.overviewCritique = Critique.computeMean(this.critiques);
+        this.overview.computeMean(this.critiques);
     }
 
     public String getRestaurantInfo(){
         return this.name + "," + this.address;
     }
 
-    public int getCode() {
-        return code;
-    }
 
     public LinkedHashMap<Integer, String> getMenuInfo () {
         if(this.menu == null)
@@ -102,21 +101,57 @@ public class Restaurant {
         String all = "";
         String separetor = "&";
         for (Critique c : this.critiques){
-            all = all +c.toString() + "\n" + separetor;
+            all = all + c.toString() + "\n" + separetor;        // TODO use StringBuilder
         }
         temp.put("overview", all);
         return temp;
     }
 
-    public HashMap<String, Double> getMeanCritique(){
-        HashMap<String, Double> temp = new HashMap<>();
+    public HashMap<String, String> getMeanCritique(){
+        HashMap<String, String> temp = new HashMap<>();
         for (CritiqueSections i : CritiqueSections.values()) {
-            temp.put((String.valueOf(i)), this.overviewCritique.getSections().get(i));
+            temp.put((String.valueOf(i)), String.format("%.2f", this.overview.getSections().get(i)).replace(",","."));
         }
-        System.out.println(String.valueOf(CritiqueSections.CUCINA));
         return temp;
     }
 
+    public void addMenuEntry(String dishType,String dish, double price){
+        if(this.menu == null){
+            this.menu = new HashMap<>();
+            this.menu = MenuHandler.getInstance().initializeMenu(this.menu);
+            addDishToMenu(dishType,dish,price,1);
+        }
+        else{
+            int code = MenuHandler.getInstance().getLastCode(this.menu) + 1;
+            MenuHandler.getInstance().checkExistance(dish,this.menu);
+            addDishToMenu(dishType,dish,price,code);
+        }
+        printMenu();
 
 
+    }
+    private void addDishToMenu(String dishType,String dish, double price, int code){
+        this.menu.get(MenuHandler.getInstance().stringConverter(dishType))
+                .add(new MenuEntry(dish,price,code));
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public ArrayList<Critique> getCritiques() {
+        return critiques;
+    }
 }
