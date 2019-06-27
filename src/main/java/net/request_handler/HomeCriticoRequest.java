@@ -34,7 +34,8 @@ public class HomeCriticoRequest extends AbstractRequestStrategy {
         String tmp = req.getParameter("switch");
         if(!tmp.equals("viewCrit"))
             postList(req,resp,tmp);
-        postCritiquesView(req, resp);
+        else
+            postCritiquesView(req, resp);
 
     }
 
