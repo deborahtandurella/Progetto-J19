@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CritiqueRequest extends AbstractRequestStrategy {
 
@@ -32,7 +33,9 @@ public class CritiqueRequest extends AbstractRequestStrategy {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         writeCritique(req);
-        write(resp, Rythm.render("homeCritico.html"));
+        Map<String,Object> param = new HashMap<>();
+        param.put("username", req.getParameter("username"));
+        write(resp, Rythm.render("homeCritico.html",param));
     }
 
 
@@ -42,7 +45,6 @@ public class CritiqueRequest extends AbstractRequestStrategy {
 
         HomeCritic.getInstance().writeCritique(restCode, getVoti(req), this.voteDishes(req,restCode),
                 req.getParameter("comment"), req.getParameter("username"));
-
     }
     private HashMap<MenuEntry,Double> voteDishes(HttpServletRequest req,int restCode){
         ArrayList<Integer> menu = HomeCritic.getInstance().getMenuCode(restCode);

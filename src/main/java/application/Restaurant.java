@@ -5,29 +5,39 @@ import application.restaurant_exception.NoCritiquesException;
 
 import java.util.*;
 
-
+/**
+ * A restaurant , it can be created by a restaurant owner
+ */
 public class Restaurant {
     private final String name;
     private final String address;
     private final int code;
     private HashMap<DishType,ArrayList<MenuEntry>> menu ;
-    private ArrayList<Critique> critiques;
     private RestaurantOverview overview;
     private String owner ;
 
+    /**
+     * Create a new restaurant .
+     * @param name the name of the restaurant
+     * @param address the address of the restaurant
+     * @param code  the code by which  the restaurant is identified in the system
+     * @param owner the username of the restaurant's owner
+     */
     public Restaurant(String name, String address, int code, String owner){
         this.name = name;
         this.address = address;
         this.code = code;
         this.menu = null;
-        this.critiques = new ArrayList<>();
         this.overview = new RestaurantOverview();
         this.owner = owner;
     }
 
-
-    public void addMenu(HashMap<DishType,ArrayList<MenuEntry>> a){
-        menu = a;
+    /**
+     * Add a new menu to the restaurant.
+     * @param menu the menu of the restaurant
+     */
+    public void addMenu(HashMap<DishType,ArrayList<MenuEntry>> menu){
+        this.menu = menu;
     }
 
     @Override
@@ -47,17 +57,21 @@ public class Restaurant {
         }
     }
 
-    public void addCritique(Critique crit){
-
-        this.critiques.add(crit);
-        this.overview.computeMean(this.critiques);
+    /**
+     * Method which is called when a new critique about the restaurant is written.
+     *
+     * It updates the restaurant overview.
+     * @param overview the updated overview of the restaurant
+     */
+    public void setOverview(RestaurantOverview overview) {
+        this.overview = overview;
     }
 
-    public String getRestaurantInfo(){
-        return this.name + "," + this.address;
-    }
-
-
+    /**
+     * Method called when  the names of the dishes in the restaurant's menu are required.
+     *
+     * @return a map whose keys are the codes of the dishes and the values are the name of the dishes
+     */
     public LinkedHashMap<Integer, String> getMenuInfo () {
         if(this.menu == null)
             throw new EmptyMenuException();
@@ -71,6 +85,11 @@ public class Restaurant {
         return temp;
     }
 
+    /**
+     * Method called when a critic writes a critique about the restaurant, in order to match each grade with its dish
+     *
+     * @return a list of the codes of the dishes
+     */
     public ArrayList<Integer> getMenuCode(){
         ArrayList<Integer> tmp = new ArrayList<>();
         for (DishType e : this.menu.keySet()) {
@@ -81,6 +100,12 @@ public class Restaurant {
         return tmp;
     }
 
+    /**
+     * Method called before the writing of a critique.
+     * @param cod is a code of one of the dishes
+     *
+     * @return the dish (matching the code) which is voted by a critic
+     */
     public MenuEntry getDish(int cod){
         for (Map.Entry<DishType,ArrayList<MenuEntry>> a: this.menu.entrySet()) {
             for (MenuEntry me:a.getValue()) {
@@ -92,29 +117,30 @@ public class Restaurant {
         return null;
     }
 
+    /**
+     * Method called when the overview of the restaurant has to be sent to restaurant_view.html in order to be
+     * display in the web page.
+     *
+     * @return a map whose keys are the names of the sections of the overview and values are their grades
+     */
     public HashMap<String, String> getOverview(){
-        if(this.critiques.isEmpty())
-            throw new NoCritiquesException();
-        HashMap<String, String> temp = new HashMap<>();
-        temp.put("name", this.name);
-        temp.put("address", this.address);
-        String all = "";
-        String separetor = "&";
-        for (Critique c : this.critiques){
-            all = all + c.toString() + "\n" + separetor;        // TODO use StringBuilder
-        }
-        temp.put("overview", all);
-        return temp;
-    }
-
-    public HashMap<String, String> getMeanCritique(){
         HashMap<String, String> temp = new HashMap<>();
         for (CritiqueSections i : CritiqueSections.values()) {
-            temp.put((String.valueOf(i)), String.format("%.2f", this.overview.getSections().get(i)).replace(",","."));
+            temp.put((String.valueOf(i)),
+                    String.format("%.2f", this.overview.getSections().get(i)).replace(",","."));
         }
         return temp;
     }
 
+    /**
+     * Method called when the restaurant's owner adds a dish to the menu of the restaurant.
+     *
+     * It adds a new dish to the menu of the restaurant.
+     *
+     * @param dishType the type of the dish(antipasto,primo...)
+     * @param dish the name of the dish
+     * @param price the price of the dish
+     */
     public void addMenuEntry(String dishType,String dish, double price){
         if(this.menu == null){
             this.menu = new HashMap<>();
@@ -130,10 +156,21 @@ public class Restaurant {
 
 
     }
+
+    /**
+     * Called by addMenuEntry.
+     * Adds a new dish to the menu of the restaurant.
+     *
+     * @param dishType the type of the dish(antipasto,primo...)
+     * @param dish the name of the dish
+     * @param price the price of the dish
+     * @param code the code by which the system identifies the dish
+     */
     private void addDishToMenu(String dishType,String dish, double price, int code){
         this.menu.get(MenuHandler.getInstance().stringConverter(dishType))
                 .add(new MenuEntry(dish,price,code));
     }
+
 
     public int getCode() {
         return code;
@@ -151,7 +188,11 @@ public class Restaurant {
         return owner;
     }
 
-    public ArrayList<Critique> getCritiques() {
-        return critiques;
+    /**
+     * @return the mean  of the votes of the overview's sections
+     */
+    public double getMeanVote(){
+        return this.overview.getMean();
     }
+
 }

@@ -41,7 +41,7 @@ public class HomeCriticoRequest extends AbstractRequestStrategy {
 
     private void postList(HttpServletRequest req, HttpServletResponse resp, String tmp) throws IOException{
         String username = req.getParameter("username");
-        Map<Integer, String> restaurant = RestaurantCatalogue.getInstance().getRestaurantInfo();
+        Map<Integer, String> restaurant = RestaurantCatalogue.getInstance().getAllRestaurantName();
         Map<String, Object> param = new HashMap<>();
         param.put("restaurant", restaurant);
         param.put("sw", tmp);

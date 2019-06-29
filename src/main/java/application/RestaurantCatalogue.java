@@ -9,17 +9,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-// TODO methods for single restaurant's info
 public  class RestaurantCatalogue {
     private static RestaurantCatalogue instance = null;
     private  Map<Integer, Restaurant> restaurants;
     private  int counter;
-    private  int counterCrit;
 
     private RestaurantCatalogue(){
         this.restaurants = new HashMap<>();
         this.counter = 0;
-        this.counterCrit = 0;
     }
     public static synchronized RestaurantCatalogue getInstance(){
         if(instance == null)
@@ -33,33 +30,21 @@ public  class RestaurantCatalogue {
         Restaurant r = new Restaurant(name, address, ++counter, owner);
         restaurants.put(counter, r);
         return counter;
-
     }
     
     public  void addMenu(HashMap<DishType,ArrayList<MenuEntry>> a, int key){
         restaurants.get(key).addMenu(a);
     }
-    
-    public  String findRestaurant(int k){
-        if(!restaurants.containsKey(k)){
-            throw new RestaurantNotFoundException();
-        }
-        return restaurants.get(k).getRestaurantInfo();
-    }
+
 
     public  void printMenu(int key){
        restaurants.get(key).printMenu();
     }
 
-    public  void addCritique(int codResturant, Critique crit){
-        crit.setCode(++counterCrit);
-        restaurants.get(codResturant).addCritique(crit);
-    }
-
-    public Map<Integer,String> getRestaurantInfo(){
+    public Map<Integer,String> getAllRestaurantName(){
         Map<Integer, String> rest = new HashMap<>();
         for(Map.Entry<Integer, Restaurant> e : restaurants.entrySet()){
-            rest.put(e.getKey(),e.getValue().getRestaurantInfo());
+            rest.put(e.getKey(),e.getValue().getName());
         }
         return rest;
     }
@@ -78,10 +63,6 @@ public  class RestaurantCatalogue {
 
     public HashMap<String,String> getRestaurantOverview(int restCod){
         return this.restaurants.get(restCod).getOverview();
-    }
-
-    public HashMap<String,String> getRestaurantMeanCritique(int restCod){
-        return this.restaurants.get(restCod).getMeanCritique();
     }
 
     private void checkExisting(String name, String address){
@@ -108,21 +89,23 @@ public  class RestaurantCatalogue {
         return myRest;
     }
 
-    public ArrayList<String> myCritique(String critic){
-        ArrayList<String> critique = new ArrayList<>();
-        for(Map.Entry<Integer, Restaurant> restaurant: this.restaurants.entrySet()) {
-            for(Critique crit : restaurant.getValue().getCritiques()) {
-                if (crit.getCritico().equals(critic))
-                    critique.add(crit.myCritique(restaurant.getValue().getName()));
-            }
-        }
-        if(critique.isEmpty())
-            throw new NoCritiquesException("Nessuna critica ancora compilata!");
-        return critique;
-    }
-
     public void addMenuEntry(int restaurantCode,String dishType,String dish, double price) {
         this.restaurants.get(restaurantCode).addMenuEntry(dishType,dish,price);
+    }
+
+    public String getRestaurantName(int restaurantCode){
+        return this.restaurants.get(restaurantCode).getName();
+    }
+    public String getRestaurantAddress(int restaurantCode){
+        return this.restaurants.get(restaurantCode).getAddress();
+    }
+
+    public void setRestaurantOverview(int restaurantCode,RestaurantOverview overview){
+        this.restaurants.get(restaurantCode).setOverview(overview);
+    }
+
+    public double getRestaurantMeanVote(int restaurantCode){
+        return this.restaurants.get(restaurantCode).getMeanVote();
     }
 
 }

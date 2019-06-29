@@ -1,9 +1,6 @@
 package application.controller;
 
-import application.Critique;
-import application.Database;
-import application.MenuEntry;
-import application.RestaurantCatalogue;
+import application.*;
 import application.restaurant_exception.NoCritiquesException;
 import application.restaurant_exception.RestaurantNotFoundException;
 
@@ -27,21 +24,14 @@ public class HomeCritic implements Home {
     public void writeCritique(int codResturant, double [] voti, HashMap<MenuEntry,Double> votiPiatti,
                               String comment,String critico){
 
-        Critique c = new Critique( voti[0], voti[1],  voti[2], voti[3],critico);
+        Critique c = new Critique(critico,codResturant,0);
+        c.writeVotes(voti);
+        votiPiatti = this.removeNullDishes(votiPiatti);
         c.voteDishes(votiPiatti);
         c.setComment(comment);
-        RestaurantCatalogue.getInstance().addCritique(codResturant, c);
+        CritiqueCatalogue.getInstance().addNewCritique(c);
     }
 
-    public String findRestaurant(int restaurantCode) {
-        String tmp = null;
-        try {
-            tmp = RestaurantCatalogue.getInstance().findRestaurant(restaurantCode);
-        } catch (RestaurantNotFoundException e) {
-            System.err.println(e.getMessage());
-        }
-        return tmp;
-    }
 
     public boolean logIn(String username, String psw){
         return Database.getInstance().logInCritico(username,psw);
@@ -59,6 +49,19 @@ public class HomeCritic implements Home {
     }
 
     public ArrayList<String> myCritique(String critic) throws NoCritiquesException {
-        return RestaurantCatalogue.getInstance().myCritique(critic);
+        return CritiqueCatalogue.getInstance().getCritiquesByUser(critic);
+    }
+
+    private HashMap<MenuEntry, Double> removeNullDishes(HashMap<MenuEntry, Double> dv){
+        ArrayList<MenuEntry> temp = new ArrayList<>();
+        for (Map.Entry<MenuEntry, Double> dish : dv.entrySet()){
+            if(dish.getValue() == 0){
+                temp.add(dish.getKey());
+            }
+        }
+        for (MenuEntry dish : temp){
+            dv.remove(dish);
+        }
+        return dv;
     }
 }

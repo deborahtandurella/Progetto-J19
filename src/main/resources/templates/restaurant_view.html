@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-@args String name,String address, Map<String, String> meanCritique, List<String> crit, String votoMedio
+@args String name,String address, Map<String, String> overview, List<String> critiques, String votoMedio
 <html lang="en">
 
 <head>
@@ -120,7 +120,7 @@
                             }
                         </h7>
                         <br><br>
-                        @for(Map.Entry<String, String> ov: meanCritique.entrySet()){
+                        @for(Map.Entry<String, String> ov: overview.entrySet()){
                             <br><br><h8 class="txt-tl">@ov.getKey() @ov.getValue() :&nbsp&nbsp</h8>
                             @for(int i = 1; i <= (Double.parseDouble(ov.getValue()))/2; i++){
                             <span class="fa fa-star checked"></span>
@@ -181,22 +181,11 @@
                 <div class="col-md-4 col-sm-6 padding-right-zero" >
                     <div class="portfolio-box design" >
                         <div class="portfolio-box design" style="overflow-y: scroll; height:400px; width: 600px;">
-                            @for(int t = 0; t < crit.size() - 11;t = t +11 ){
-                                @for(int i=0;i < 8;i = i+2){
-                                    <h7><br>@crit.get(t+i): @crit.get(t+i+1)<br></h7>
-                                    @for(int k = 1; k <= (Double.parseDouble(crit.get(t+i+1)))/2; k++){
-                                    <span class="fa fa-star checked"></span>
-                                    }
-                                    @if((Double.parseDouble(crit.get(t+i+1)))%2 >= 1){
-                                    <span class="fa fa-star-half-full checked"></span>
-                                    }
-                                    @for(int j=1; j <= (10 - (Double.parseDouble(crit.get(t+i+1))))/2; j++){
-                                    <span class="fa fa-star-o checked"></span>
+                            @for(String crit : critiques){
+                                @for(String s : crit.split("£")){
+                                    <h7>@s<br></h7>
                                 }
-                            }
-                            <h7><br>COMMENTO :<br></h7>
-                            <h7>@crit.get(t+10);<br></h7>
-
+                            <br><h7>***********************************</h7><br>
                             }
                         </div>
                     </div>

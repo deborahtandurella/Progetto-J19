@@ -1,5 +1,7 @@
 package net.request_handler;
 
+import application.CritiqueCatalogue;
+import application.Restaurant;
 import application.RestaurantCatalogue;
 import application.restaurant_exception.EmptyMenuException;
 import application.restaurant_exception.NoCritiquesException;
@@ -59,19 +61,20 @@ public class ListRequest extends AbstractRequestStrategy {
             write(resp,Rythm.render("warn.html"));
         }
     }
+
     protected void sendRestaurantOverview(int restaurantCode,HttpServletResponse resp, String username)throws IOException{
         Map<String, Object> conf = new HashMap<>();
         try{
-            Map<String, String> info = RestaurantCatalogue.getInstance().getRestaurantOverview(restaurantCode);
-            Map<String, String> meanCritique = RestaurantCatalogue.getInstance()
-                    .getRestaurantMeanCritique(restaurantCode);
 
-            conf.put("name", info.get("name"));
-            conf.put("address", info.get("address"));
-            conf.put("meanCritique", meanCritique);
-            conf.put("crit",this.parseCritique(info.get("overview").split("&")));
+            Map<String, String> restaurantOverview = RestaurantCatalogue.getInstance()
+                    .getRestaurantOverview(restaurantCode);
+
+            conf.put("name", RestaurantCatalogue.getInstance().getRestaurantName(restaurantCode));
+            conf.put("address", RestaurantCatalogue.getInstance().getRestaurantAddress(restaurantCode));
+            conf.put("overview", restaurantOverview);
+            conf.put("critiques", CritiqueCatalogue.getInstance().getRestaurantCritiqueToString(restaurantCode));
             conf.put("username",username);
-            conf.put("votoMedio",votoMedio(meanCritique));
+            conf.put("votoMedio",Double.toString(RestaurantCatalogue.getInstance().getRestaurantMeanVote(restaurantCode)));
             write(resp, Rythm.render("restaurant_view.html", conf));
         }catch (NoCritiquesException e){
             NoCritiquesExceptionhandler(restaurantCode,conf,resp);
@@ -81,35 +84,13 @@ public class ListRequest extends AbstractRequestStrategy {
 
     private void NoCritiquesExceptionhandler(int restaurantCode,Map<String, Object> conf,HttpServletResponse resp)
             throws IOException {
-        String [] restInfo = RestaurantCatalogue.getInstance().findRestaurant(restaurantCode)
-                .split(",");
-        conf.put("name",restInfo[0]);
-        conf.put("address",restInfo[1]);
+        conf.put("name",RestaurantCatalogue.getInstance().getRestaurantName(restaurantCode));
+        conf.put("address",RestaurantCatalogue.getInstance().getRestaurantAddress(restaurantCode));
         write(resp,Rythm.render("restaurantViewException.html",conf));
-    }
-
-    private LinkedList<String> parseCritique(String[] critique){
-        LinkedList<String> token = new LinkedList<>();
-        for(String cr : critique){
-            String tmp [] = cr.split("£");
-            for(int i=0;i < tmp.length; i++){
-                token.add(tmp[i]);
-            }
-        }
-        return token;
-    }
-
-    private String votoMedio(Map<String, String> meanCritique) {
-        double votoMedio = 0;
-        for (Map.Entry<String, String> a : meanCritique.entrySet()) {
-            votoMedio = Double.parseDouble(a.getValue()) + votoMedio;
-        }
-        return String.format("%.2f", votoMedio/meanCritique.size()).replace(",",".");
     }
 
     private void checkNumber(String restaurantCode){
         if(restaurantCode == null)
             throw new MissingFormParameterException("Scegliere un ristorante per continuare");
     }
-
 }
