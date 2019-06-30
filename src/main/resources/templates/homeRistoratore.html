@@ -1,4 +1,4 @@
-@args String username, Map<Integer, String> myRest
+@args String username, Map<Integer, String> myRest, String exception
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,12 +94,17 @@
                     <div class="icon-text">
                         <h2 class="txt-tl">I miei ristoranti</h2>
                     <form method="post" action="/homeRistoratore">
-                        @for(Map.Entry<Integer,String> rest : myRest.entrySet()){
-                        <input type="radio" name = "restaurant" value =  @rest.getKey() /> @rest.getValue()  <br>
+                        @if(exception.equals("false")){
+                            @for(Map.Entry<Integer,String> rest : myRest.entrySet()){
+                            <input type="radio" name = "restaurant" value =  @rest.getKey() /> @rest.getValue()  <br>
+                            }
+                            <input type="hidden"  name="switch" value="viewMyRest">
+                            <input type="hidden"  name="username" value=@username>
+                            <button type="submit" class="btn btn-submit">CONFIRM</button>
                         }
-                        <input type="hidden"  name="switch" value="viewMyRest">
-                        <input type="hidden"  name="username" value=@username>
-                        <button type="submit" class="btn btn-submit">CONFIRM</button>
+                        @if(exception.equals("true")){
+                            <h4 class="txt-tl">Ancora nessun ristorante registrato</h4>
+                        }
                     </form>
                     </div>
 

@@ -1,8 +1,10 @@
 package application.controller;
 
 import application.*;
+import application.database_exception.InvalidUsernameException;
 import application.restaurant_exception.NoCritiquesException;
 import application.restaurant_exception.RestaurantNotFoundException;
+import application.user.UserCatalogue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,11 +36,11 @@ public class HomeCritic implements Home {
 
 
     public boolean logIn(String username, String psw){
-        return Database.getInstance().logInCritico(username,psw);
+        return UserCatalogue.getInstance().logInCritic(username,psw);
     }
 
-    public void signUp(String username, String password){
-        Database.getInstance().criticSignUp(username, password);
+    public void signUp(String username, String password, String name, String surname)throws InvalidUsernameException {
+        UserCatalogue.getInstance().criticSignUp(username,password, name, surname);
     }
 
     public ArrayList<Integer> getMenuCode(int restCode){

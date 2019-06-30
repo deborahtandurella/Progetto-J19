@@ -67,6 +67,7 @@ public class AddMenuRequest extends AbstractRequestStrategy {
             Map<String, Object> conf = new HashMap<>();
             conf.put("myRest", HomeRestaurantOwner.getInstance().getOwnedRestaurant(req.getParameter("username")));
             conf.put("username", req.getParameter("username"));
+            conf.put("exception", "false");
             write(resp, Rythm.render("homeRistoratore.html", conf));
 
         }

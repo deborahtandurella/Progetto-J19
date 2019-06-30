@@ -3,6 +3,7 @@ package net.request_handler;
 import application.controller.HomeCritic;
 import application.controller.HomeRestaurantOwner;
 import application.RestaurantCatalogue;
+import application.restaurant_exception.RestaurantNotFoundException;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +38,7 @@ public class HomeRequest extends  AbstractRequestStrategy {
         try{
             logIn(type,resp, username, password);
         }catch(InvalidParameterException e){
-            write(resp,Rythm.render("warn.html"));
+            write(resp,Rythm.render("warn.html", e.getMessage()));
         }
 
     }
@@ -46,12 +47,12 @@ public class HomeRequest extends  AbstractRequestStrategy {
         if(type == null)
             throw new InvalidParameterException();
         else if(type.equals("critico"))
-            logCritico(resp, username, password);
+            logCritic(resp, username, password);
         else if (type.equals("ristoratore"))
-            logRistoratore(resp, username, password);
+            logRestaurantOwner(resp, username, password);
 
     }
-    private void logCritico(HttpServletResponse resp, String username, String password) throws IOException{
+    private void logCritic(HttpServletResponse resp, String username, String password) throws IOException{
         if (HomeCritic.getInstance().logIn(username, password)) {
             write(resp, Rythm.render("homeCritico.html",username));
         } else
@@ -59,10 +60,16 @@ public class HomeRequest extends  AbstractRequestStrategy {
     }
 
 
-    private void logRistoratore(HttpServletResponse resp, String username, String password) throws IOException{
+    private void logRestaurantOwner(HttpServletResponse resp, String username, String password) throws IOException{
         if(HomeRestaurantOwner.getInstance().logIn(username,password)) {
             Map<String, Object> conf = new HashMap<>();
-            conf.put("myRest", HomeRestaurantOwner.getInstance().getOwnedRestaurant(username));
+            try {
+                conf.put("myRest", HomeRestaurantOwner.getInstance().getOwnedRestaurant(username));
+                conf.put("exception","false");
+            }
+            catch (RestaurantNotFoundException e){
+               conf.put("exception", "true");
+            }
             conf.put("username", username);
             write(resp, Rythm.render("homeRistoratore.html", conf));
         }

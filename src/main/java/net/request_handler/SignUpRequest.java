@@ -31,28 +31,30 @@ public class SignUpRequest extends AbstractRequestStrategy {
         String type = req.getParameter("type");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        String name = req.getParameter("name");
+        String surname = req.getParameter("surname");
         try{
-            signUp(type,username,password);
+            signUp(type,username,password, name, surname);
         }catch (InvalidUsernameException e){
             write(resp, Rythm.render("warn.html",e.getMessage()));
         }
 
     }
 
-    private void signUp(String type, String username, String password)throws InvalidUsernameException{
+    private void signUp(String type, String username, String password, String name, String surname)throws InvalidUsernameException{
         // TODO check if params are != null
         if(type.equals("critic"))
-            criticSignUp(username, password);
+            criticSignUp(username, password, name, surname);
         else if(type.equals("restaurantOwner"))
-            ristoratoreSignUp(username, password);
+            ristoratoreSignUp(username, password, name, surname);
 
     }
 
-    private void criticSignUp(String username, String password)throws InvalidUsernameException{
-        HomeCritic.getInstance().signUp(username, password);
+    private void criticSignUp(String username, String password, String name, String surname)throws InvalidUsernameException{
+        HomeCritic.getInstance().signUp(username, password, name, surname);
     }
 
-    private void ristoratoreSignUp(String username,String password)throws InvalidUsernameException {
-        HomeRestaurantOwner.getInstance().signUp(username, password);
+    private void ristoratoreSignUp(String username,String password, String name, String surname)throws InvalidUsernameException {
+        HomeRestaurantOwner.getInstance().signUp(username, password, name, surname);
     }
 }

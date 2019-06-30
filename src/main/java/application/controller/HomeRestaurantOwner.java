@@ -5,6 +5,7 @@ import application.Database;
 import application.RestaurantCatalogue;
 import application.database_exception.InvalidUsernameException;
 import application.restaurant_exception.RestaurantNotFoundException;
+import application.user.UserCatalogue;
 
 import java.util.Map;
 
@@ -24,16 +25,15 @@ public class HomeRestaurantOwner implements Home {
     }
 
     public boolean logIn(String username, String psw){
-        return Database.getInstance().logInRistoratore(username,psw);
+        return UserCatalogue.getInstance().logInRestaurantOwner(username,psw);
     }
 
-    public void signUp(String username, String password)throws InvalidUsernameException {
-        Database.getInstance().ristoratoriSignUp(username,password);
+    public void signUp(String username, String password, String name, String surname)throws InvalidUsernameException {
+        UserCatalogue.getInstance().restaurantOwnerSignUp(username,password, name, surname);
     }
 
 
     public Map<Integer, String> getOwnedRestaurant(String username)throws RestaurantNotFoundException {
-
         return RestaurantCatalogue.getInstance().myRestaurant(username);
     }
 
