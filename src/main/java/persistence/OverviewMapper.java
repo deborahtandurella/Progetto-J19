@@ -1,12 +1,12 @@
 package persistence;
 
-import application.Restaurant;
 import application.RestaurantOverview;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,9 +32,8 @@ public class OverviewMapper extends AbstractPersistenceMapper {
 
             }
         }
-        RestaurantOverview ro = new RestaurantOverview(grade,rs.getDouble(7));
-        System.out.println(ro.toString() + "333");
-        return ro  ;
+        return new RestaurantOverview(grade,rs.getDouble(7));
+
     }
 
     @Override
@@ -51,5 +50,6 @@ public class OverviewMapper extends AbstractPersistenceMapper {
     public void put(String OID, Object obj) {
 
     }
+
 
 }
