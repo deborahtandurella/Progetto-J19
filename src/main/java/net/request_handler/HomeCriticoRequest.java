@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class HomeCriticoRequest extends AbstractRequestStrategy {
+public class HomeCriticoRequest extends HomeUserRequest {
 
     private static HomeCriticoRequest instance = null;
 
@@ -24,30 +24,16 @@ public class HomeCriticoRequest extends AbstractRequestStrategy {
             instance = new HomeCriticoRequest();
         return instance;
     }
-    @Override
-    public void doGet(HttpServletResponse resp) throws IOException {
-
-    }
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String tmp = req.getParameter("switch");
         if(!tmp.equals("viewCrit"))
-            postList(req,resp,tmp);
+            super.postList(req,resp,tmp);
         else
             postCritiquesView(req, resp);
-
     }
 
-    private void postList(HttpServletRequest req, HttpServletResponse resp, String tmp) throws IOException{
-        String username = req.getParameter("username");
-        Map<Integer, String> restaurant = RestaurantCatalogue.getInstance().getAllRestaurantName();
-        Map<String, Object> param = new HashMap<>();
-        param.put("restaurant", restaurant);
-        param.put("sw", tmp);
-        param.put("username", username);
-        write(resp, Rythm.render("list.html", param));
-    }
 
     private void postCritiquesView(HttpServletRequest req, HttpServletResponse resp)throws IOException{
         try {

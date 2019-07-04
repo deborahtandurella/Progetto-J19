@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class MyRestaurantActionRequest extends ListRequest {
+public class MyRestaurantActionRequest extends OverviewRequest {
 
     private static MyRestaurantActionRequest instance = null;
 
@@ -16,10 +16,6 @@ public class MyRestaurantActionRequest extends ListRequest {
         return instance;
     }
 
-    @Override
-    public void doGet(HttpServletResponse resp) {
-
-    }
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {

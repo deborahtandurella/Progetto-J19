@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
-public class ListRequest extends AbstractRequestStrategy {
+public class ListRequest extends OverviewRequest {
     private static ListRequest instance = null;
 
     protected ListRequest() {
@@ -25,11 +25,6 @@ public class ListRequest extends AbstractRequestStrategy {
         if(instance == null)
             instance = new ListRequest();
         return instance;
-    }
-
-    @Override
-    public void doGet(HttpServletResponse resp) {
-
     }
 
     @Override
@@ -60,33 +55,6 @@ public class ListRequest extends AbstractRequestStrategy {
         }catch(EmptyMenuException e){
             write(resp,Rythm.render("warn.html"));
         }
-    }
-
-    protected void sendRestaurantOverview(int restaurantCode,HttpServletResponse resp, String username)throws IOException{
-        Map<String, Object> conf = new HashMap<>();
-        try{
-
-            Map<String, String> restaurantOverview = RestaurantCatalogue.getInstance()
-                    .getRestaurantOverview(restaurantCode);
-
-            conf.put("name", RestaurantCatalogue.getInstance().getRestaurantName(restaurantCode));
-            conf.put("address", RestaurantCatalogue.getInstance().getRestaurantAddress(restaurantCode));
-            conf.put("overview", restaurantOverview);
-            conf.put("critiques", CritiqueCatalogue.getInstance().getRestaurantCritiqueToString(restaurantCode));
-            conf.put("username",username);
-            conf.put("votoMedio",Double.toString(RestaurantCatalogue.getInstance().getRestaurantMeanVote(restaurantCode)));
-            write(resp, Rythm.render("restaurant_view.html", conf));
-        }catch (NoCritiquesException e){
-            NoCritiquesExceptionhandler(restaurantCode,conf,resp);
-        }
-    }
-
-
-    private void NoCritiquesExceptionhandler(int restaurantCode,Map<String, Object> conf,HttpServletResponse resp)
-            throws IOException {
-        conf.put("name",RestaurantCatalogue.getInstance().getRestaurantName(restaurantCode));
-        conf.put("address",RestaurantCatalogue.getInstance().getRestaurantAddress(restaurantCode));
-        write(resp,Rythm.render("restaurantViewException.html",conf));
     }
 
     private void checkNumber(String restaurantCode){

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class HomeRistoratoreRequest extends HomeCriticoRequest {
+public class HomeRistoratoreRequest extends HomeUserRequest {
 
     private static HomeRistoratoreRequest instance = null;
 
@@ -21,6 +21,7 @@ public class HomeRistoratoreRequest extends HomeCriticoRequest {
             instance = new HomeRistoratoreRequest();
         return instance;
     }
+
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
