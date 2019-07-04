@@ -1,0 +1,55 @@
+package persistence;
+
+import application.Restaurant;
+import application.RestaurantOverview;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * It is the mapper of te table "overview"
+ */
+public class OverviewMapper extends AbstractPersistenceMapper {
+
+    private Map<String, RestaurantOverview> overview;
+
+    public OverviewMapper() throws SQLException {
+        super("overview");
+        this.overview = new HashMap<>();
+    }
+
+    @Override
+    protected Object getObjectFromTable(String OID) throws SQLException {
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("select * from "+ super.tableName +" where RESTAURANT ="+ OID);
+        double [] grade = new double[5];
+        if(rs.next()) {
+            for (int i = 0; i < grade.length; i++) {
+                grade[i] = rs.getDouble(i + 2);
+
+            }
+        }
+        RestaurantOverview ro = new RestaurantOverview(grade,rs.getDouble(7));
+        System.out.println(ro.toString() + "333");
+        return ro  ;
+    }
+
+    @Override
+    protected Object getObjectFromCache(String OID) {
+        return null;
+    }
+
+    @Override
+    protected void updateCache(String OID, Object obj) {
+        this.overview.put(OID,(RestaurantOverview)obj);
+    }
+
+    @Override
+    public void put(String OID, Object obj) {
+
+    }
+
+}

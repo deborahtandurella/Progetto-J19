@@ -25,6 +25,14 @@ public class RestaurantOverview {
         this.mean = 0;
     }
 
+    public RestaurantOverview(double [] grade, double mean){
+        this.sections = new HashMap<>();
+        for(int i =0; i< CRITIQUE_SECTIONS.length;i++){
+            this.sections.put(CRITIQUE_SECTIONS[i],grade[i]);
+        }
+        this.mean = mean;
+    }
+
     /**
      * It computes the mean of each section
      * @param list of the critiques of a restaurant
@@ -62,5 +70,10 @@ public class RestaurantOverview {
      */
     public double getMean() {
         return mean;
+    }
+
+    @Override
+    public String toString() {
+        return this.sections.toString();
     }
 }

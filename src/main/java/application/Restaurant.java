@@ -11,7 +11,6 @@ import java.util.*;
 public class Restaurant {
     private final String name;
     private final String address;
-    private final int code;
     private HashMap<DishType,ArrayList<MenuEntry>> menu ;
     private RestaurantOverview overview;
     private String owner ;
@@ -20,13 +19,11 @@ public class Restaurant {
      * Create a new restaurant .
      * @param name the name of the restaurant
      * @param address the address of the restaurant
-     * @param code  the code by which  the restaurant is identified in the system
      * @param owner the username of the restaurant's owner
      */
-    public Restaurant(String name, String address, int code, String owner){
+    public Restaurant(String name, String address, String owner){
         this.name = name;
         this.address = address;
-        this.code = code;
         this.menu = null;
         this.overview = new RestaurantOverview();
         this.owner = owner;
@@ -171,10 +168,6 @@ public class Restaurant {
                 .add(new MenuEntry(dish,price,code));
     }
 
-
-    public int getCode() {
-        return code;
-    }
 
     public String getName() {
         return name;
