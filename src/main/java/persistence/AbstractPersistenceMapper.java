@@ -38,8 +38,28 @@ public abstract class AbstractPersistenceMapper implements IMapper {
         return obj;
     }
 
+    /**
+     * Method which get the object, represented by its key, (if it is not in cache) from the table
+     * who is linked to the mapper
+     * @param OID is the key of the object
+     * @return the object requested
+     * @throws SQLException
+     */
     protected abstract Object getObjectFromTable (String OID) throws SQLException;
+
+    /**
+     * Method which get the object , represented by its key, from the cache of the mapper
+     * (only if it has already been instanced from the database)
+     * @param OID the key of the object
+     * @return the object requested
+     */
     protected abstract Object getObjectFromCache(String OID);
+
+    /**
+     * Method called the cache has to be updated.
+     * @param OID the key of the object
+     * @param obj the object itself
+     */
     protected abstract void updateCache(String OID,Object obj);
 
 }

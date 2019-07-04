@@ -62,7 +62,6 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
             this.restaurant.put(rs.getString(1),new Restaurant(rs.getString(2),
                     rs.getString(3),rs.getString(3)));
             RestaurantOverview ro = ((RestaurantOverview) om.get(rs.getString(1)));
-            System.out.println(ro.toString());
             this.restaurant.get(rs.getString(1))
                     .setOverview(ro);
 
