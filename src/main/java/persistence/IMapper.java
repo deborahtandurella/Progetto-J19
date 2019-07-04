@@ -1,6 +1,7 @@
 package persistence;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Interface
@@ -13,5 +14,7 @@ public interface IMapper {
 
 
     Object get(String OID) throws SQLException;
-     void put(String OID, Object obj);
+    void put(String OID, Object obj);
+    //List<Object> getObjectList(String OID) throws SQLException;
+
 }

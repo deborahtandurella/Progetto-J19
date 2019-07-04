@@ -19,7 +19,7 @@ public class MenuHandler {
         return instance;
     }
     public DishType stringConverter(String choice){
-        switch (choice){
+        switch (choice.toLowerCase()){
             case "antipasto" :
                 return DishType.ANTIPASTI;
             case "primo": return DishType.PRIMI;

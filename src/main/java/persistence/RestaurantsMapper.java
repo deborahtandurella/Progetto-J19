@@ -21,11 +21,10 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
      * the restaurants which are registered  when the system is set up.
      * @throws SQLException
      */
-    public RestaurantsMapper(OverviewMapper om) throws SQLException {
+    public RestaurantsMapper(OverviewMapper om, MenuEntryMapper mem) throws SQLException {
         super("restaurants");
         this.restaurant = new HashMap<>();
-        setUp(om);
-        System.out.println(this.restaurant.get("1").toString());
+        setUp(om, mem);
     }
 
     @Override
@@ -55,15 +54,17 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
      * It populates the cache with the restaurant registered to the system.
      * @throws SQLException
      */
-    protected void setUp(OverviewMapper om) throws SQLException {
+    protected void setUp(OverviewMapper om, MenuEntryMapper mem) throws SQLException {
         Statement stm = super.conn.createStatement();
         ResultSet rs = stm.executeQuery("select * from "+super.tableName);
         while (rs.next()){
-            this.restaurant.put(rs.getString(1),new Restaurant(rs.getString(2),
-                    rs.getString(3),rs.getString(3)));
-            RestaurantOverview ro = ((RestaurantOverview) om.get(rs.getString(1)));
-            this.restaurant.get(rs.getString(1))
-                    .setOverview(ro);
+            Restaurant tmp = new Restaurant(rs.getString(2),rs.getString(3),
+                    rs.getString(3));
+            tmp.setOverview(((RestaurantOverview) om.get(rs.getString(1))));
+                    //tmp.addMenu();
+            this.restaurant.put(rs.getString(1),tmp);
+
+
 
         }
         List <Integer> temp = new ArrayList<>();
@@ -73,6 +74,8 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
         this.counter = Collections.max(temp);
 
     }
+
+
 
     public Map<String, Restaurant> getRestaurant() {
         return restaurant;
