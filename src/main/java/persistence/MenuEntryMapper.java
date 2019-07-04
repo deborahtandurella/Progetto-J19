@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  * It is the mapper of the table "menuentry"
@@ -49,7 +49,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
      * @throws SQLException
      * @throws EmptyMenuException if no MenuEntry are found for the restaurant
      */
-    public Map<DishType,ArrayList<MenuEntry>> getMenu(String OID) throws SQLException {
+    public HashMap<DishType,ArrayList<MenuEntry>> getMenu(String OID) throws SQLException {
         HashMap<DishType,ArrayList<MenuEntry>> menu = new HashMap<>();
         menu  = MenuHandler.getInstance().initializeMenu(menu);
         Statement stm = conn.createStatement();
@@ -58,8 +58,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
             throw new EmptyMenuException();
         while (rs.next()){
             menu.get(MenuHandler.getInstance().stringConverter(rs.getString(5)))
-                    .add(new MenuEntry(rs.getString(2),rs.getDouble(3),
-                            rs.getInt(1)));
+                    .add(new MenuEntry(rs.getString(2),rs.getDouble(3),rs.getInt(1)));
         }
         return menu;
     }

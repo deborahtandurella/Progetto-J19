@@ -2,6 +2,7 @@ package persistence;
 
 import application.Restaurant;
 import application.RestaurantOverview;
+import application.restaurant_exception.EmptyMenuException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ import java.util.*;
 public class RestaurantsMapper extends AbstractPersistenceMapper {
 
     private Map<String, Restaurant> restaurant ;
-    private int counter;
+
 
     /**
      * Initialize restaurant(is the cache of this mapper) with
@@ -46,7 +47,7 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
 
     @Override
     public void put(String OID, Object obj) {
-        //TODO implementare metodo
+        //TODO implementare metodo potrebbe valre la pena di creare classe restaurant info?
     }
 
     /**
@@ -61,17 +62,18 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
             Restaurant tmp = new Restaurant(rs.getString(2),rs.getString(3),
                     rs.getString(3));
             tmp.setOverview(((RestaurantOverview) om.get(rs.getString(1))));
-                    //tmp.addMenu();
+            try{
+                tmp.addMenu(mem.getMenu(rs.getString(1)));
+            }catch(EmptyMenuException e){
+            }
             this.restaurant.put(rs.getString(1),tmp);
-
-
 
         }
         List <Integer> temp = new ArrayList<>();
         for (String s: restaurant.keySet()) {
             temp.add(Integer.parseInt(s));
         }
-        this.counter = Collections.max(temp);
+        counter = Collections.max(temp);
 
     }
 
