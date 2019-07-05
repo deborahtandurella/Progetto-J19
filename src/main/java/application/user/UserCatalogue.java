@@ -1,6 +1,7 @@
 package application.user;
 
 import application.database_exception.InvalidUsernameException;
+import net.net_exception.InvalidParameterException;
 import persistence.PersistenceFacade;
 
 import java.io.*;
@@ -41,46 +42,32 @@ public class UserCatalogue {
      * @return true if 'username' and 'password' match, false if not
      */
     public UserType logInUser(String username, String psw) throws SQLException {
-            User userLOg = PersistenceFacade.getInstance().getUser(username);
-            if (!(userLOg.getPassword().equals(psw)))
+            User userLog = PersistenceFacade.getInstance().getUser(username);
+        System.out.println(userLog.getPassword());
+            if (!(userLog.getPassword().equals(psw)))
                 throw new InvalidUsernameException("Password errata");
-            return userLOg.getType();
+            return userLog.getType();
     }
 
     /**
-     * Method used in this class by 'restaurantOwnerSignUp' and 'criticSignUp' to sign up
+     * Method used to sign up a new user
      * a new user of the application and register his data.
      *
      * @param infoUser, an array which contains  username, password, name and surname of the user, in this order.
-     * @param catalogue the HashMap where the user's data will be saved
+     * @param  type, the enum which represents the type of user('critic' or 'restaurantOwner')
      */
-    private void userSignUp(String [] infoUser, HashSet<User> catalogue){
-        for(User u : catalogue) {
-            if (u.getUsername().equals(infoUser[0])) {
-                throw new InvalidUsernameException("Username already taken!");
-            }
+    public boolean userSignUp(String [] infoUser,UserType type) throws SQLException{
+        try{
+            User userLog = PersistenceFacade.getInstance().getUser(infoUser[0]);
+            return false;
         }
-        User user = new User(infoUser);
-        catalogue.add(user);
+        catch (InvalidUsernameException e){
+            User user = new User(infoUser, type);
+            PersistenceFacade.getInstance().signUpNewUser(user);
+            return true;
+        }
     }
 
-    /**
-     * Method called in class 'HomeRestaurantOwner' to sign up a new restaurant owner in the system
-     *
-     * @param credential, which contains username, password, name and surname
-     */
-    public void restaurantOwnerSignUp(String [] credential){
-        userSignUp(credential, this.restaurantOwner);
-    }
-
-    /**
-     * Method called in class 'HomeCritic' to sign up a new critic in the system
-     *
-     * @param credential, which contains username, password, name and surname
-     */
-    public void criticSignUp(String [] credential){
-        userSignUp(credential, this.critic);
-    }
 
     /**
      * Method used to update database

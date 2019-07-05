@@ -43,6 +43,15 @@ public class PersistenceFacade {
     }
 
     public User getUser(String key) throws SQLException{
-        return (User) ((UserMapper)mapper.get(UserMapper.class)).get(key);
+        return (User) (mapper.get(UserMapper.class)).get(key);
+    }
+
+    /**
+     * Method used to update the database and the cache when a new user signs up
+     *
+     * @param user, the new user registered
+     */
+    public void signUpNewUser(User user){
+        ((UserMapper)mapper.get(UserMapper.class)).signUpUser(user);
     }
 }

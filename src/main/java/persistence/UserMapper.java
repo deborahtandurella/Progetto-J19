@@ -6,6 +6,7 @@ import application.user.UserType;
 import application.database_exception.InvalidUsernameException;
 import sun.nio.cs.ArrayEncoder;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,7 +24,7 @@ public class UserMapper extends AbstractPersistenceMapper{
      * @throws SQLException
      */
     public UserMapper() throws SQLException{
-        super("USERS");
+        super("users");
         this.user = new HashSet<>();
     }
 
@@ -36,12 +37,13 @@ public class UserMapper extends AbstractPersistenceMapper{
      */
     @Override
     protected Object getObjectFromTable(String OID) throws SQLException {
-        Statement stm = super.conn.createStatement();
-        ResultSet rs = stm.executeQuery("select * from "+super.tableName+" where USERTYPE = "+OID);
+        PreparedStatement stm = conn.prepareStatement("SELECT * from "+super.tableName+" where USERNAME = ?");
+        stm.setString(1,OID);
+        ResultSet rs = stm.executeQuery();
         if (!rs.isBeforeFirst())
             throw new InvalidUsernameException("username inesistente");
         String [] tempCredential = new String[4];
-        if(!rs.next()) {
+        if(rs.next()) {
             for (int i=0; i<tempCredential.length; i++){
                 tempCredential[i] = rs.getString(i+1);
             }
@@ -67,19 +69,17 @@ public class UserMapper extends AbstractPersistenceMapper{
 
     @Override
     protected void updateCache(String OID, Object obj) {
-
+        this.user.add((User) obj);
     }
 
     @Override
     public void put(String OID, Object obj) {
-
+        //todo implements writing in the database the new user
     }
 
-    /**
-     *
-     * @return, the list of users already created in the cache
-     */
-    public HashSet<User> getUser(){
-        return this.user;
+    public void signUpUser(User user){
+        updateCache(user.getUsername(), user);
+        put(user.getUsername(), user);
     }
+
 }

@@ -54,22 +54,22 @@ INSERT INTO OVERVIEW VALUES (4,7,8,9,6,8,7.6);
 DROP TABLE IF EXISTS USERS;
 CREATE TABLE USERS
 	(USERNAME CHAR(30) primary key,
+     PASSWORD CHAR(10),
 	 NAME CHAR(20),
 	 SURNAME CHAR(20),
-	 PASSWORD CHAR(10),
-	 USERTYPE CHAR(1)
+	 USERTYPE CHAR(20)
 	)
 	ENGINE = InnoDB;
 
 
 -- inserimento nella table restaurantowners
 
-INSERT INTO USERS VALUES ('orso', 'Matteo', 'Orsolini', 'J19', 'R');
-INSERT INTO USERS VALUES ('tia', 'Mattia', 'Bosio', 'J19', 'R');
-INSERT INTO USERS VALUES ('al', 'Aldo', 'Baglio', 'ajeje', 'R');
-INSERT INTO USERS VALUES ('jack', 'Giacomo', 'Poretti', 'franabile', 'C');
-INSERT INTO USERS VALUES ('seb', 'Sebastian', 'Vettel','ferrari', 'C');
-INSERT INTO USERS VALUES ('kimi', 'Kimi', 'Raikkonen','alfa', 'C');
+INSERT INTO USERS VALUES ('orso', 'J19', 'Matteo', 'Orsolini', 'RESTAURANTOWNER');
+INSERT INTO USERS VALUES ('tia', 'J19', 'Mattia', 'Bosio', 'RESTAURANTOWNER');
+INSERT INTO USERS VALUES ('al', 'ajeje', 'Aldo', 'Baglio', 'RESTAURANTOWNER');
+INSERT INTO USERS VALUES ('jack', 'franabile', 'Giacomo', 'Poretti', 'CRITIC');
+INSERT INTO USERS VALUES ('seb', 'ferrari', 'Sebastian', 'Vettel', 'CRITIC');
+INSERT INTO USERS VALUES ('kimi', 'alfa', 'Kimi', 'Raikkonen', 'CRITIC');
 
 DROP TABLE IF EXISTS MENUENTRY;
 CREATE TABLE MENUENTRY

@@ -22,8 +22,8 @@ public class HomeUser {
         return UserCatalogue.getInstance().logInUser(username, psw);
     }
 
-    public void signUp(String [] credential)throws InvalidUsernameException {
-        UserCatalogue.getInstance().;
+    public boolean signUp(String [] credential, UserType type)throws InvalidUsernameException, SQLException {
+        return UserCatalogue.getInstance().userSignUp(credential,type);
     }
 
 }

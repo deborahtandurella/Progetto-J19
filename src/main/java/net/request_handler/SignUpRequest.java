@@ -2,12 +2,16 @@ package net.request_handler;
 
 import application.controller.HomeCritic;
 import application.controller.HomeRestaurantOwner;
+import application.controller.HomeUser;
 import application.database_exception.InvalidUsernameException;
+import application.user.UserType;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.InvalidParameterException;
+import java.sql.SQLException;
 
 public class SignUpRequest extends AbstractRequestStrategy {
     private static SignUpRequest instance = null;
@@ -35,27 +39,24 @@ public class SignUpRequest extends AbstractRequestStrategy {
         String surname = req.getParameter("surname");
         String [] credential = {username, password, name, surname};
         try{
-            signUp(type, credential);
-        }catch (InvalidUsernameException e){
-            write(resp, Rythm.render("warn.html",e.getMessage()));
+            signUp(type, credential, resp);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
         }
 
     }
 
-    private void signUp(String type, String [] credential)throws InvalidUsernameException{
-        // TODO check if params are != null
-        if(type.equals("critic"))
-            criticSignUp(credential);
-        else if(type.equals("restaurantOwner"))
-            ristoratoreSignUp(credential);
-
+    private void signUp(String type, String [] credential, HttpServletResponse resp)throws IOException, SQLException {
+        if(!(HomeUser.getInstance().signUp(credential, UserType.valueOf(type)))){
+            write(resp,Rythm.render("warn.html", "Username non valido, già in uso!"));
+        }
+        else {
+            /* TODO crete abstract class which is extended by 'SignUpRequest' and 'HomeRequest'.
+               TODO the abstract class has the method to write the template 'HomeCritic' and
+               TODO 'HomeRestaurantOwner'*/
+            write(resp, Rythm.render("home.html"));
+        }
     }
 
-    private void criticSignUp(String [] credential)throws InvalidUsernameException{
-        HomeCritic.getInstance().signUp(credential);
-    }
-
-    private void ristoratoreSignUp(String [] credential)throws InvalidUsernameException {
-        HomeRestaurantOwner.getInstance().signUp(credential);
-    }
 }
