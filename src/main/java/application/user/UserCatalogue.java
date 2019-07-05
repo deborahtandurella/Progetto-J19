@@ -1,9 +1,11 @@
 package application.user;
 
 import application.database_exception.InvalidUsernameException;
+import persistence.PersistenceFacade;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -13,23 +15,8 @@ import java.util.Map;
 public class UserCatalogue {
 
     private static UserCatalogue instance = null;
-    private ArrayList<User> restaurantOwner;
-    private ArrayList<User> critic;
 
-    /**
-     * Create a new UserCatalogue
-     * initialize restaurantOwner, List of the owners of restaurants registered
-     * initialize critic, List of the critics registered
-     */
     private UserCatalogue(){
-        this.restaurantOwner = new ArrayList<>();
-        this.critic = new ArrayList<>();
-        try {
-            setUpCritic("critici.txt");
-            setUprestaurantOwner("ristoratori.txt");
-        }catch (IOException e){
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -44,66 +31,20 @@ public class UserCatalogue {
         return instance;
     }
 
-    /**
-     * Method used to upload the restaurant owners, who are registered in the system,
-     * in the restaurant owners' List
-     *
-     * @param fileName !!waiting for the future database connection to take the data!!
-     * @throws IOException
-     */
-    private void setUprestaurantOwner(String fileName)throws IOException {
-        BufferedReader bf = new BufferedReader(new FileReader(fileName));
-        String line = null;
-        while ((line = bf.readLine()) != null){
-            String [] token = line.split("&");
-            User owner = new User(token);
-            restaurantOwner.add(owner);
-        }
-        bf.close();
-    }
 
     /**
-     * Method used to upload the critics, who are registered in the system, in the critic's List
-     *
-     * @param fileName !!waiting for the future database connection to take the data!!
-     * @throws IOException
-     */
-    private void setUpCritic(String fileName) throws IOException{
-        BufferedReader bf = new BufferedReader(new FileReader(fileName));
-        String line = null;
-        while ((line = bf.readLine()) != null){
-            String [] token = line.split("&");
-            User crit = new User(token);
-            critic.add(crit);
-        }
-        bf.close();
-    }
-
-    
-
-    /**
-     * Method used in class 'HomeRestaurantOwner'to verify the correct access og a restaurant owner.
+     * Method used in class 'HomeUser'to verify the correct access of an user.
      * It controls if the username and password match
      *
      * @param username of the user
      * @param psw of the user
      * @return true if 'username' and 'password' match, false if not
      */
-    public synchronized boolean logInRestaurantOwner(String username, String psw){
-        boolean cache = false;
-        boolean DB = false;
-        for(User u : this.restaurantOwner) {
-            if (u.getUsername().equals(username)) {
-                if (u.getPassword().equals(psw))
-                    cache = true;
-            }
-        }
-
-        // chiamo metodo pesristence facade che verifica lo user
-
-        if(cache || DB)
-            return true;
-        return false;
+    public UserType logInUser(String username, String psw) throws SQLException {
+            User userLOg = PersistenceFacade.getInstance().getUser(username);
+            if (!(userLOg.getPassword().equals(psw)))
+                throw new InvalidUsernameException("Password errata");
+            return userLOg.getType();
     }
 
     /**
@@ -113,7 +54,7 @@ public class UserCatalogue {
      * @param infoUser, an array which contains  username, password, name and surname of the user, in this order.
      * @param catalogue the HashMap where the user's data will be saved
      */
-    private void userSignUp(String [] infoUser, ArrayList<User> catalogue){
+    private void userSignUp(String [] infoUser, HashSet<User> catalogue){
         for(User u : catalogue) {
             if (u.getUsername().equals(infoUser[0])) {
                 throw new InvalidUsernameException("Username already taken!");

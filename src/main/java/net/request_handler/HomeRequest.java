@@ -3,13 +3,16 @@ package net.request_handler;
 import application.controller.HomeCritic;
 import application.controller.HomeRestaurantOwner;
 import application.RestaurantCatalogue;
+import application.controller.HomeUser;
 import application.restaurant_exception.RestaurantNotFoundException;
+import application.user.UserType;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.InvalidParameterException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,44 +37,41 @@ public class HomeRequest extends  AbstractRequestStrategy {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        String type = req.getParameter("type");
         try{
-            logIn(type,resp, username, password);
-        }catch(InvalidParameterException e){
-            write(resp,Rythm.render("warn.html", e.getMessage()));
+            logIn(resp, username, password);
         }
-
+        catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
-    private void logIn(String type, HttpServletResponse resp, String username, String password) throws IOException{
-        if(type == null)
-            throw new InvalidParameterException();
-        else if(type.equals("critico"))
-            logCritic(resp, username, password);
-        else if (type.equals("ristoratore"))
-            logRestaurantOwner(resp, username, password);
-
+    private void logIn(HttpServletResponse resp, String username, String password) throws IOException, SQLException {
+        try {
+            UserType type = HomeUser.getInstance().logIn(username, password);
+            if (type == UserType.CRITIC)
+                logCritic(resp,username);
+            else
+                logRestaurantOwner(resp, username);
+        }
+        catch (InvalidParameterException e) {
+            write(resp, Rythm.render("warn.html", e.getMessage()));
+        }
     }
-    private void logCritic(HttpServletResponse resp, String username, String password) throws IOException{
-        if (HomeCritic.getInstance().logIn(username, password)) {
+    private void logCritic(HttpServletResponse resp, String username) throws IOException{
             write(resp, Rythm.render("homeCritico.html",username));
-        } else
-            write(resp, Rythm.render("warn.html"));
     }
 
 
-    private void logRestaurantOwner(HttpServletResponse resp, String username, String password) throws IOException{
-        if(HomeRestaurantOwner.getInstance().logIn(username,password)) {
-            Map<String, Object> conf = new HashMap<>();
-            try {
-                conf.put("myRest", HomeRestaurantOwner.getInstance().getOwnedRestaurant(username));
-                conf.put("exception","false");
-            }
-            catch (RestaurantNotFoundException e){
-               conf.put("exception", "true");
-            }
-            conf.put("username", username);
-            write(resp, Rythm.render("homeRistoratore.html", conf));
+    private void logRestaurantOwner(HttpServletResponse resp, String username) throws IOException{
+        Map<String, Object> conf = new HashMap<>();
+        try {
+            conf.put("myRest", HomeRestaurantOwner.getInstance().getOwnedRestaurant(username));
+            conf.put("exception","false");
         }
+        catch (RestaurantNotFoundException e){
+            conf.put("exception", "true");
+        }
+        conf.put("username", username);
+        write(resp, Rythm.render("homeRistoratore.html", conf));
     }
 }

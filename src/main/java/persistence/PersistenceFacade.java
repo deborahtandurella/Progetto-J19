@@ -1,8 +1,10 @@
 package persistence;
 
 import application.Restaurant;
+import application.user.User;
 
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -38,5 +40,9 @@ public class PersistenceFacade {
 
     public Map<String, Restaurant> getAllRestaurants(){
         return ((RestaurantsMapper)mapper.get(RestaurantsMapper.class)).getRestaurant();
+    }
+
+    public User getUser(String key) throws SQLException{
+        return (User) ((UserMapper)mapper.get(UserMapper.class)).get(key);
     }
 }

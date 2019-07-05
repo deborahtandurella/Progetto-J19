@@ -27,6 +27,13 @@ public class UserMapper extends AbstractPersistenceMapper{
         this.user = new HashSet<>();
     }
 
+    /**
+     * Method which returns the user identified by the key username from the table USERS
+     *
+     * @param OID is the key of the object
+     * @return
+     * @throws SQLException
+     */
     @Override
     protected Object getObjectFromTable(String OID) throws SQLException {
         Statement stm = super.conn.createStatement();
@@ -35,15 +42,20 @@ public class UserMapper extends AbstractPersistenceMapper{
             throw new InvalidUsernameException("username inesistente");
         String [] tempCredential = new String[4];
         if(!rs.next()) {
-            tempCredential[0] = rs.getString(1);
-            tempCredential[1] = rs.getString(2);
-            tempCredential[2] = rs.getString(3);
-            tempCredential[3] = rs.getString(4);
+            for (int i=0; i<tempCredential.length; i++){
+                tempCredential[i] = rs.getString(i+1);
+            }
         }
         User user = new User(tempCredential, UserType.valueOf(rs.getString(5)));
         return user;
     }
 
+    /**
+     * Method which returns the user identified by the key username from thr cache
+     *
+     * @param OID the key of the object
+     * @return
+     */
     @Override
     protected Object getObjectFromCache(String OID) {
         for(User user : this.user){
@@ -63,6 +75,10 @@ public class UserMapper extends AbstractPersistenceMapper{
 
     }
 
+    /**
+     *
+     * @return, the list of users already created in the cache
+     */
     public HashSet<User> getUser(){
         return this.user;
     }
