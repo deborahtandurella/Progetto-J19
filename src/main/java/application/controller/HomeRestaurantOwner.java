@@ -9,7 +9,7 @@ import application.user.UserCatalogue;
 
 import java.util.Map;
 
-public class HomeRestaurantOwner implements Home {
+public class HomeRestaurantOwner {
 
     private static HomeRestaurantOwner instance = null;
 
@@ -24,13 +24,6 @@ public class HomeRestaurantOwner implements Home {
         return instance;
     }
 
-    public boolean logIn(String username, String psw){
-        return UserCatalogue.getInstance().logInRestaurantOwner(username,psw);
-    }
-
-    public void signUp(String [] credential)throws InvalidUsernameException {
-        UserCatalogue.getInstance().restaurantOwnerSignUp(credential);
-    }
 
 
     public Map<Integer, String> getOwnedRestaurant(String username)throws RestaurantNotFoundException {

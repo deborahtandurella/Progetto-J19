@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HomeCritic implements Home {
+public class HomeCritic {
     private static HomeCritic instance = null;
 
     private HomeCritic() {
@@ -34,14 +34,6 @@ public class HomeCritic implements Home {
         CritiqueCatalogue.getInstance().addNewCritique(c);
     }
 
-
-    public boolean logIn(String username, String psw){
-        return UserCatalogue.getInstance().logInCritic(username,psw);
-    }
-
-    public void signUp(String [] credential)throws InvalidUsernameException {
-        UserCatalogue.getInstance().criticSignUp(credential);
-    }
 
     public ArrayList<Integer> getMenuCode(int restCode){
         return RestaurantCatalogue.getInstance().getMenuCode(restCode);
