@@ -31,7 +31,7 @@ public class MapperFactory {
      * If the object has not already been instanced, it is instanced and it is returned.
      * @return instance(MapperFactory)
      */
-    public MapperFactory getInstance()throws SQLException {
+    public static MapperFactory getInstance()throws SQLException {
         if(instance == null)
             instance = new MapperFactory();
         return instance;

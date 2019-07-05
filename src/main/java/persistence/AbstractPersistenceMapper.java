@@ -1,8 +1,6 @@
 package persistence;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Abstract class which has to be extended by all the Mappers.
@@ -12,7 +10,7 @@ public abstract class AbstractPersistenceMapper implements IMapper {
 
     protected String tableName;
     protected Connection conn;
-    protected int counter;
+
 
     /**
      * Constructor of the class
@@ -62,5 +60,13 @@ public abstract class AbstractPersistenceMapper implements IMapper {
      * @param obj the object itself
      */
     protected abstract void updateCache(String OID,Object obj);
+
+    protected  String getLastObjectCode(String keyName) throws SQLException{
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("select max("+keyName+") from "+tableName);
+        if(rs.next())
+            return rs.getString(1);
+        return null;
+    }
 
 }
