@@ -28,8 +28,8 @@ public class HomeRestaurantOwner implements Home {
         return UserCatalogue.getInstance().logInRestaurantOwner(username,psw);
     }
 
-    public void signUp(String username, String password, String name, String surname)throws InvalidUsernameException {
-        UserCatalogue.getInstance().restaurantOwnerSignUp(username,password, name, surname);
+    public void signUp(String [] credential)throws InvalidUsernameException {
+        UserCatalogue.getInstance().restaurantOwnerSignUp(credential);
     }
 
 

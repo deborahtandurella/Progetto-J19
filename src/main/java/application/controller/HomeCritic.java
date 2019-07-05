@@ -39,8 +39,8 @@ public class HomeCritic implements Home {
         return UserCatalogue.getInstance().logInCritic(username,psw);
     }
 
-    public void signUp(String username, String password, String name, String surname)throws InvalidUsernameException {
-        UserCatalogue.getInstance().criticSignUp(username,password, name, surname);
+    public void signUp(String [] credential)throws InvalidUsernameException {
+        UserCatalogue.getInstance().criticSignUp(credential);
     }
 
     public ArrayList<Integer> getMenuCode(int restCode){

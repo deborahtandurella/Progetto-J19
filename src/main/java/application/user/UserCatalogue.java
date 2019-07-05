@@ -3,7 +3,7 @@ package application.user;
 import application.database_exception.InvalidUsernameException;
 
 import java.io.*;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -13,17 +13,17 @@ import java.util.Map;
 public class UserCatalogue {
 
     private static UserCatalogue instance = null;
-    private HashMap<String, User> restaurantOwner;
-    private HashMap<String, User> critic;
+    private ArrayList<User> restaurantOwner;
+    private ArrayList<User> critic;
 
     /**
      * Create a new UserCatalogue
-     * initialize restaurantOwner, HashMap of the owners of restaurants registered ('key':= username, 'value':= User)
-     * initialize critic, HashMap of the critics registered ('key':= username, 'value':= User)
+     * initialize restaurantOwner, List of the owners of restaurants registered
+     * initialize critic, List of the critics registered
      */
     private UserCatalogue(){
-        this.restaurantOwner = new HashMap<>();
-        this.critic = new HashMap<>();
+        this.restaurantOwner = new ArrayList<>();
+        this.critic = new ArrayList<>();
         try {
             setUpCritic("critici.txt");
             setUprestaurantOwner("ristoratori.txt");
@@ -46,7 +46,7 @@ public class UserCatalogue {
 
     /**
      * Method used to upload the restaurant owners, who are registered in the system,
-     * in the restaurant owners' HashMap
+     * in the restaurant owners' List
      *
      * @param fileName !!waiting for the future database connection to take the data!!
      * @throws IOException
@@ -56,14 +56,14 @@ public class UserCatalogue {
         String line = null;
         while ((line = bf.readLine()) != null){
             String [] token = line.split("&");
-            User owner = new User(token[0], token[1], token[2], token[3]);
-            restaurantOwner.put(token[0], owner);
+            User owner = new User(token);
+            restaurantOwner.add(owner);
         }
         bf.close();
     }
 
     /**
-     * Method used to upload the critics, who are registered in the system, in the critic's HashMap
+     * Method used to upload the critics, who are registered in the system, in the critic's List
      *
      * @param fileName !!waiting for the future database connection to take the data!!
      * @throws IOException
@@ -73,25 +73,13 @@ public class UserCatalogue {
         String line = null;
         while ((line = bf.readLine()) != null){
             String [] token = line.split("&");
-            User crit = new User(token[0], token[1], token[2], token[3]);
-            critic.put(token[0], crit);
+            User crit = new User(token);
+            critic.add(crit);
         }
         bf.close();
     }
 
-    /**
-     * Method used in class 'HomeCritic' to verify the correct access of a critic.
-     * It controls if the username and password match
-     *
-     * @param username of the user
-     * @param psw of the user
-     * @return true if 'username' and 'password' match, false if not
-     */
-    public synchronized boolean logInCritic(String username,String psw){
-        if(critic.containsKey(username) && critic.get(username).getPassword().equals(psw))
-            return true;
-        return false;
-    }
+    
 
     /**
      * Method used in class 'HomeRestaurantOwner'to verify the correct access og a restaurant owner.
@@ -102,7 +90,18 @@ public class UserCatalogue {
      * @return true if 'username' and 'password' match, false if not
      */
     public synchronized boolean logInRestaurantOwner(String username, String psw){
-        if(restaurantOwner.containsKey(username) && restaurantOwner.get(username).getPassword().equals(psw))
+        boolean cache = false;
+        boolean DB = false;
+        for(User u : this.restaurantOwner) {
+            if (u.getUsername().equals(username)) {
+                if (u.getPassword().equals(psw))
+                    cache = true;
+            }
+        }
+
+        // chiamo metodo pesristence facade che verifica lo user
+
+        if(cache || DB)
             return true;
         return false;
     }
@@ -114,38 +113,32 @@ public class UserCatalogue {
      * @param infoUser, an array which contains  username, password, name and surname of the user, in this order.
      * @param catalogue the HashMap where the user's data will be saved
      */
-    private void userSignUp(String [] infoUser, HashMap<String,User> catalogue){
-        if(catalogue.containsKey(infoUser[0]))
-            throw new InvalidUsernameException("Username already taken!");
-        User crit = new User(infoUser[0], infoUser[1], infoUser[2], infoUser[3]);
-        catalogue.put(infoUser[0], crit);
-        updateDBUser(catalogue,"critici.txt");
+    private void userSignUp(String [] infoUser, ArrayList<User> catalogue){
+        for(User u : catalogue) {
+            if (u.getUsername().equals(infoUser[0])) {
+                throw new InvalidUsernameException("Username already taken!");
+            }
+        }
+        User user = new User(infoUser);
+        catalogue.add(user);
     }
 
     /**
      * Method called in class 'HomeRestaurantOwner' to sign up a new restaurant owner in the system
      *
-     * @param username of the new restaurant owner
-     * @param password of the new restaurant owner
-     * @param name of the new restaurant owner
-     * @param surname of the new restaurant owner
+     * @param credential, which contains username, password, name and surname
      */
-    public void restaurantOwnerSignUp(String username, String password, String name, String surname){
-        String [] info = {username, password, name, surname};
-        userSignUp(info, this.restaurantOwner);
+    public void restaurantOwnerSignUp(String [] credential){
+        userSignUp(credential, this.restaurantOwner);
     }
 
     /**
      * Method called in class 'HomeCritic' to sign up a new critic in the system
      *
-     * @param username of the new critic
-     * @param password of the new critic
-     * @param name of the new critic
-     * @param surname of the new critic
+     * @param credential, which contains username, password, name and surname
      */
-    public void criticSignUp(String username, String password, String name, String surname){
-        String [] info = {username, password, name, surname};
-        userSignUp(info, this.critic);
+    public void criticSignUp(String [] credential){
+        userSignUp(credential, this.critic);
     }
 
     /**

@@ -12,16 +12,13 @@ public class User {
     /**
      * Create an user of the application
      *
-     * @param username
-     * @param password
-     * @param name
-     * @param surname
+     * @param credential, which contains username, password, name and surname
      */
-    public User(String username, String password, String name, String surname) {
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.surname = surname;
+    public User(String [] credential) {
+        this.username = credential[0];
+        this.password = credential[1];
+        this.name = credential[2];
+        this.surname = credential[3];
     }
 
     public String getPassword() {
