@@ -18,6 +18,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
 
     protected MenuEntryMapper() throws SQLException {
         super("menuentry");
+        OIDCreator.getInstance().setMenuEntryCode(Integer.parseInt(getLastObjectCode("DISH_COD")));
     }
 
 
@@ -36,7 +37,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
     protected void updateCache(String OID, Object obj) {
 
     }
-    
+
 
     @Override
     public void put(String OID, Object obj) {

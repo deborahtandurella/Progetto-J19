@@ -11,9 +11,16 @@ public class OIDCreator {
     private int criticCode;
     private int critiquesCode;
 
+
     private OIDCreator() {
     }
 
+    /**
+     * 'Pattern Singleton Implementation'
+     *
+     * If the object has not already been instanced, it is instanced and it is returned.
+     * @return instance(OIDCreator)
+     */
     public static OIDCreator getInstance(){
         if(instance == null)
             instance = new OIDCreator();
