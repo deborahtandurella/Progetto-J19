@@ -12,6 +12,7 @@ public abstract class AbstractPersistenceMapper implements IMapper {
 
     protected String tableName;
     protected Connection conn;
+    protected int counter;
 
     /**
      * Constructor of the class

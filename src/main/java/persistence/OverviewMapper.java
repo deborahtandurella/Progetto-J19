@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,12 +14,19 @@ import java.util.Map;
 public class OverviewMapper extends AbstractPersistenceMapper {
 
     private Map<String, RestaurantOverview> overview;
+    private int counter;
 
     public OverviewMapper() throws SQLException {
         super("overview");
         this.overview = new HashMap<>();
     }
 
+    /**
+     * Method which is called to get the overview of a restaurant,when it is instanced.
+     * @param OID is the key of the restaurant
+     * @return the overview of the restaurant
+     * @throws SQLException
+     */
     @Override
     protected Object getObjectFromTable(String OID) throws SQLException {
         Statement stm = conn.createStatement();
@@ -38,7 +44,9 @@ public class OverviewMapper extends AbstractPersistenceMapper {
 
     @Override
     protected Object getObjectFromCache(String OID) {
-        return null;
+        if(!overview.containsKey(OID))
+            return null;
+        return overview.get(OID);
     }
 
     @Override
