@@ -2,6 +2,8 @@ package application;
 
 import application.restaurant_exception.RestaurantAlreadyExistingException;
 import application.restaurant_exception.RestaurantNotFoundException;
+import persistence.PersistenceFacade;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -74,8 +76,8 @@ public  class RestaurantCatalogue {
      */
     public Map<Integer,String> getAllRestaurantName(){
         Map<Integer, String> rest = new HashMap<>();
-        for(Map.Entry<Integer, Restaurant> e : restaurants.entrySet()){
-            rest.put(e.getKey(),e.getValue().getName());
+        for(Map.Entry<String, Restaurant> e : PersistenceFacade.getInstance().getAllRestaurants().entrySet()){
+            rest.put(Integer.parseInt(e.getKey()),e.getValue().getName());
         }
         return rest;
     }

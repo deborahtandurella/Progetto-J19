@@ -14,7 +14,6 @@ import java.util.Map;
 public class OverviewMapper extends AbstractPersistenceMapper {
 
     private Map<String, RestaurantOverview> overview;
-    private int counter;
 
     public OverviewMapper() throws SQLException {
         super("overview");
