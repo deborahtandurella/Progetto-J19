@@ -45,6 +45,7 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
         this.restaurant.put(OID,(Restaurant)obj);
     }
 
+
     @Override
     public void put(String OID, Object obj) {
         //TODO implementare metodo potrebbe valre la pena di creare classe restaurant info?
@@ -69,11 +70,8 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
             this.restaurant.put(rs.getString(1),tmp);
 
         }
-        List <Integer> temp = new ArrayList<>();
-        for (String s: restaurant.keySet()) {
-            temp.add(Integer.parseInt(s));
-        }
-        counter = Collections.max(temp);
+
+        OIDCreator.getInstance().setRestaurantCode(Integer.parseInt(getLastObjectCode("COD_REST")));
 
     }
 

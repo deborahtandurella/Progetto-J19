@@ -36,6 +36,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
     protected void updateCache(String OID, Object obj) {
 
     }
+    
 
     @Override
     public void put(String OID, Object obj) {
