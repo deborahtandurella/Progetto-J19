@@ -45,8 +45,8 @@ public class UserMapper extends AbstractPersistenceMapper{
                 tempCredential[i] = rs.getString(i+1);
             }
         }
-        rs.close();
         User user = new User(tempCredential, UserType.valueOf(rs.getString(5)));
+        rs.close();
         return user;
     }
 

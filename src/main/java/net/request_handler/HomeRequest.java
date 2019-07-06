@@ -4,6 +4,7 @@ import application.controller.HomeCritic;
 import application.controller.HomeRestaurantOwner;
 import application.RestaurantCatalogue;
 import application.controller.HomeUser;
+import application.database_exception.InvalidUsernameException;
 import application.restaurant_exception.RestaurantNotFoundException;
 import application.user.UserType;
 import org.rythmengine.Rythm;
@@ -53,9 +54,10 @@ public class HomeRequest extends AddressHomeRequest{
             else
                 super.homeRestaurantOwner(resp, username);
         }
-        catch (InvalidParameterException e) {
+        catch (InvalidUsernameException e) {
             write(resp, Rythm.render("warn.html", e.getMessage()));
         }
+
     }
 
 
