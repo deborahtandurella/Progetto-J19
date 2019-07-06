@@ -3,9 +3,6 @@ package persistence;
 import application.database_exception.InvalidUsernameException;
 import application.user.User;
 import application.user.UserType;
-import application.database_exception.InvalidUsernameException;
-import sun.nio.cs.ArrayEncoder;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,6 +46,7 @@ public class UserMapper extends AbstractPersistenceMapper{
             }
         }
         User user = new User(tempCredential, UserType.valueOf(rs.getString(5)));
+        rs.close();
         return user;
     }
 
@@ -72,11 +70,34 @@ public class UserMapper extends AbstractPersistenceMapper{
         this.user.add((User) obj);
     }
 
+    /**
+     * Used to add a row to the table USERS (necessary for the sign up of a new user)
+     *
+     * @param OID, the username of the new user
+     * @param obj, the user to add in database
+     */
     @Override
     public void put(String OID, Object obj) {
-        //todo implements writing in the database the new user
+        try {
+            PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?)");
+
+            pstm.setString(1, OID);
+            pstm.setString(2, ((User)obj).getPassword());
+            pstm.setString(3, ((User)obj).getName());
+            pstm.setString(4, ((User)obj).getSurname());
+            pstm.setString(5, ((User)obj).getType().toString());
+            pstm.execute();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("SQLException: " + e.getMessage());
+        }
     }
 
+    /**
+     * Used when a new user signs up
+     * @param user, to add in database
+     */
     public void signUpUser(User user){
         updateCache(user.getUsername(), user);
         put(user.getUsername(), user);
