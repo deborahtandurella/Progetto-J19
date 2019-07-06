@@ -4,6 +4,7 @@ import application.Restaurant;
 import application.RestaurantOverview;
 import application.restaurant_exception.EmptyMenuException;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -48,7 +49,19 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
 
     @Override
     public void put(String OID, Object obj) {
-        //TODO implementare metodo potrebbe valre la pena di creare classe restaurant info?
+        Restaurant r = (Restaurant)obj;
+        try {
+            PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?)");
+            pstm.setString(1,OID);
+            pstm.setString(2,r.getName());
+            pstm.setString(3,r.getAddress());
+            pstm.setString(4,r.getCity());
+            pstm.setString(5,r.getOwner());
+            pstm.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -61,7 +74,7 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
         ResultSet rs = stm.executeQuery("select * from "+super.tableName);
         while (rs.next()){
             Restaurant tmp = new Restaurant(rs.getString(2),rs.getString(3),
-                    rs.getString(3));
+                    rs.getString(5),rs.getString(4));
             tmp.setOverview(((RestaurantOverview) om.get(rs.getString(1))));
             try{
                 tmp.addMenu(mem.getMenu(rs.getString(1)));

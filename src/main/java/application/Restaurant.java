@@ -14,6 +14,7 @@ public class Restaurant {
     private HashMap<DishType,ArrayList<MenuEntry>> menu ;
     private RestaurantOverview overview;
     private String owner ;
+    private String city;
 
     /**
      * Create a new restaurant .
@@ -21,12 +22,13 @@ public class Restaurant {
      * @param address the address of the restaurant
      * @param owner the username of the restaurant's owner
      */
-    public Restaurant(String name, String address, String owner){
+    public Restaurant(String name, String address, String owner, String city){
         this.name = name;
         this.address = address;
         this.menu = null;
         this.overview = new RestaurantOverview();
         this.owner = owner;
+        this.city = city;
     }
 
     /**
@@ -188,4 +190,7 @@ public class Restaurant {
         return this.overview.getMean();
     }
 
+    public String getCity() {
+        return city;
+    }
 }

@@ -27,20 +27,20 @@ public class OIDCreator {
         return instance;
     }
 
-    public int getRestaurantCode() {
-        return restaurantCode;
+    public int getNewRestaurantCode() {
+        return ++restaurantCode;
     }
 
-    public int getMenuEntryCode() {
-        return menuEntryCode;
+    public int getNewMenuEntryCode() {
+        return ++menuEntryCode;
     }
 
-    public int getCriticCode() {
-        return criticCode;
+    public int getNewCriticCode() {
+        return ++criticCode;
     }
 
-    public int getCritiquesCode() {
-        return critiquesCode;
+    public int getNewCritiquesCode() {
+        return ++critiquesCode;
     }
 
     public void setRestaurantCode(int restaurantCode) {

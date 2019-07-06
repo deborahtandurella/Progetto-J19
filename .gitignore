@@ -32,3 +32,6 @@ target/
 
 #txt file
 *.txt
+
+#file java for test
+src/main/java/persistence/Test.java
