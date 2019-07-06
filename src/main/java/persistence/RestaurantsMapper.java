@@ -58,7 +58,7 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
             pstm.setString(4,r.getCity());
             pstm.setString(5,r.getOwner());
             pstm.execute();
-
+            updateCache(OID,r);
         } catch (SQLException e) {
             e.printStackTrace();
         }

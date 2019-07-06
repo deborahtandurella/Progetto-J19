@@ -154,11 +154,16 @@ public  class RestaurantCatalogue {
      *
      * @param restaurantCode the code of the restaurant
      * @param dishType the type of the dish
-     * @param dish the name of the dish
+     * @param dishName the name of the dish
      * @param price the price of the dish
      */
-    public void addMenuEntry(int restaurantCode,String dishType,String dish, double price){
-       getRestaurant(restaurantCode).addMenuEntry(dishType, dish, price);
+    public void addMenuEntry(int restaurantCode,String dishType,String dishName, double price){
+       Restaurant r = getRestaurant(restaurantCode);
+       r.checkMenuEntryExistence(dishType, dishName, price);
+       MenuEntry me = r.addMenuEntryToMenu(dishType,dishName,price,OIDCreator.getInstance().getNewMenuEntryCode()
+               ,restaurantCode);
+       PersistenceFacade.getInstance().addMenuEntry(me);
+
     }
 
     public ArrayList<Integer> getMenuCode(int restCode){

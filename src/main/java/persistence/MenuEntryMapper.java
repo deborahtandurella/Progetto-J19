@@ -4,6 +4,8 @@ import application.DishType;
 import application.MenuEntry;
 import application.MenuHandler;
 import application.restaurant_exception.EmptyMenuException;
+
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -41,7 +43,18 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
 
     @Override
     public void put(String OID, Object obj) {
-
+        MenuEntry me = (MenuEntry)obj;
+        try {
+            PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?)");
+            pstm.setString(1,OID);
+            pstm.setString(2,me.getDish());
+            pstm.setString(3,Double.toString(me.getPrice()));
+            pstm.setString(4,Integer.toString(me.getRestaurantCode()));
+            pstm.setString(5,me.getType());
+            pstm.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -60,7 +73,8 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
             throw new EmptyMenuException();
         while (rs.next()){
             menu.get(MenuHandler.getInstance().stringConverter(rs.getString(5)))
-                    .add(new MenuEntry(rs.getString(2),rs.getDouble(3),rs.getInt(1)));
+                    .add(new MenuEntry(rs.getString(2),rs.getDouble(3),rs.getInt(1),
+                            Integer.parseInt(OID),rs.getString(5)));
         }
         return menu;
     }

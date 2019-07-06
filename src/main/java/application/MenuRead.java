@@ -22,14 +22,14 @@ public class MenuRead {
         HashMap<DishType,ArrayList<MenuEntry>> a = new HashMap<>();
         initializeMenu(a);
         int tmp = 1;
-        while ((line = buffer.readLine()) != null) {
+        /*while ((line = buffer.readLine()) != null) {
             String[] result = line.split("&");
             MenuEntry e = new MenuEntry( result[1], Double.parseDouble(result[2]), tmp);
             DishType en = switchFumction(result[0]);
 
             a.get(en).add(e);
             tmp++;
-        }
+        }*/
         file.close();
         return a;
     }

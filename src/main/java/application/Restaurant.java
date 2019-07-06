@@ -140,18 +140,14 @@ public class Restaurant {
      * @param dish the name of the dish
      * @param price the price of the dish
      */
-    public void addMenuEntry(String dishType,String dish, double price){
+    public void checkMenuEntryExistence(String dishType,String dish, double price){
         if(this.menu == null){
             this.menu = new HashMap<>();
             this.menu = MenuHandler.getInstance().initializeMenu(this.menu);
-            addDishToMenu(dishType,dish,price,1);
         }
-        else{
-            int code = MenuHandler.getInstance().getLastCode(this.menu) + 1;
+        else
             MenuHandler.getInstance().checkExistance(dish,this.menu);
-            addDishToMenu(dishType,dish,price,code);
-        }
-        printMenu();
+        printMenu();    //debug
 
 
     }
@@ -163,11 +159,13 @@ public class Restaurant {
      * @param dishType the type of the dish(antipasto,primo...)
      * @param dish the name of the dish
      * @param price the price of the dish
-     * @param code the code by which the system identifies the dish
+     * @param dishCode the code by which the system identifies the dish
+     * @param restaurantCode the code of the restaurant to whom the MenuEntry has to be added
      */
-    private void addDishToMenu(String dishType,String dish, double price, int code){
-        this.menu.get(MenuHandler.getInstance().stringConverter(dishType))
-                .add(new MenuEntry(dish,price,code));
+    public MenuEntry addMenuEntryToMenu(String dishType,String dish, double price, int dishCode, int restaurantCode){
+        MenuEntry me = new MenuEntry(dish,price,dishCode,restaurantCode,dishType);
+        this.menu.get(MenuHandler.getInstance().stringConverter(dishType)).add(me);
+        return me;
     }
 
 

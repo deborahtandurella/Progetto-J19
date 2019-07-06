@@ -1,5 +1,6 @@
 package persistence;
 
+import application.MenuEntry;
 import application.Restaurant;
 import application.user.User;
 
@@ -38,19 +39,51 @@ public class PersistenceFacade {
         return instance;
     }
 
+    /**
+     * It gets all the restaurants registered to the system
+     * @return Map (key : code of the restaurant, value : the restaurant itself)
+     */
     public Map<String, Restaurant> getAllRestaurants(){
         return ((RestaurantsMapper)mapper.get(RestaurantsMapper.class)).getRestaurant();
     }
+
+    /**
+     * Method called when a new Restaurant is added to the system.
+     * It updates both the cache and the database.
+     * @param OID is the code of the restaurant
+     * @param restaurant is the Restaurant which has to be added.
+     */
     public void addRestaurant(String OID, Restaurant restaurant){
         mapper.get(RestaurantsMapper.class).put(OID,restaurant);
     }
 
+    /**
+     * It returns the Restaurant specified by its identifier.
+     * @param OID is the identifier of the restaurant.
+     * @return the Restaurant specified
+     * @throws SQLException
+     */
     public Restaurant getRestaurant(String OID)throws SQLException{
         return (Restaurant)this.mapper.get(RestaurantsMapper.class).get(OID);
     }
 
+    /**
+     * It returns the user specified by its identifier.
+     * @param key is the identifier of the user
+     * @return the User selected
+     * @throws SQLException
+     */
     public User getUser(String key) throws SQLException{
         return (User) (mapper.get(UserMapper.class)).get(key);
+    }
+
+    /**
+     * Method  called when a new MenuEntry is added to a Restaurant.
+     * It updates the database.
+     * @param me the MenuEntry which has to be added
+     */
+    public void addMenuEntry(MenuEntry me){
+        mapper.get(MenuEntryMapper.class).put(Integer.toString(me.getCod()), me);
     }
 
     /**

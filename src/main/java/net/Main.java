@@ -30,7 +30,7 @@ public class Main {
     private static void init(){
         double [] voti = {6,6,6,6};
         HashMap<MenuEntry, Double> piatti = new HashMap<>();
-        MenuEntry cibo = new MenuEntry("cibo",0.0,0);
+        MenuEntry cibo = new MenuEntry("cibo",0.0,0,1,"antipasto");
         piatti.put(cibo,4.0);
         String comment = "prova commento della critica del ristorante";
         HomeCritic.getInstance().writeCritique(1,voti,piatti,comment,"jack");
