@@ -51,7 +51,7 @@ public  class RestaurantCatalogue {
      */
     public  int addRestaurant(String name, String address, String owner) throws RestaurantAlreadyExistingException{
         checkExisting(name, address);
-        Restaurant r = new Restaurant(name, address, owner);
+        Restaurant r = new Restaurant(name, address, owner,"city~~~");
         //restaurants.put(++counter, r);
         return counter;
     }

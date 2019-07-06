@@ -61,7 +61,7 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
         ResultSet rs = stm.executeQuery("select * from "+super.tableName);
         while (rs.next()){
             Restaurant tmp = new Restaurant(rs.getString(2),rs.getString(3),
-                    rs.getString(3));
+                    rs.getString(5),rs.getString(4));
             tmp.setOverview(((RestaurantOverview) om.get(rs.getString(1))));
             try{
                 tmp.addMenu(mem.getMenu(rs.getString(1)));
