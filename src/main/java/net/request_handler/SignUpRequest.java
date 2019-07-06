@@ -41,7 +41,7 @@ public class SignUpRequest extends AddressHomeRequest {
 
     /**
      * method which takes the data of the new user during registration
-     * 
+     *
      * @param req, the HttpServletRequest to get parameter
      * @param resp, the HttpServletResponse to answer to the requests of the templates
      * @throws IOException

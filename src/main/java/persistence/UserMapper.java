@@ -73,15 +73,20 @@ public class UserMapper extends AbstractPersistenceMapper{
     /**
      * Used to add a row to the table USERS (necessary for the sign up of a new user)
      *
+     * @param OID, the username of the new user
      * @param obj, the user to add in database
      */
     @Override
     public void put(String OID, Object obj) {
         try {
-            Statement stm = conn.createStatement();
-            int update = stm.executeUpdate("INSERT INTO " + super.tableName + "(USERNAME,PASSWORD,NAME,SURNAME,USERTYPE) "+
-                    "VALUES("+((User)obj).getUsername()+((User)obj).getPassword()+((User)obj).getName()+
-                    ((User)obj).getSurname()+((User)obj).getType()+")");
+            PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?)");
+
+            pstm.setString(1, OID);
+            pstm.setString(2, ((User)obj).getPassword());
+            pstm.setString(3, ((User)obj).getName());
+            pstm.setString(4, ((User)obj).getSurname());
+            pstm.setString(5, ((User)obj).getType().toString());
+            pstm.execute();
         }
         catch (SQLException e){
             e.printStackTrace();
