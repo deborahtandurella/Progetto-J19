@@ -2,6 +2,7 @@ package application;
 
 import application.restaurant_exception.RestaurantAlreadyExistingException;
 import application.restaurant_exception.RestaurantNotFoundException;
+import persistence.OIDCreator;
 import persistence.PersistenceFacade;
 
 import java.sql.SQLException;
@@ -52,8 +53,9 @@ public  class RestaurantCatalogue {
     public  int addRestaurant(String name, String address, String owner) throws RestaurantAlreadyExistingException{
         checkExisting(name, address);
         Restaurant r = new Restaurant(name, address, owner,"city~~~");
-        //restaurants.put(++counter, r);
-        return counter;
+        int restaurantCode = OIDCreator.getInstance().getNewRestaurantCode();
+        PersistenceFacade.getInstance().addRestaurant(Integer.toString(restaurantCode),r);
+        return restaurantCode;
     }
 
     /**

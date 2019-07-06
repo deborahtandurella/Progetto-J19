@@ -190,4 +190,7 @@ public class Restaurant {
         return this.overview.getMean();
     }
 
+    public String getCity() {
+        return city;
+    }
 }

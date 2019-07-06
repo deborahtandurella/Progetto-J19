@@ -41,6 +41,9 @@ public class PersistenceFacade {
     public Map<String, Restaurant> getAllRestaurants(){
         return ((RestaurantsMapper)mapper.get(RestaurantsMapper.class)).getRestaurant();
     }
+    public void addRestaurant(String OID, Restaurant restaurant){
+        mapper.get(RestaurantsMapper.class).put(OID,restaurant);
+    }
 
     public Restaurant getRestaurant(String OID)throws SQLException{
         return (Restaurant)this.mapper.get(RestaurantsMapper.class).get(OID);
