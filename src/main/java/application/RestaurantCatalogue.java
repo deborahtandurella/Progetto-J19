@@ -4,6 +4,7 @@ import application.restaurant_exception.RestaurantAlreadyExistingException;
 import application.restaurant_exception.RestaurantNotFoundException;
 import persistence.PersistenceFacade;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -15,7 +16,7 @@ import java.util.Map;
  */
 public  class RestaurantCatalogue {
     private static RestaurantCatalogue instance = null;
-    private  Map<Integer, Restaurant> restaurants;
+    //private  Map<Integer, Restaurant> restaurants;
     private  int counter;
 
     /**
@@ -24,7 +25,7 @@ public  class RestaurantCatalogue {
      * initialize counter, the counter used to generate the code of the restaurant in the system
      */
     private RestaurantCatalogue(){
-        this.restaurants = new HashMap<>();
+        //this.restaurants = new HashMap<>();
         this.counter = 0;
     }
 
@@ -51,7 +52,7 @@ public  class RestaurantCatalogue {
     public  int addRestaurant(String name, String address, String owner) throws RestaurantAlreadyExistingException{
         checkExisting(name, address);
         Restaurant r = new Restaurant(name, address, owner);
-        restaurants.put(++counter, r);
+        //restaurants.put(++counter, r);
         return counter;
     }
 
@@ -60,13 +61,16 @@ public  class RestaurantCatalogue {
      * @param menu the menu of the restaurant
      * @param key the code of the restaurant
      */
-    public  void addMenu(HashMap<DishType,ArrayList<MenuEntry>> menu, int key){
-        restaurants.get(key).addMenu(menu);
+    public  void addMenu(HashMap<DishType,ArrayList<MenuEntry>> menu, int key) throws SQLException {
+        PersistenceFacade.getInstance().getRestaurant(Integer.toString(key)).addMenu(menu);
     }
 
-
-    public  void printMenu(int key){
-       restaurants.get(key).printMenu();
+    /**
+     * Method for debugging
+     * @param key
+     */
+    public  void printMenu(int key) throws SQLException {
+        PersistenceFacade.getInstance().getRestaurant(Integer.toString(key)).printMenu();
     }
 
     /**
@@ -89,8 +93,8 @@ public  class RestaurantCatalogue {
      * @param restaurantCode the code oh the restaurant
      * @return a map whose keys are the code of the of the dishes of the restaurant and the values are the name of the dishes
      */
-    public LinkedHashMap<Integer, String>  getMenuInfo(int restaurantCode){
-        return this.restaurants.get(restaurantCode).getMenuInfo();
+    public LinkedHashMap<Integer, String>  getMenuInfo(int restaurantCode) throws SQLException {
+        return PersistenceFacade.getInstance().getRestaurant(Integer.toString(restaurantCode)).getMenuInfo();
     }
 
     /**
@@ -101,10 +105,11 @@ public  class RestaurantCatalogue {
      * @param address of the restaurant to register
      */
     private void checkExisting(String name, String address){
-        if(this.restaurants.isEmpty())
+        Map<String, Restaurant> restaurantsCopy = PersistenceFacade.getInstance().getAllRestaurants();
+        if(restaurantsCopy.isEmpty())
             return;
-        for (int code : this.restaurants.keySet()) {
-            if (checkInfo(code, name, address))
+        for (String code : restaurantsCopy.keySet()) {
+            if (checkInfo(Integer.parseInt(code), name, address))
                 throw new RestaurantAlreadyExistingException("Il ristorante è già presente nel sistema !");
         }
     }
@@ -119,8 +124,9 @@ public  class RestaurantCatalogue {
      * @return a boolean (true if name or address are the same of the restaurant in the system)
      */
     private boolean checkInfo(int code,String name, String address){
-        return this.restaurants.get(code).getName().equals(name) &&
-                this.restaurants.get(code).getAddress().equals(address);
+        Map<String, Restaurant> restaurantsCopy = PersistenceFacade.getInstance().getAllRestaurants();
+        return restaurantsCopy.get(Integer.toString(code)).getName().equals(name) &&
+                restaurantsCopy.get(Integer.toString(code)).getAddress().equals(address);
     }
 
     /**
@@ -131,9 +137,9 @@ public  class RestaurantCatalogue {
      */
     public Map<Integer, String> myRestaurant(String owner){
         HashMap<Integer,String> myRest = new HashMap<>();
-        for(Map.Entry<Integer, Restaurant> restaurant: this.restaurants.entrySet()) {
+        for(Map.Entry<String, Restaurant> restaurant: PersistenceFacade.getInstance().getAllRestaurants().entrySet()) {
             if (restaurant.getValue().getOwner().equals(owner))
-                myRest.put(restaurant.getKey(), restaurant.getValue().getName());
+                myRest.put(Integer.parseInt(restaurant.getKey()), restaurant.getValue().getName());
         }
         if(myRest.isEmpty())
             throw new RestaurantNotFoundException("Nessun ristorante in tuo possesso");
@@ -149,34 +155,35 @@ public  class RestaurantCatalogue {
      * @param dish the name of the dish
      * @param price the price of the dish
      */
-    public void addMenuEntry(int restaurantCode,String dishType,String dish, double price) {
-        this.restaurants.get(restaurantCode).addMenuEntry(dishType,dish,price);
+    public void addMenuEntry(int restaurantCode,String dishType,String dish, double price) throws SQLException {
+       PersistenceFacade.getInstance().getRestaurant(Integer.toString(restaurantCode))
+               .addMenuEntry(dishType, dish, price);
     }
 
-    public ArrayList<Integer> getMenuCode(int restCode){
-        return this.restaurants.get(restCode).getMenuCode();
+    public ArrayList<Integer> getMenuCode(int restCode) throws SQLException {
+        return PersistenceFacade.getInstance().getRestaurant(Integer.toString(restCode)).getMenuCode();
     }
 
-    public MenuEntry getDish(int restCod, int dishCod){
-        return this.restaurants.get(restCod).getDish(dishCod);
+    public MenuEntry getDish(int restCod, int dishCod) throws SQLException {
+        return PersistenceFacade.getInstance().getRestaurant(Integer.toString(restCod)).getDish(dishCod);
     }
 
-    public HashMap<String,String> getRestaurantOverview(int restCod){
-        return this.restaurants.get(restCod).getOverview();
+    public HashMap<String,String> getRestaurantOverview(int restCod) throws SQLException {
+        return PersistenceFacade.getInstance().getRestaurant(Integer.toString(restCod)).getOverview();
     }
-    public String getRestaurantName(int restaurantCode){
-        return this.restaurants.get(restaurantCode).getName();
+    public String getRestaurantName(int restaurantCode) throws SQLException {
+        return PersistenceFacade.getInstance().getRestaurant(Integer.toString(restaurantCode)).getName();
     }
-    public String getRestaurantAddress(int restaurantCode){
-        return this.restaurants.get(restaurantCode).getAddress();
-    }
-
-    public void setRestaurantOverview(int restaurantCode,RestaurantOverview overview){
-        this.restaurants.get(restaurantCode).setOverview(overview);
+    public String getRestaurantAddress(int restaurantCode) throws SQLException {
+        return PersistenceFacade.getInstance().getRestaurant(Integer.toString(restaurantCode)).getAddress();
     }
 
-    public double getRestaurantMeanVote(int restaurantCode){
-        return this.restaurants.get(restaurantCode).getMeanVote();
+    public void setRestaurantOverview(int restaurantCode,RestaurantOverview overview) throws SQLException {
+        PersistenceFacade.getInstance().getRestaurant(Integer.toString(restaurantCode)).setOverview(overview);
+    }
+
+    public double getRestaurantMeanVote(int restaurantCode) throws SQLException {
+        return  PersistenceFacade.getInstance().getRestaurant(Integer.toString(restaurantCode)).getMeanVote();
     }
 
 }
