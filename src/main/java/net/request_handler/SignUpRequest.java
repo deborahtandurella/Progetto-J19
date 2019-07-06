@@ -13,12 +13,21 @@ import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.sql.SQLException;
 
-public class SignUpRequest extends AbstractRequestStrategy {
+/**
+ * Singleton class (concreteStrategy)
+ */
+public class SignUpRequest extends AddressHomeRequest {
     private static SignUpRequest instance = null;
 
     private SignUpRequest() {
     }
 
+    /**
+     * 'Pattern Singleton Implementation'
+     *
+     * If class has not been already created it instantiates the class and returns the instance
+     * @return instance(SignUpRequest)
+     */
     public static SignUpRequest getInstance(){
         if(instance == null)
             instance = new SignUpRequest();
@@ -30,6 +39,13 @@ public class SignUpRequest extends AbstractRequestStrategy {
         write(resp,Rythm.render("signUp.html"));
     }
 
+    /**
+     * method which takes the data of the new user during registration
+     * 
+     * @param req, the HttpServletRequest to get parameter
+     * @param resp, the HttpServletResponse to answer to the requests of the templates
+     * @throws IOException
+     */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String type = req.getParameter("type");
@@ -43,19 +59,29 @@ public class SignUpRequest extends AbstractRequestStrategy {
         }
         catch (SQLException e){
             e.printStackTrace();
+            System.out.println("SQLException: " + e.getMessage());
         }
 
     }
 
+    /**
+     * Method called when a new user signs up
+     *
+     * @param type, of the new user (critic or restaurant owner)
+     * @param credential, data of the new user
+     * @param resp, the HttpServletResponse to answer to the requests of the templates
+     * @throws IOException
+     * @throws SQLException
+     */
     private void signUp(String type, String [] credential, HttpServletResponse resp)throws IOException, SQLException {
         if(!(HomeUser.getInstance().signUp(credential, UserType.valueOf(type)))){
             write(resp,Rythm.render("warn.html", "Username non valido, già in uso!"));
         }
         else {
-            /* TODO crete abstract class which is extended by 'SignUpRequest' and 'HomeRequest'.
-               TODO the abstract class has the method to write the template 'HomeCritic' and
-               TODO 'HomeRestaurantOwner'*/
-            write(resp, Rythm.render("home.html"));
+            if(type.equals("CRITIC"))
+                super.homeCritic(resp, credential[0]);
+            else
+                super.homeRestaurantOwner(resp, credential[0]);
         }
     }
 

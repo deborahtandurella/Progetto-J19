@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HomeRequest extends  AbstractRequestStrategy {
+public class HomeRequest extends AddressHomeRequest{
 
     private static HomeRequest instance = null;
 
@@ -49,29 +49,14 @@ public class HomeRequest extends  AbstractRequestStrategy {
         try {
             UserType type = HomeUser.getInstance().logIn(username, password);
             if (type == UserType.CRITIC)
-                logCritic(resp,username);
+                super.homeCritic(resp,username);
             else
-                logRestaurantOwner(resp, username);
+                super.homeRestaurantOwner(resp, username);
         }
         catch (InvalidParameterException e) {
             write(resp, Rythm.render("warn.html", e.getMessage()));
         }
     }
-    private void logCritic(HttpServletResponse resp, String username) throws IOException{
-            write(resp, Rythm.render("homeCritico.html",username));
-    }
 
 
-    private void logRestaurantOwner(HttpServletResponse resp, String username) throws IOException{
-        Map<String, Object> conf = new HashMap<>();
-        try {
-            conf.put("myRest", HomeRestaurantOwner.getInstance().getOwnedRestaurant(username));
-            conf.put("exception","false");
-        }
-        catch (RestaurantNotFoundException e){
-            conf.put("exception", "true");
-        }
-        conf.put("username", username);
-        write(resp, Rythm.render("homeRistoratore.html", conf));
-    }
 }
