@@ -8,11 +8,11 @@ public class Database {
     private static Database instance=null;
 
     private Database() {
-        try {
+       /* try {
             setUpRistoranti("ristoranti_ridotto.txt");
         }catch (IOException e){
             e.printStackTrace();
-        }
+        }*/
     }
 
     public static synchronized Database getInstance(){
