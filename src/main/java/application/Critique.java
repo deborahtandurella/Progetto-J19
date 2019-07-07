@@ -129,7 +129,7 @@ public class Critique extends RestaurantOverview{
      */
     private void checkNumber(double [] vote){
         for( int  i=0 ; i<vote.length ; i++){
-            if(vote[i] < MINVOTO || vote[i] > MAXVOTO)
+            if(vote[i] < MINVOTO || vote[i] > MAXVOTO) 
                 throw new InvalidNumberException("Voto non valido! Inserire un numero compreso tra 1 e 10");
         }
     }

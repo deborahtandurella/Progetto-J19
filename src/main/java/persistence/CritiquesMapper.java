@@ -50,7 +50,9 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
             ResultSet rs = stm.executeQuery("select * from "+super.tableName);
             while (rs.next()){
                 Critique tmpCrit = createCritique(rs);
-                tmpCrit.setComment(rs.getString(11));
+                tmpCrit.setComment(rs.getString(9));
+                tmpCrit = voteDishes(rs, tmpCrit);
+                updateCache(rs.getString(1),tmpCrit);
             }
         }
         catch (SQLException e){
@@ -68,7 +70,7 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
      */
     private Critique createCritique(ResultSet rs) throws SQLException {
         Critique tmpCrit = new Critique(rs.getString(3), rs.getInt(2),rs.getInt(1));
-        calculateGradeCritique(rs, tmpCrit);
+        tmpCrit = calculateGradeCritique(rs, tmpCrit);
         return tmpCrit;
     }
 
@@ -79,12 +81,14 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
      * @param tmpCrit, the critique which is in creation
      * @throws SQLException
      */
-    private void calculateGradeCritique(ResultSet rs, Critique tmpCrit) throws SQLException{
-        double [] grades = new double[CritiqueSections.values().length];
+    private Critique calculateGradeCritique(ResultSet rs, Critique tmpCrit) throws SQLException{
+        double [] grades = new double[CritiqueSections.values().length-1];
         for (int i = 0; i< CritiqueSections.values().length - 1; i++){
             grades[i] = rs.getDouble(i+4);
-            tmpCrit.writeVotes(grades);
         }
+        tmpCrit.writeVotes(grades);
+
+        return tmpCrit;
     }
 
     /**
@@ -93,11 +97,18 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
      * @param rs, the ResultSet used to take the information given by the SQL query
      * @throws SQLException
      */
-    private void voteDishes(ResultSet rs) throws  SQLException{
+    private Critique voteDishes(ResultSet rs, Critique tmpCrit) throws  SQLException{
         HashMap<MenuEntry, Double> gradeDish = new HashMap<>();
-        PreparedStatement pstm = conn.prepareStatement("SELECT FROM "+tableDishCritique+" WHERE CRITIQUE_CODE = ?" );
+        PreparedStatement pstm = conn.prepareStatement("SELECT DISH_CODE,VOTO_DISH FROM "+tableDishCritique+" WHERE CRITIQUE_CODE = ?" );
         pstm.setInt(1, rs.getInt(1));
         ResultSet rsDish = pstm.executeQuery();
-        while ()
+        while (rsDish.next()){
+            gradeDish.put((MenuEntry) menuEntryMapper.get(Integer.toString(rsDish.getInt(1))),
+                            Double.parseDouble(rsDish.getString(2)));
+            //System.out.println(Integer.toString(rsDish.getInt(1))+"  voto: "+rsDish.getString(2));
+        }
+        //System.out.println(gradeDish);
+        tmpCrit.voteDishes(gradeDish);
+        return tmpCrit;
     }
 }

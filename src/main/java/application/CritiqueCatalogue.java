@@ -12,8 +12,8 @@ import java.util.LinkedList;
  */
 public class CritiqueCatalogue {
     private static CritiqueCatalogue instance = null;
-    //private HashSet<Critique> critiques;
-    //private int critiqueCode;
+    private HashSet<Critique> critiques;
+    private int critiqueCode;
 
     /**
      * Create a new CritiqueCatalogue

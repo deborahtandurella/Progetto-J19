@@ -11,7 +11,7 @@ public class Test {
         //System.out.println(PersistenceFacade.getInstance().getAllRestaurants().toString());
         User user = PersistenceFacade.getInstance().getUser("seb");
         //PersistenceFacade.getInstance().addMenuEntry(new MenuEntry("prova",23.4,1,4,"PRIMO"));
-        PersistenceFacade.getInstance().addRestaurant("7", new Restaurant("prova","prova","prova","prova"));
+        //PersistenceFacade.getInstance().addRestaurant("7", new Restaurant("prova","prova","prova","prova"));
 
     }
 }
