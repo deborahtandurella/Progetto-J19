@@ -54,6 +54,7 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
                 tmpCrit = voteDishes(rs, tmpCrit);
                 updateCache(rs.getString(1),tmpCrit);
             }
+            OIDCreator.getInstance().setCritiquesCode(Integer.parseInt(getLastObjectCode("CRITIQUE_COD")));
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -105,9 +106,7 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
         while (rsDish.next()){
             gradeDish.put((MenuEntry) menuEntryMapper.get(Integer.toString(rsDish.getInt(1))),
                             Double.parseDouble(rsDish.getString(2)));
-            //System.out.println(Integer.toString(rsDish.getInt(1))+"  voto: "+rsDish.getString(2));
         }
-        //System.out.println(gradeDish);
         tmpCrit.voteDishes(gradeDish);
         return tmpCrit;
     }
