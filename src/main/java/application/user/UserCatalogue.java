@@ -67,27 +67,5 @@ public class UserCatalogue {
             return true;
         }
     }
-
-
-    /**
-     * Method used to update database
-     *  !!waiting for the real connection with DBMS!!
-     * @param info
-     * @param fileName
-     */
-    private void updateDBUser(Map<String,User> info, String fileName){
-        try {
-            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(fileName)));
-            for (Map.Entry<String,User> a: info.entrySet()) {
-                pw.println(a.getKey()+"&"+a.getValue().getPassword()+"&"+
-                        a.getValue().getName()+"&"+a.getValue().getSurname());
-            }
-
-            pw.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    
 }
