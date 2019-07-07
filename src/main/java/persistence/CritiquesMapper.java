@@ -2,19 +2,25 @@ package persistence;
 
 import application.Critique;
 import application.CritiqueSections;
+import application.MenuEntry;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class CritiquesMapper extends AbstractPersistenceMapper {
     private HashSet<Critique> critiques;
+    private MenuEntryMapper menuEntryMapper;
+    private String tableDishCritique;
 
-    public CritiquesMapper() throws SQLException {
+    public CritiquesMapper(MenuEntryMapper menuEntryMapper) throws SQLException {
         super("critiques");
         this.critiques = new HashSet<>();
+        this.menuEntryMapper = menuEntryMapper;
+        this.tableDishCritique = "critique_dish";
         setUp();
     }
 
@@ -79,5 +85,19 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
             grades[i] = rs.getDouble(i+4);
             tmpCrit.writeVotes(grades);
         }
+    }
+
+    /**
+     * Method which set the grades of the dish in a critique
+     *
+     * @param rs, the ResultSet used to take the information given by the SQL query
+     * @throws SQLException
+     */
+    private void voteDishes(ResultSet rs) throws  SQLException{
+        HashMap<MenuEntry, Double> gradeDish = new HashMap<>();
+        PreparedStatement pstm = conn.prepareStatement("SELECT FROM "+tableDishCritique+" WHERE CRITIQUE_CODE = ?" );
+        pstm.setInt(1, rs.getInt(1));
+        ResultSet rsDish = pstm.executeQuery();
+        while ()
     }
 }

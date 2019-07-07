@@ -25,7 +25,7 @@ public class MapperFactory {
         this.mappers.put(MenuEntryMapper.class, mem);
         this.mappers.put(RestaurantsMapper.class, new RestaurantsMapper(om,mem));
         this.mappers.put(UserMapper.class, new UserMapper());
-        this.mappers.put(CritiquesMapper.class, new CritiquesMapper());
+        this.mappers.put(CritiquesMapper.class, new CritiquesMapper(mem));
     }
     /**
      * 'Pattern Singleton Implementation'
