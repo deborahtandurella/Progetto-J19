@@ -100,11 +100,8 @@ CREATE TABLE CRITIQUES
 	 SERVIZIO SMALLINT,
 	 CONTO SMALLINT,
 	 CUCINA DOUBLE,
-	 DISH_COD INTEGER,
-	 VOTO_DISH SMALLINT,
 	 COMMENT CHAR(200),
-	 PRIMARY KEY (CRITIQUE_COD, DISH_COD),
-	 FOREIGN KEY (DISH_COD) REFERENCES MENUENTRY(DISH_COD),
+	 PRIMARY KEY (CRITIQUE_COD),
 	 FOREIGN KEY (CRITIC) REFERENCES USERS(USERNAME),
 	 FOREIGN KEY (RESTAURANT) REFERENCES RESTAURANTS(COD_REST)
 	)
@@ -112,5 +109,20 @@ CREATE TABLE CRITIQUES
 
 -- inserimento nella table critiques
 
-INSERT INTO CRITIQUES VALUES (1, 1, 'jack', 7,8,9,6,8, '21',8, 'Cibo molto raffinato, ambiente gradevole e personale cordiale');
-INSERT INTO CRITIQUES VALUES (2, 2, 'jack', 7,8,9,6,8, '47',8, 'Cibo molto raffinato, ambiente gradevole e personale cordiale');
+INSERT INTO CRITIQUES VALUES (1, 1, 'jack', 7,8,9,6,8, 'Cibo molto raffinato, ambiente gradevole e personale cordiale');
+INSERT INTO CRITIQUES VALUES (2, 2, 'jack', 7,8,9,6,8, 'Cibo molto raffinato, ambiente gradevole e personale cordiale');
+
+-- CREAZIONE TABLE CRITIQUE_DISH
+CREATE TABLE CRITIQUE_DISH
+(
+	CRITIQUE_CODE  INTEGER,
+    DISH_CODE INTEGER,
+	VOTO_DISH SMALLINT,
+    PRIMARY KEY(CRITIQUE_CODE,DISH_CODE),
+    foreign key (CRITIQUE_CODE) references CRITIQUES(CRITIQUE_COD),
+    foreign key (DISH_CODE) references MENUENTRY(DISH_COD)
+)
+	engine = InnoDB;
+ insert into   CRITIQUE_DISH values (1,21,7);
+ insert into CRITIQUE_DISH values (2,47,6);
+ 
