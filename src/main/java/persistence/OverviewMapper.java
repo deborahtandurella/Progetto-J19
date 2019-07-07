@@ -2,6 +2,7 @@ package persistence;
 
 import application.RestaurantOverview;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -57,6 +58,19 @@ public class OverviewMapper extends AbstractPersistenceMapper {
 
     @Override
     public void put(String OID, Object obj) {
+        RestaurantOverview ro = (RestaurantOverview) obj;
+        try{
+            PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?,?)");
+            pstm.setString(1,OID);
+            pstm.setString(7,Double.toString(ro.getMean()));
+            for(int i = 0; i< RestaurantOverview.CRITIQUE_SECTIONS.length; i++){
+                pstm.setString(i+2,Double.toString(ro.getSections()
+                        .get(RestaurantOverview.CRITIQUE_SECTIONS[i])));
+            }
+            pstm.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 

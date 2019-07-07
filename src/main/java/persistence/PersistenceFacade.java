@@ -2,6 +2,7 @@ package persistence;
 
 import application.MenuEntry;
 import application.Restaurant;
+import application.RestaurantOverview;
 import application.user.User;
 
 import java.sql.SQLException;
@@ -54,7 +55,10 @@ public class PersistenceFacade {
      * @param restaurant is the Restaurant which has to be added.
      */
     public void addRestaurant(String OID, Restaurant restaurant){
+        RestaurantOverview ro = new RestaurantOverview();
+        restaurant.setOverview(ro);
         mapper.get(RestaurantsMapper.class).put(OID,restaurant);
+        mapper.get(OverviewMapper.class).put(OID,ro);
     }
 
     /**
