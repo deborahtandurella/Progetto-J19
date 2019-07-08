@@ -21,11 +21,12 @@ public class MapperFactory {
         this.mappers  = new HashMap<>();
         OverviewMapper om = new OverviewMapper();
         MenuEntryMapper mem = new MenuEntryMapper();
+        DishCritiquesMapper dcm = new DishCritiquesMapper(mem);
         this.mappers.put(OverviewMapper.class, om);
         this.mappers.put(MenuEntryMapper.class, mem);
         this.mappers.put(RestaurantsMapper.class, new RestaurantsMapper(om,mem));
         this.mappers.put(UserMapper.class, new UserMapper());
-        this.mappers.put(CritiquesMapper.class, new CritiquesMapper(mem));
+        this.mappers.put(CritiquesMapper.class, new CritiquesMapper(dcm));
     }
     /**
      * 'Pattern Singleton Implementation'
