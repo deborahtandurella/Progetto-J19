@@ -64,6 +64,11 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
         }
     }
 
+    @Override
+    public void updateTable(String OID, Object obj) {
+
+    }
+
     /**
      * Method called when RestaurantMapper Class is created.(when the system is set up)
      * It populates the cache with the restaurant registered to the system.

@@ -9,6 +9,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Mapper of the table "critique_dish".
+ * Table in which there are the codes of the critiques and
+ * the dishes who are valuated in them with their grade.
+ */
 public class DishCritiquesMapper extends AbstractPersistenceMapper {
     private MenuEntryMapper menuEntryMapper;
 
@@ -50,6 +55,17 @@ public class DishCritiquesMapper extends AbstractPersistenceMapper {
 
     }
 
+    @Override
+    public void updateTable(String OID, Object obj) {
+
+    }
+
+    /**
+     * Method called by CritiquesMapper when the system is set up,
+     * in order to instance each critique with its MenuEntry
+     * @param critiqueCode
+     * @return the dishes of the critique , each one matched with its grade
+     */
     protected HashMap<MenuEntry,Double> getDishesGrades(String critiqueCode){
         HashMap<MenuEntry, Double> gradeDish = new HashMap<>();
         try{

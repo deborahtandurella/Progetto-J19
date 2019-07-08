@@ -54,6 +54,11 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
 
     }
 
+    @Override
+    public void updateTable(String OID, Object obj) {
+
+    }
+
     /**
      * Set the cache up when the system is started.
      * It instances all the critiques which are in the database.

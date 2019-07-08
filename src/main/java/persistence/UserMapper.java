@@ -94,6 +94,11 @@ public class UserMapper extends AbstractPersistenceMapper{
         }
     }
 
+    @Override
+    public void updateTable(String OID, Object obj) {
+
+    }
+
     /**
      * Used when a new user signs up
      * @param user, to add in database
