@@ -13,14 +13,13 @@ import java.util.HashSet;
 
 public class CritiquesMapper extends AbstractPersistenceMapper {
     private HashSet<Critique> critiques;
-    private MenuEntryMapper menuEntryMapper;
-    private String tableDishCritique;
+    private DishCritiquesMapper dcm ;
 
-    public CritiquesMapper(MenuEntryMapper menuEntryMapper) throws SQLException {
+
+    public CritiquesMapper(DishCritiquesMapper dcm) throws SQLException {
         super("critiques");
         this.critiques = new HashSet<>();
-        this.menuEntryMapper = menuEntryMapper;
-        this.tableDishCritique = "critique_dish";
+        this.dcm = dcm;
         setUp();
     }
 
@@ -41,12 +40,23 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
 
     @Override
     public void put(String OID, Object obj) {
+        Critique c = (Critique) obj;
+        c.setCode(Integer.parseInt(OID));
+        try{
+            PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?,?,?,?)");
+            setStringCritiquesTable(pstm,c);
+            pstm.execute();
+            this.critiques.add(c);
+            this.dcm.put(Integer.toString(c.getCritiqueCode()),c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     /**
      * Set the cache up when the system is started.
-     * It instances all the critiques which are in the database
+     * It instances all the critiques which are in the database.
      */
     public void setUp() {
         try {
@@ -55,14 +65,13 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
             while (rs.next()){
                 Critique tmpCrit = createCritique(rs);
                 tmpCrit.setComment(rs.getString(9));
-                 voteDishes(rs, tmpCrit);
+                tmpCrit.voteDishes(dcm.getDishesGrades(Integer.toString(tmpCrit.getCritiqueCode())));
                 updateCache(rs.getString(1),tmpCrit);
             }
             OIDCreator.getInstance().setCritiquesCode(Integer.parseInt(getLastObjectCode("CRITIQUE_COD")));
         }
         catch (SQLException e){
             e.printStackTrace();
-            System.out.println("SQLexception: " + e.getMessage());
         }
     }
 
@@ -92,26 +101,9 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
             grades[i] = rs.getDouble(i+4);
         }
         tmpCrit.writeVotes(grades);
-        
+
     }
 
-    /**
-     * Method which set the grades of the dish in a critique
-     *
-     * @param rs, the ResultSet used to take the information given by the SQL query
-     * @throws SQLException
-     */
-    private void voteDishes(ResultSet rs, Critique tmpCrit) throws  SQLException{
-        HashMap<MenuEntry, Double> gradeDish = new HashMap<>();
-        PreparedStatement pstm = conn.prepareStatement("SELECT DISH_CODE,VOTO_DISH FROM "+tableDishCritique+" WHERE CRITIQUE_CODE = ?" );
-        pstm.setInt(1, rs.getInt(1));
-        ResultSet rsDish = pstm.executeQuery();
-        while (rsDish.next()){
-            gradeDish.put((MenuEntry) menuEntryMapper.get(Integer.toString(rsDish.getInt(1))),
-                            Double.parseDouble(rsDish.getString(2)));
-        }
-        tmpCrit.voteDishes(gradeDish);
-    }
 
     /**
      * Method called by PersistenceFacade class
@@ -119,5 +111,35 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
      */
     public HashSet<Critique> getCritiques() {
         return critiques;
+    }
+
+    /**
+     * Method called by method put of this class.
+     * Set parameter for PreparedStatement for database table "critiques".
+     * @param pstm is the PreparedStatement of put method
+     * @param c is the critique which has to be added to the table in the database
+     * @throws SQLException
+     */
+    private void setStringCritiquesTable(PreparedStatement pstm,Critique c)throws SQLException{
+        pstm.setString(1,Integer.toString(c.getCritiqueCode()));
+        pstm.setString(2,Integer.toString(c.getRestaurantCode()));
+        pstm.setString(3,c.getCritico());
+        pstm.setString(9,c.getComment());
+        setGradeSections(pstm,c);
+
+    }
+
+    /**
+     * Method called by method setStringCritiquesTable of this class.
+     * @param pstm is the PreparedStatement of put method
+     * @param c is the critique which has to be added to the table in the database
+     * @throws SQLException
+     */
+    private void setGradeSections(PreparedStatement pstm, Critique c) throws SQLException {
+        HashMap<CritiqueSections,Double> map = c.getSections();
+        for (int i = 0; i<CritiqueSections.values().length ; i++) {
+            double grade = map.get(CritiqueSections.values()[i]);
+            pstm.setString(i+4,Double.toString(grade));
+        }
     }
 }
