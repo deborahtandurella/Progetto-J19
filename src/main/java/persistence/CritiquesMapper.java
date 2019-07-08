@@ -44,6 +44,10 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
 
     }
 
+    /**
+     * Set the cache up when the system is started.
+     * It instances all the critiques which are in the database
+     */
     public void setUp() {
         try {
             Statement stm = super.conn.createStatement();
@@ -51,7 +55,7 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
             while (rs.next()){
                 Critique tmpCrit = createCritique(rs);
                 tmpCrit.setComment(rs.getString(9));
-                tmpCrit = voteDishes(rs, tmpCrit);
+                 voteDishes(rs, tmpCrit);
                 updateCache(rs.getString(1),tmpCrit);
             }
             OIDCreator.getInstance().setCritiquesCode(Integer.parseInt(getLastObjectCode("CRITIQUE_COD")));
@@ -98,7 +102,7 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
      * @param rs, the ResultSet used to take the information given by the SQL query
      * @throws SQLException
      */
-    private Critique voteDishes(ResultSet rs, Critique tmpCrit) throws  SQLException{
+    private void voteDishes(ResultSet rs, Critique tmpCrit) throws  SQLException{
         HashMap<MenuEntry, Double> gradeDish = new HashMap<>();
         PreparedStatement pstm = conn.prepareStatement("SELECT DISH_CODE,VOTO_DISH FROM "+tableDishCritique+" WHERE CRITIQUE_CODE = ?" );
         pstm.setInt(1, rs.getInt(1));
@@ -108,7 +112,6 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
                             Double.parseDouble(rsDish.getString(2)));
         }
         tmpCrit.voteDishes(gradeDish);
-        return tmpCrit;
     }
 
     /**
