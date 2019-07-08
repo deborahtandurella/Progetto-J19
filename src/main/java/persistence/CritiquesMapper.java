@@ -110,4 +110,12 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
         tmpCrit.voteDishes(gradeDish);
         return tmpCrit;
     }
+
+    /**
+     * Method called by PersistenceFacade class
+     *@return the cache of the critiques
+     */
+    public HashSet<Critique> getCritiques() {
+        return critiques;
+    }
 }
