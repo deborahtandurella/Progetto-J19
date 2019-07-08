@@ -42,11 +42,10 @@ public class UserCatalogue {
      * @return true if 'username' and 'password' match, false if not
      */
     public UserType logInUser(String username, String psw) throws SQLException {
-            User userLog = PersistenceFacade.getInstance().getUser(username);
-        System.out.println(userLog.getPassword());
-            if (!(userLog.getPassword().equals(psw)))
-                throw new InvalidUsernameException("Password errata");
-            return userLog.getType();
+        User userLog = PersistenceFacade.getInstance().getUser(username);
+        if (!(userLog.getPassword().equals(psw)))
+            throw new InvalidUsernameException("Password errata");
+        return userLog.getType();
     }
 
     /**

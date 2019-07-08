@@ -1,5 +1,6 @@
 package persistence;
 
+import application.Critique;
 import application.MenuEntry;
 import application.Restaurant;
 import application.RestaurantOverview;
@@ -99,5 +100,24 @@ public class PersistenceFacade {
         ((UserMapper)mapper.get(UserMapper.class)).signUpUser(user);
     }
 
+    /**
+     * It gets all the critiques saved in the system.
+     *
+     * @return critiques saved in the mapper CritiquesMapper
+     */
+    public HashSet<Critique> getCritiques(){
+        return ((CritiquesMapper)mapper.get(CritiquesMapper.class)).getCritiques();
+    }
 
+    /**
+     * Method used to add a new critique in the database and in the cache memory of CritiquesMapper
+     *
+     * @param critique the new critique
+     * @return
+     */
+    public void addNewCritique(Critique critique){
+        ((CritiquesMapper)mapper.get(CritiquesMapper.class)).put(
+                Integer.toString(OIDCreator.getInstance().getNewCritiquesCode()),
+                critique);
+    }
 }

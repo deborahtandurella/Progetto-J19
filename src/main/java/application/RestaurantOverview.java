@@ -2,6 +2,7 @@ package application;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * A overview of the restaurant which is given by the mean of its critiques.
@@ -37,7 +38,7 @@ public class RestaurantOverview {
      * It computes the mean of each section
      * @param list of the critiques of a restaurant
      */
-    public void computeMean(ArrayList<Critique> list){
+    public void computeMean(HashSet<Critique> list){
 
         for (CritiqueSections type : CRITIQUE_SECTIONS){
             for (Critique c:list ) {

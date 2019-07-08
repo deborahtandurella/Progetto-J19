@@ -53,7 +53,7 @@ public class ListRequest extends OverviewRequest {
             conf.put("username", username);
             write(resp, Rythm.render("critique.html", conf));
         }catch(EmptyMenuException e){
-            write(resp,Rythm.render("warn.html"));
+            write(resp,Rythm.render("warn.html", e.getMessage()));
         }
     }
 
