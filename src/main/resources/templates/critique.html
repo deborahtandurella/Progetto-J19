@@ -32,10 +32,6 @@
           </div>
           <div class="collapse navbar-collapse navbar-right" id="mynavbar">
             <ul class="nav navbar-nav">
-              <!-- <li class="active"><a href="#header">HOME</a></li>
-              <li><a href="#feature">SEEEEEEK</a></li>
-              <li><a href="#portfolio">LOGIN</a></li>
-              <li><a href="#contact">CONTACT</a></li> -->
             </ul>
           </div>
         </div>
@@ -79,7 +75,7 @@
           <h2>SERVIZIO:</h2>
           <br><input type="range" min="0" max="10" value="0" class="slider" id = "serv" name="SERVIZIO"><br>
           <div class="index">
-            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
+            <img src="/static/img/slider_ticks.png" alt="ticks" style="width: 100%">
           </div>
           <div class="icon">
             <i class="fa fa-money"></i>
@@ -87,7 +83,7 @@
           <h2>CONTO:</h2>
           <br><input type="range" min="0" max="10" value="0" class="slider" id="conto" name="CONTO"><br>
           <div class="index">
-            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
+            <img src="/static/img/slider_ticks.png" alt="ticks" style="width: 100%">
           </div>
           <div class="icon">
             <i class="fa fa-map-marker"></i>
@@ -95,7 +91,7 @@
           <h2>LOCATION:</h2>
           <br><input type="range" min="0" max="10" value="0" class="slider" id="loc" name="LOCATION"><br>
           <div class="index">
-            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
+            <img src="/static/img/slider_ticks.png" alt="ticks" style="width: 100%">
           </div>
           <div class="icon">
             <i class="fa fa-book"></i>
@@ -103,7 +99,7 @@
           <h2>MENU:</h2>
           <br><input type="range" min="1" max="10" value="1" class="slider" id="menu" name="MENU"><br>
           <div class="index">
-            &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
+            <img src="/static/img/slider_ticks.png" alt="ticks" style="width: 100%">
           </div>
 
           <div class="icon">
@@ -114,8 +110,8 @@
           <div style="overflow-y: scroll; height:400px; width: 600px;">
             @for(Map.Entry<Integer, String> s: piatti.entrySet()){
               <br><h7>@s.getValue(): </h7>
-              <br><br><input width="300px" type="range" min="0" max="10" value="0" class="slider" id= @s.getValue() name = @s.getKey() ><br><div class="index">
-              &nbsp 0 &nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp&nbsp&nbsp&nbsp&nbsp 2 &nbsp&nbsp&nbsp&nbsp&nbsp 3 &nbsp&nbsp&nbsp&nbsp&nbsp 4 &nbsp&nbsp&nbsp&nbsp&nbsp 5 &nbsp&nbsp&nbsp&nbsp&nbsp 6 &nbsp&nbsp&nbsp&nbsp&nbsp 7 &nbsp&nbsp&nbsp&nbsp&nbsp 8 &nbsp&nbsp&nbsp&nbsp&nbsp 9 &nbsp&nbsp&nbsp 10<br>
+              <br><br><input width="300px" type="range" min="0" max="10" value="0" class="slider" id= @s.getValue() name = @s.getKey() ><br><div class="index"><br>
+            <img src="/static/img/slider_ticks.png" alt="ticks" style="width: 100%">
             </div>
             }
           </div>
@@ -124,7 +120,9 @@
             <i class="fa fa-random"></i>
           </div>
           <h2>I numeri non bastano? Aggiungi un commento!</h2>
-          <br><input type="text" name="comment" maxlength="250" size="100,300"><br>
+
+          <textarea name="comment" maxlength="250" style="height: 100px; width: 100%; resize: none"></textarea>
+
 
           <button type="submit" class="btn btn-submit">CONFIRM</button>
         </form>
