@@ -1,7 +1,7 @@
 package application;
 
 import application.restaurant_exception.NoCritiquesException;
-
+import persistence.PersistenceFacade;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -12,17 +12,8 @@ import java.util.LinkedList;
  */
 public class CritiqueCatalogue {
     private static CritiqueCatalogue instance = null;
-    private HashSet<Critique> critiques;
-    private int critiqueCode;
 
-    /**
-     * Create a new CritiqueCatalogue
-     * initialize critiques, HashSet of the critiques
-     * initialize critiqueCode, the counter used to generate the code of the critique in the system
-     */
     private CritiqueCatalogue() {
-        this.critiques = new HashSet<>();
-        this.critiqueCode = 0;
     }
 
     /**
@@ -39,20 +30,12 @@ public class CritiqueCatalogue {
 
     /**
      * Method which is called from 'HomeCritic' when a critic write a critique,
-     * in order to add it in the catalogue system
+     * in order to add it in the catalogue system.
      *
      * @param critique the critique
-     * @return critiqueCode, the code of the critique
      */
-    public int addNewCritique(Critique critique){
-        this.critiqueCode++;
-        critique.setCode(this.critiqueCode);
-        if(!this.critiques.add(critique)) {
-            this.critiqueCode--;
-            // eccezzione critica non aggiunta
-        }
-        updateRestaurantOverview(critique.getRestaurantCode());
-        return this.critiqueCode;
+    public void addNewCritique(Critique critique){
+        PersistenceFacade.getInstance().addNewCritique(critique);
     }
 
     /**
@@ -63,12 +46,11 @@ public class CritiqueCatalogue {
      */
     public ArrayList<String> getCritiquesByUser(String critic){
         ArrayList<String> critique = new ArrayList<>();
-        for (Critique c: this.critiques) {
+        for (Critique c: this.getCritiques()) {
             if(c.getCritico().equals(critic)){
                 String restaurantName = RestaurantCatalogue.getInstance().getRestaurantName(c.getRestaurantCode());
                 critique.add(restaurantName+"£"+c.toString());
             }
-
         }
         if(critique.isEmpty())
             throw new NoCritiquesException("Nessuna critica ancora compilata!");
@@ -82,9 +64,9 @@ public class CritiqueCatalogue {
      * @param restaurantCode, the code of the restaurant selected
      * @return restaurantCritics, the list of the critiques of the restaurant
      */
-    public ArrayList<Critique> getRestaurantCritics(int restaurantCode){
-        ArrayList<Critique> restaurantCritics = new ArrayList<>();
-        for (Critique c: this.critiques) {
+    public HashSet getRestaurantCritics(int restaurantCode){
+        HashSet<Critique> restaurantCritics = new HashSet<>();
+        for (Critique c: this.getCritiques()) {
             if(c.getRestaurantCode() == restaurantCode)
                 restaurantCritics.add(c);
         }
@@ -112,7 +94,7 @@ public class CritiqueCatalogue {
      * @return critiques, the list of the critiques of the restaurant
      */
     public LinkedList<String> getRestaurantCritiqueToString(int restCode){
-        ArrayList<Critique> restCrit = this.getRestaurantCritics(restCode);
+        HashSet<Critique> restCrit = this.getRestaurantCritics(restCode);
         LinkedList<String> critiques = new LinkedList<>();
         for(Critique c : restCrit){
             critiques.add(c.toString());
@@ -120,5 +102,13 @@ public class CritiqueCatalogue {
         return critiques;
     }
 
+    /**
+     * It gets all the critiques saved in the system.
+     *
+     * @ critiques saved in the mapper CritiquesMapper
+     */
+    private HashSet<Critique> getCritiques(){
+        return PersistenceFacade.getInstance().getCritiques();
+    }
 
 }
