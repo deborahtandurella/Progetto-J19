@@ -9,9 +9,9 @@ import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Database.getInstance().addMenu(1,"M_Korte_Dei_Sapori.txt");
-        Database.getInstance().addMenu(4,"M_torre_degli_aquila.txt");
-        Database.getInstance().addMenu(2,"M_locanda_del_carmine.txt");
+//        Database.getInstance().addMenu(1,"M_Korte_Dei_Sapori.txt");
+//        Database.getInstance().addMenu(4,"M_torre_degli_aquila.txt");
+//        Database.getInstance().addMenu(2,"M_locanda_del_carmine.txt");
         init();
 //        Database.getInstance().addMenu(7,"Bardelli_&.txt");
 //        RestaurantCatalogue.getInstance().printMenu(2);

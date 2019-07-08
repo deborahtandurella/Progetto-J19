@@ -73,14 +73,13 @@ public class Restaurant {
      */
     public LinkedHashMap<Integer, String> getMenuInfo () {
         if(this.menu == null)
-            throw new EmptyMenuException();
+            throw new EmptyMenuException("menu non presente");
         LinkedHashMap<Integer,String> temp = new LinkedHashMap<>();
         for (Map.Entry<DishType,ArrayList<MenuEntry>> a: this.menu.entrySet()) {
             for (MenuEntry me:a.getValue()) {
                 temp.put(me.getCod(),me.getDish());
             }
         }
-
         return temp;
     }
 

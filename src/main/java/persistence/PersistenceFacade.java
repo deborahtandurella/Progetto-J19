@@ -115,8 +115,9 @@ public class PersistenceFacade {
      * @param critique the new critique
      * @return
      */
-    public Critique addNewCritique(Critique critique){
-        // this method will call the method of critiqueMapper to put an object
-        return critique;
+    public void addNewCritique(Critique critique){
+        ((CritiquesMapper)mapper.get(CritiquesMapper.class)).put(
+                Integer.toString(OIDCreator.getInstance().getNewCritiquesCode()),
+                critique);
     }
 }
