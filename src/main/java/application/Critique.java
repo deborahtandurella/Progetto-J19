@@ -172,4 +172,16 @@ public class Critique extends RestaurantOverview{
     public int getRestaurantCode() {
         return restaurantCode;
     }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public int getCritiqueCode() {
+        return critiqueCode;
+    }
+
+    public HashMap<MenuEntry, Double> getDishes() {
+        return dishes;
+    }
 }
