@@ -1,6 +1,7 @@
 package application;
 
 import application.restaurant_exception.NoCritiquesException;
+import persistence.OverviewMapper;
 import persistence.PersistenceFacade;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -36,6 +37,7 @@ public class CritiqueCatalogue {
      */
     public void addNewCritique(Critique critique){
         PersistenceFacade.getInstance().addNewCritique(critique);
+        updateRestaurantOverview(critique.getRestaurantCode());
     }
 
     /**
@@ -64,7 +66,7 @@ public class CritiqueCatalogue {
      * @param restaurantCode, the code of the restaurant selected
      * @return restaurantCritics, the list of the critiques of the restaurant
      */
-    public HashSet getRestaurantCritics(int restaurantCode){
+    public HashSet<Critique> getRestaurantCritics(int restaurantCode){
         HashSet<Critique> restaurantCritics = new HashSet<>();
         for (Critique c: this.getCritiques()) {
             if(c.getRestaurantCode() == restaurantCode)
@@ -85,6 +87,7 @@ public class CritiqueCatalogue {
         RestaurantOverview ro = new RestaurantOverview();
         ro.computeMean(getRestaurantCritics(restaurantCode));
         RestaurantCatalogue.getInstance().setRestaurantOverview(restaurantCode,ro);
+        PersistenceFacade.getInstance().updateTable(OverviewMapper.class,ro,Integer.toString(restaurantCode));
     }
 
     /**
@@ -105,7 +108,7 @@ public class CritiqueCatalogue {
     /**
      * It gets all the critiques saved in the system.
      *
-     * @ critiques saved in the mapper CritiquesMapper
+     * @return  critiques saved in the mapper CritiquesMapper
      */
     private HashSet<Critique> getCritiques(){
         return PersistenceFacade.getInstance().getCritiques();

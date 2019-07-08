@@ -71,6 +71,11 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
         }
     }
 
+    @Override
+    public void updateTable(String OID, Object obj) {
+
+    }
+
     /**
      * Method which returns the menu of a restaurant(specified by OID, which is itd code).
      * @param OID_Restaurant is the key of the restaurant .

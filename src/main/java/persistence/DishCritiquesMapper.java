@@ -55,6 +55,11 @@ public class DishCritiquesMapper extends AbstractPersistenceMapper {
 
     }
 
+    @Override
+    public void updateTable(String OID, Object obj) {
+
+    }
+
     /**
      * Method called by CritiquesMapper when the system is set up,
      * in order to instance each critique with its MenuEntry

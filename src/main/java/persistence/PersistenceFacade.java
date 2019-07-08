@@ -116,8 +116,12 @@ public class PersistenceFacade {
      * @return
      */
     public void addNewCritique(Critique critique){
-        ((CritiquesMapper)mapper.get(CritiquesMapper.class)).put(
+        mapper.get(CritiquesMapper.class).put(
                 Integer.toString(OIDCreator.getInstance().getNewCritiquesCode()),
                 critique);
+    }
+
+    public void updateTable(Class klass,Object obj,String OID){
+        mapper.get(klass).updateTable(OID,obj);
     }
 }

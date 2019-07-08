@@ -1,6 +1,8 @@
 package persistence;
 
+import application.CritiqueSections;
 import application.RestaurantOverview;
+import application.RestaurantRead;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -74,5 +76,31 @@ public class OverviewMapper extends AbstractPersistenceMapper {
 
     }
 
+    public void updateTable(String OID,Object obj){
+        RestaurantOverview ro = (RestaurantOverview)obj;
+        try{
+            String query = "UPDATE " + tableName+" SET MENU= ? , LOCATION =? , SERVIZIO = ? , CONTO = ? , CUCINA = ? , MEAN = ?" +
+                    " where RESTAURANT = ?";
+            PreparedStatement pstm = conn.prepareStatement(query);
+            setQueryParameters(pstm,ro,OID);
+            pstm.execute();
+            updateCache(OID,ro);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void updateCache(String OID,RestaurantOverview ro){
+        this.overview.replace(OID,ro);
+    }
+    private void setQueryParameters(PreparedStatement pstm,RestaurantOverview ro, String OID) throws SQLException {
+        pstm.setString(7,OID);
+        pstm.setDouble(6,ro.getMean());
+        HashMap<CritiqueSections,Double> tmp = ro.getSections();
+        for (int i =0; i<CritiqueSections.values().length; i++) {
+            pstm.setDouble(i+1,tmp.get(CritiqueSections.values()[i]));
+        }
+    }
 
 }
