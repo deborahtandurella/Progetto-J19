@@ -13,8 +13,10 @@ import java.util.LinkedList;
  */
 public class CritiqueCatalogue {
     private static CritiqueCatalogue instance = null;
+    private CritiqueFilter critFilter = null;
 
     private CritiqueCatalogue() {
+        this.critFilter = new CritiqueFilter();
     }
 
     /**
@@ -87,17 +89,17 @@ public class CritiqueCatalogue {
         RestaurantOverview ro = new RestaurantOverview();
         ro.computeMean(getRestaurantCritics(restaurantCode));
         RestaurantCatalogue.getInstance().setRestaurantOverview(restaurantCode,ro);
+        System.out.println(ro.toString());
         PersistenceFacade.getInstance().updateTable(OverviewMapper.class,ro,Integer.toString(restaurantCode));
     }
 
     /**
      * Method which is called to show to an user the overview of a restaurant with its critiques
      *
-     * @param restCode, the code of the restaurant selected
-     * @return critiques, the list of the critiques of the restaurant
+     * @param restCrit, the critiques to print
+     * @return critiques, the list of the critiques of the restaurant in String format
      */
-    public LinkedList<String> getRestaurantCritiqueToString(int restCode){
-        HashSet<Critique> restCrit = this.getRestaurantCritics(restCode);
+    public LinkedList<String> getRestaurantCritiqueToString(HashSet<Critique> restCrit){
         LinkedList<String> critiques = new LinkedList<>();
         for(Critique c : restCrit){
             critiques.add(c.toString());
@@ -112,6 +114,31 @@ public class CritiqueCatalogue {
      */
     private HashSet<Critique> getCritiques(){
         return PersistenceFacade.getInstance().getCritiques();
+    }
+
+    /**
+     *Method which select the critiques with a mean >= of the grade
+     *
+     *  @param grade, the vote used to select the critiques
+     *  @return only the critiques which verify the condition
+     */
+    public LinkedList<String> getRestCritByVoteToString(int grade, int restCode){
+        return this.getRestaurantCritiqueToString(this.critFilter.getRestCritByVote(this.getRestaurantCritics(restCode),
+                grade));
+    }
+
+
+    /**
+     * Method which select the critiques with a section with a grade>= of the vote
+     *
+     * @param grade,  the vote used to select the critiques
+     * @param restCode code of the restaurant
+     * @param section of the critiques
+     * @return only the critiques which verify the condition
+     */
+    public LinkedList<String> getRestCritByVoteSectionToString(int grade, int restCode, CritiqueSections section){
+        return this.getRestaurantCritiqueToString(this.critFilter.getRestCritByVoteSection(
+                                                    this.getRestaurantCritics(restCode), grade, section));
     }
 
 }
