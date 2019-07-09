@@ -1,21 +1,14 @@
 package net.request_handler;
 
-import application.controller.HomeCritic;
-import application.controller.HomeRestaurantOwner;
-import application.RestaurantCatalogue;
 import application.controller.HomeUser;
 import application.database_exception.InvalidUsernameException;
-import application.restaurant_exception.RestaurantNotFoundException;
 import application.user.UserType;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.InvalidParameterException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class HomeRequest extends AddressHomeRequest{
 

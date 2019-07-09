@@ -1,6 +1,6 @@
 package net.request_handler;
 
-import application.controller.HomeRestaurantOwner;
+import application.controller.Home;
 import application.restaurant_exception.DishAlreadyInMenuException;
 import net.net_exception.InvalidParameterException;
 import net.net_exception.MissingFormParameterException;
@@ -91,7 +91,7 @@ public class AddMenuRequest extends AbstractRequestStrategy {
         String dishPrice = req.getParameter("dishPrice");
         checkPrice(Double.parseDouble(dishPrice));
         String dishName = req.getParameter("dishName");
-        HomeRestaurantOwner.getInstance()
+        Home.getInstance()
                 .addMenuEntry(Integer.parseInt(restaurantCode),dishType,dishName,Double.parseDouble(dishPrice));
     }
 
@@ -108,7 +108,7 @@ public class AddMenuRequest extends AbstractRequestStrategy {
             write(resp,Rythm.render("addMenu.html",req.getParameter("rCode")));
         else {
             Map<String, Object> conf = new HashMap<>();
-            conf.put("myRest", HomeRestaurantOwner.getInstance().getOwnedRestaurant(req.getParameter("username")));
+            conf.put("myRest", Home.getInstance().getOwnedRestaurant(req.getParameter("username")));
             conf.put("username", req.getParameter("username"));
             conf.put("exception", "false");
             write(resp, Rythm.render("homeRistoratore.html", conf));

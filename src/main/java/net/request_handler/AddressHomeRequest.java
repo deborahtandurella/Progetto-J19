@@ -1,6 +1,6 @@
 package net.request_handler;
 
-import application.controller.HomeRestaurantOwner;
+import application.controller.Home;
 import application.restaurant_exception.RestaurantNotFoundException;
 import org.rythmengine.Rythm;
 
@@ -37,7 +37,7 @@ public abstract class AddressHomeRequest extends AbstractRequestStrategy {
     protected void homeRestaurantOwner(HttpServletResponse resp, String username) throws IOException{
         Map<String, Object> conf = new HashMap<>();
         try {
-            conf.put("myRest", HomeRestaurantOwner.getInstance().getOwnedRestaurant(username));
+            conf.put("myRest", Home.getInstance().getOwnedRestaurant(username));
             conf.put("exception","false");
         }
         catch (RestaurantNotFoundException e){

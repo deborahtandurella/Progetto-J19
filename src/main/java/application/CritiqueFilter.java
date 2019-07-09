@@ -8,6 +8,13 @@ public class CritiqueFilter {
     public CritiqueFilter() {
     }
 
+    /**
+     * Method which select the critiques with a mean >= of the grade
+     *
+     * @param restCrit the critiques of the restaurant
+     * @param grade, the vote used to select the critiques
+     * @return only the critiques which verify the condition
+     */
     protected HashSet<Critique> getRestCritByVote(HashSet<Critique> restCrit, int grade){
         HashSet<Critique> crit = new HashSet<>();
         for (Critique c: restCrit) {
@@ -24,6 +31,7 @@ public class CritiqueFilter {
     /**
      * Method which select the critiques with a section with a grade>= of the vote
      *
+     * @param restCrit the critiques of the restaurant
      * @param grade,  the vote used to select the critiques
      * @param section of the critiques
      * @return only the critiques which verify the condition

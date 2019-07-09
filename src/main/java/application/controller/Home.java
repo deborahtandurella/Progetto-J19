@@ -1,25 +1,22 @@
 package application.controller;
 
 
-import application.Database;
 import application.RestaurantCatalogue;
-import application.database_exception.InvalidUsernameException;
 import application.restaurant_exception.RestaurantNotFoundException;
-import application.user.UserCatalogue;
 
 import java.util.Map;
 
-public class HomeRestaurantOwner {
+public class Home {
 
-    private static HomeRestaurantOwner instance = null;
+    private static Home instance = null;
 
-    public HomeRestaurantOwner() {
+    public Home() {
 
     }
 
-    public static synchronized  HomeRestaurantOwner getInstance(){
+    public static synchronized Home getInstance(){
         if(instance == null){
-            instance = new HomeRestaurantOwner();
+            instance = new Home();
         }
         return instance;
     }

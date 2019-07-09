@@ -1,16 +1,12 @@
 package net.request_handler;
 
-import application.controller.HomeCritic;
-import application.controller.HomeRestaurantOwner;
 import application.controller.HomeUser;
-import application.database_exception.InvalidUsernameException;
 import application.user.UserType;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.InvalidParameterException;
 import java.sql.SQLException;
 
 /**

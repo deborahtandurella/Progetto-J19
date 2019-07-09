@@ -35,7 +35,8 @@ public abstract class OverviewRequest extends AbstractRequestStrategy {
             conf.put("name", RestaurantCatalogue.getInstance().getRestaurantName(restaurantCode));
             conf.put("address", RestaurantCatalogue.getInstance().getRestaurantAddress(restaurantCode));
             conf.put("overview", restaurantOverview);
-            conf.put("critiques", CritiqueCatalogue.getInstance().getRestaurantCritiqueToString(restaurantCode));
+            conf.put("critiques", CritiqueCatalogue.getInstance().getRestaurantCritiqueToString(
+                            CritiqueCatalogue.getInstance().getRestaurantCritics(restaurantCode)));
             conf.put("username",username);
             conf.put("votoMedio",Double.toString(RestaurantCatalogue.getInstance().getRestaurantMeanVote(restaurantCode)));
             write(resp, Rythm.render("restaurant_view.html", conf));
