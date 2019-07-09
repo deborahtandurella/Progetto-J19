@@ -40,17 +40,17 @@ public class CritiqueRequest extends AbstractRequestStrategy {
 
     private void writeCritique(HttpServletRequest req){
 
-        int restCode = Integer.parseInt(req.getParameter("restCode"));
+        String restCode = req.getParameter("restCode");
 
         Home.getInstance().writeCritique(restCode, getVoti(req), this.voteDishes(req,restCode),
                 req.getParameter("comment"), req.getParameter("username"));
     }
-    private HashMap<MenuEntry,Double> voteDishes(HttpServletRequest req,int restCode){
-        ArrayList<Integer> menu = Home.getInstance().getMenuCode(restCode);
+    private HashMap<MenuEntry,Double> voteDishes(HttpServletRequest req,String restCode){
+        ArrayList<String> menu = Home.getInstance().getMenuCode(restCode);
         HashMap<MenuEntry, Double> dishVote = new HashMap<>();
-        for (Integer i :menu) {
+        for (String i :menu) {
             dishVote.put(Home.getInstance().getDish(restCode, i),
-                    Double.parseDouble(req.getParameter(Integer.toString(i))));
+                    Double.parseDouble(req.getParameter(i)));
         }
         return dishVote;
     }

@@ -33,18 +33,18 @@ public class ListRequest extends OverviewRequest {
             String action = req.getParameter("switch");
             String username = req.getParameter("username");
             if(action.equals("write"))
-                sendCritiqueModule(Integer.parseInt(restaurantCode),resp,username);
+                sendCritiqueModule(restaurantCode,resp,username);
             else
-                sendRestaurantOverview(Integer.parseInt(restaurantCode),resp, username);
+                sendRestaurantOverview(restaurantCode,resp, username);
         }catch (MissingFormParameterException e){
             write(resp,Rythm.render("warn.html",e.getMessage()));
         }
     }
 
-    private void sendCritiqueModule(int restaurantCode, HttpServletResponse resp, String username) throws IOException {
+    private void sendCritiqueModule(String restaurantCode, HttpServletResponse resp, String username) throws IOException {
         Map<String, Object> conf = new HashMap<>();
         try{
-            LinkedHashMap<Integer, String> piatti = Home.getInstance().getMenuInfo(restaurantCode);
+            LinkedHashMap<String, String> piatti = Home.getInstance().getMenuInfo(restaurantCode);
             conf.put("piatti", piatti);
             conf.put("restCode", restaurantCode);
             conf.put("username", username);

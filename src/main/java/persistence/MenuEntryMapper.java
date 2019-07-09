@@ -24,7 +24,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
     protected MenuEntryMapper() throws SQLException {
         super("menuentry");
         menuEntries = new ArrayList<>();
-        OIDCreator.getInstance().setMenuEntryCode(Integer.parseInt(getLastObjectCode("DISH_COD")));
+        OIDCreator.getInstance().setMenuEntryCode(getLastObjectCode("DISH_COD"));
     }
 
 
@@ -36,14 +36,14 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
         ResultSet rs = pstm.executeQuery();
         if(!rs.next())
             throw new ObjectNotFoundException();
-        return new MenuEntry(rs.getString(2),rs.getDouble(3),rs.getInt(1),
-                Integer.parseInt(OID),rs.getString(5)) ;
+        return new MenuEntry(rs.getString(2),rs.getDouble(3),rs.getString(1),OID,
+                rs.getString(5)) ;
     }
 
     @Override
     protected Object getObjectFromCache(String OID) {
         for (MenuEntry me: menuEntries) {
-            if (Integer.toString(me.getCod()).equals(OID))
+            if (me.getCod().equals(OID))
                 return me;
         }
         return null;
@@ -53,7 +53,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
     protected void updateCache(String OID, Object obj) {
         MenuEntry me = null;
         for (MenuEntry m:menuEntries) {
-            if(m.getCod() == Integer.parseInt(OID)){
+            if(m.getCod().equals(OID)){
                 me = m;
                 break;
             }
@@ -73,7 +73,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
             pstm.setString(1,OID);
             pstm.setString(2,me.getDish());
             pstm.setString(3,Double.toString(me.getPrice()));
-            pstm.setString(4,Integer.toString(me.getRestaurantCode()));
+            pstm.setString(4,me.getRestaurantCode());
             pstm.setString(5,me.getType());
             pstm.execute();
         } catch (SQLException e) {
@@ -91,7 +91,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
             pstm.setString(1,me.getDish());
             pstm.setDouble(2,me.getPrice());
             pstm.setString(3,me.getType());
-            pstm.setString(4,Integer.toString(me.getCod()));
+            pstm.setString(4,me.getCod());
             pstm.execute();
         }catch (SQLException e) {
             e.printStackTrace();
@@ -113,9 +113,9 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
         if(!rs.isBeforeFirst())
             throw new EmptyMenuException();
         while (rs.next()){
-            MenuEntry me =  new MenuEntry(rs.getString(2),rs.getDouble(3),rs.getInt(1),
-                    Integer.parseInt(OID_Restaurant),rs.getString(5));
-            updateCache(Integer.toString(me.getCod()),me);
+            MenuEntry me =  new MenuEntry(rs.getString(2),rs.getDouble(3),
+                    rs.getString(1),OID_Restaurant,rs.getString(5));
+            updateCache(me.getCod(),me);
             menu.get(MenuHandler.getInstance().stringConverter(rs.getString(5)))
                     .add(me);
         }

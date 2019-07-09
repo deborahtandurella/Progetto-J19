@@ -92,7 +92,7 @@ public class AddMenuRequest extends AbstractRequestStrategy {
         checkPrice(Double.parseDouble(dishPrice));
         String dishName = req.getParameter("dishName");
         Home.getInstance()
-                .addMenuEntry(Integer.parseInt(restaurantCode),dishType,dishName,Double.parseDouble(dishPrice));
+                .addMenuEntry(restaurantCode,dishType,dishName,Double.parseDouble(dishPrice));
     }
 
     /**

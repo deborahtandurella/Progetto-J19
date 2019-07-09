@@ -26,7 +26,7 @@ public abstract class OverviewRequest extends AbstractRequestStrategy {
      * @param username, the username of the user who is making the request
      * @throws IOException
      */
-    protected void sendRestaurantOverview(int restaurantCode,HttpServletResponse resp, String username)throws IOException {
+    protected void sendRestaurantOverview(String restaurantCode,HttpServletResponse resp, String username)throws IOException {
         Map<String, Object> conf = new HashMap<>();
         try{
 
@@ -53,7 +53,7 @@ public abstract class OverviewRequest extends AbstractRequestStrategy {
      * @param resp, the HttpServletResponse to answer to the requests of the templates
      * @throws IOException
      */
-    private void NoCritiquesExceptionhandler(int restaurantCode,Map<String, Object> conf,HttpServletResponse resp)
+    private void NoCritiquesExceptionhandler(String restaurantCode,Map<String, Object> conf,HttpServletResponse resp)
             throws IOException {
         conf.put("name",Home.getInstance().getRestaurantName(restaurantCode));
         conf.put("address",Home.getInstance().getRestaurantAddress(restaurantCode));

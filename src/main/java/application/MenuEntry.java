@@ -8,8 +8,8 @@ public class MenuEntry {
 
     private final String dish;
     private final double price;
-    private int code;
-    private int restaurantCode;
+    private String code;
+    private String restaurantCode;
     private String type;
 
     /**
@@ -18,7 +18,7 @@ public class MenuEntry {
      * @param price of the menuEntry
      * @param code the code by which  the menuEntry is identified in the system
      */
-    public MenuEntry( String dish, double price, int code, int restaurantCode, String type){
+    public MenuEntry( String dish, double price, String code, String restaurantCode, String type){
         this.dish = dish;
         this.code = code;
         this.price = price;
@@ -39,12 +39,12 @@ public class MenuEntry {
         return price;
     }
 
-    public int getCod() {
-        // TODO CHANGE ITS NAME IN GODDAMN ENGLISH!!!
+    public String getCod() {
+        // todo change name!!
         return code;
     }
 
-    public int getRestaurantCode() {
+    public String getRestaurantCode() {
         return restaurantCode;
     }
 

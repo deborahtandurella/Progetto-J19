@@ -32,8 +32,9 @@ public class OIDCreator {
         return Integer.toString(restaurantCode);
     }
 
-    public int getNewMenuEntryCode() {
-        return ++menuEntryCode;
+    public String getNewMenuEntryCode() {
+        menuEntryCode++;
+        return Integer.toString(menuEntryCode);
     }
 
     public int getNewCriticCode() {
@@ -49,8 +50,8 @@ public class OIDCreator {
         this.restaurantCode = Integer.parseInt(restaurantCode);
     }
 
-    public void setMenuEntryCode(int menuEntryCode) {
-        this.menuEntryCode = menuEntryCode;
+    public void setMenuEntryCode(String menuEntryCode) {
+        this.menuEntryCode = Integer.parseInt(menuEntryCode);
     }
 
     public void setCriticCode(int criticCode) {

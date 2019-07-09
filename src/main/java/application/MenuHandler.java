@@ -29,17 +29,6 @@ public class MenuHandler {
         }
     }
 
-    public int getLastCode(HashMap<DishType, ArrayList<MenuEntry>> menu){
-        int max =0;
-        for (Map.Entry<DishType,ArrayList<MenuEntry>> t:menu.entrySet()) {
-            for (MenuEntry m:t.getValue()) {
-                if(m.getCod() > max)
-                    max = m.getCod();
-            }
-        }
-        return max;
-    }
-
     public  HashMap<DishType,ArrayList<MenuEntry>> initializeMenu(HashMap<DishType,ArrayList<MenuEntry>> menu){
         menu.put(DishType.ANTIPASTI, new ArrayList<>());
         menu.put(DishType.PRIMI, new ArrayList<>());

@@ -17,7 +17,6 @@ import java.util.Map;
  */
 public  class RestaurantCatalogue {
     private static RestaurantCatalogue instance = null;
-    //private  Map<Integer, Restaurant> restaurants;
     private  int counter;
 
     /**
@@ -26,7 +25,6 @@ public  class RestaurantCatalogue {
      * initialize counter, the counter used to generate the code of the restaurant in the system
      */
     private RestaurantCatalogue(){
-        //this.restaurants = new HashMap<>();
         this.counter = 0;
     }
 
@@ -63,7 +61,7 @@ public  class RestaurantCatalogue {
      * @param menu the menu of the restaurant
      * @param key the code of the restaurant
      */
-    public  void addMenu(HashMap<DishType,ArrayList<MenuEntry>> menu, int key){
+    public  void addMenu(HashMap<DishType,ArrayList<MenuEntry>> menu, String key){
         getRestaurant(key).addMenu(menu);
     }
 
@@ -71,7 +69,7 @@ public  class RestaurantCatalogue {
      * Method for debugging
      * @param key
      */
-    public  void printMenu(int key) {
+    public  void printMenu(String key) {
         getRestaurant(key).printMenu();
     }
 
@@ -95,7 +93,7 @@ public  class RestaurantCatalogue {
      * @param restaurantCode the code oh the restaurant
      * @return a map whose keys are the code of the of the dishes of the restaurant and the values are the name of the dishes
      */
-    public LinkedHashMap<Integer, String>  getMenuInfo(int restaurantCode){
+    public LinkedHashMap<String, String>  getMenuInfo(String restaurantCode){
         return getRestaurant(restaurantCode).getMenuInfo();
     }
 
@@ -111,7 +109,7 @@ public  class RestaurantCatalogue {
         if(restaurantsCopy.isEmpty())
             return;
         for (String code : restaurantsCopy.keySet()) {
-            if (checkInfo(Integer.parseInt(code), name, address))
+            if (checkInfo(code, name, address))
                 throw new RestaurantAlreadyExistingException("Il ristorante è già presente nel sistema !");
         }
     }
@@ -125,10 +123,10 @@ public  class RestaurantCatalogue {
      * @param address of the restaurant in registration step
      * @return a boolean (true if name or address are the same of the restaurant in the system)
      */
-    private boolean checkInfo(int code,String name, String address){
+    private boolean checkInfo(String code,String name, String address){
         Map<String, Restaurant> restaurantsCopy = getAllRestaurants();
-        return restaurantsCopy.get(Integer.toString(code)).getName().equals(name) &&
-                restaurantsCopy.get(Integer.toString(code)).getAddress().equals(address);
+        return restaurantsCopy.get(code).getName().equals(name) &&
+                restaurantsCopy.get(code).getAddress().equals(address);
     }
 
     /**
@@ -157,7 +155,7 @@ public  class RestaurantCatalogue {
      * @param dishName the name of the dish
      * @param price the price of the dish
      */
-    public void addMenuEntry(int restaurantCode,String dishType,String dishName, double price){
+    public void addMenuEntry(String restaurantCode,String dishType,String dishName, double price){
        Restaurant r = getRestaurant(restaurantCode);
        r.checkMenuEntryExistence(dishType, dishName, price);
        MenuEntry me = r.addMenuEntryToMenu(dishType,dishName,price,OIDCreator.getInstance().getNewMenuEntryCode()
@@ -166,35 +164,35 @@ public  class RestaurantCatalogue {
 
     }
 
-    public ArrayList<Integer> getMenuCode(int restCode){
+    public ArrayList<String> getMenuCode(String restCode){
         return getRestaurant(restCode).getMenuCode();
     }
 
-    public MenuEntry getDish(int restCod, int dishCod){
-        return getRestaurant(restCod).getDish(dishCod);
+    public MenuEntry getDish(String restCode, String dishCode){
+        return getRestaurant(restCode).getDish(dishCode);
     }
 
-    public HashMap<String,String> getRestaurantOverview(int restCod){
-        return getRestaurant(restCod).getOverview();
+    public HashMap<String,String> getRestaurantOverview(String restCode){
+        return getRestaurant(restCode).getOverview();
     }
-    public String getRestaurantName(int restaurantCode){
+    public String getRestaurantName(String restaurantCode){
         return getRestaurant(restaurantCode).getName();
     }
-    public String getRestaurantAddress(int restaurantCode){
+    public String getRestaurantAddress(String restaurantCode){
         return getRestaurant(restaurantCode).getAddress();
     }
 
-    public void setRestaurantOverview(int restaurantCode,RestaurantOverview overview){
+    public void setRestaurantOverview(String restaurantCode,RestaurantOverview overview){
         getRestaurant(restaurantCode).setOverview(overview);
     }
 
-    public double getRestaurantMeanVote(int restaurantCode){
+    public double getRestaurantMeanVote(String restaurantCode){
         return  getRestaurant(restaurantCode).getMeanVote();
     }
 
-    private Restaurant getRestaurant(int restaurantCode){
+    private Restaurant getRestaurant(String restaurantCode){
         try {
-            return PersistenceFacade.getInstance().getRestaurant(Integer.toString(restaurantCode));
+            return PersistenceFacade.getInstance().getRestaurant(restaurantCode);
         }catch (SQLException e){
             e.printStackTrace();
         }

@@ -58,7 +58,7 @@ public class Home {
      * @param dish, the new dish
      * @param price, the price of the dish
      */
-    public void addMenuEntry(int restaurantCode,String dishType,String dish, double price){
+    public void addMenuEntry(String restaurantCode,String dishType,String dish, double price){
         RestaurantCatalogue.getInstance().addMenuEntry(restaurantCode,dishType,dish,price);
     }
 
@@ -69,7 +69,7 @@ public class Home {
      * @param comment
      * @param critico, the author of the critique
      */
-    public void writeCritique(int codResturant, double [] voti, HashMap<MenuEntry,Double> votiPiatti,
+    public void writeCritique(String codResturant, double [] voti, HashMap<MenuEntry,Double> votiPiatti,
                               String comment,String critico){
 
         Critique c = new Critique(critico,codResturant,0);
@@ -84,7 +84,7 @@ public class Home {
      * @param restCode
      * @return the menu of a restaurant
      */
-    public ArrayList<Integer> getMenuCode(int restCode){
+    public ArrayList<String> getMenuCode(String restCode){
         return RestaurantCatalogue.getInstance().getMenuCode(restCode);
     }
 
@@ -93,7 +93,7 @@ public class Home {
      * @param dishCod
      * @return the dish of the restaurant
      */
-    public MenuEntry getDish(int restCod, int dishCod){
+    public MenuEntry getDish(String restCod, String dishCod){
         return RestaurantCatalogue.getInstance().getDish(restCod, dishCod);
     }
 
@@ -114,7 +114,7 @@ public class Home {
      * @param restCode, the critiques to print
      * @return critiques, the list of the critiques of the restaurant in String format
      */
-    public LinkedList<String> getRestaurantCritiqueToString(int restCode){
+    public LinkedList<String> getRestaurantCritiqueToString(String restCode){
         return CritiqueCatalogue.getInstance().getRestaurantCritiqueToString(
                                                         CritiqueCatalogue.getInstance().getRestaurantCritics(restCode));
     }
@@ -128,7 +128,7 @@ public class Home {
      * @return only the critiques which verify the condition
      */
     //TODO try catch NoCritiquesException qundo verra` chiamato nella request
-    public LinkedList<String> getRestCritByVoteSectionToString(int grade, int restCode, CritiqueSections section){
+    public LinkedList<String> getRestCritByVoteSectionToString(int grade, String restCode, CritiqueSections section){
         return CritiqueCatalogue.getInstance().getRestCritByVoteSectionToString(grade, restCode, section);
     }
 
@@ -139,7 +139,7 @@ public class Home {
      *  @return only the critiques which verify the condition
      */
     //TODO try catch NoCritiquesException qundo verra` chiamato nella request
-    public LinkedList<String> getRestCritByVoteToString(int grade, int restCode){
+    public LinkedList<String> getRestCritByVoteToString(int grade, String restCode){
         return CritiqueCatalogue.getInstance().getRestCritByVoteToString(grade, restCode);
     }
 
@@ -161,15 +161,15 @@ public class Home {
         return dv;
     }
 
-    public String getRestaurantName(int restaurantCode){
+    public String getRestaurantName(String restaurantCode){
         return RestaurantCatalogue.getInstance().getRestaurantName(restaurantCode);
     }
 
-    public String getRestaurantAddress(int restaurantCode){
+    public String getRestaurantAddress(String restaurantCode){
         return RestaurantCatalogue.getInstance().getRestaurantAddress(restaurantCode);
     }
 
-    public double getRestaurantMeanVote(int restaurantCode){
+    public double getRestaurantMeanVote(String restaurantCode){
         return RestaurantCatalogue.getInstance().getRestaurantMeanVote(restaurantCode);
     }
 
@@ -184,7 +184,7 @@ public class Home {
      * @param restaurantCode the code oh the restaurant
      * @return a map whose keys are the code of the of the dishes of the restaurant and the values are the name of the dishes
      */
-    public LinkedHashMap<Integer, String>  getMenuInfo(int restaurantCode){
+    public LinkedHashMap<String, String>  getMenuInfo(String restaurantCode){
         return RestaurantCatalogue.getInstance().getMenuInfo(restaurantCode);
     }
 }

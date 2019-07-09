@@ -68,10 +68,10 @@ public class CritiqueCatalogue {
      * @param restaurantCode, the code of the restaurant selected
      * @return restaurantCritics, the list of the critiques of the restaurant
      */
-    public HashSet<Critique> getRestaurantCritics(int restaurantCode){
+    public HashSet<Critique> getRestaurantCritics(String restaurantCode){
         HashSet<Critique> restaurantCritics = new HashSet<>();
         for (Critique c: this.getCritiques()) {
-            if(c.getRestaurantCode() == restaurantCode)
+            if(c.getRestaurantCode().equals(restaurantCode))
                 restaurantCritics.add(c);
         }
         if (restaurantCritics.isEmpty())
@@ -85,12 +85,12 @@ public class CritiqueCatalogue {
      *
      * @param restaurantCode, the code of the restaurant which has been critiqued
      */
-    private void updateRestaurantOverview(int restaurantCode){
+    private void updateRestaurantOverview(String restaurantCode){
         RestaurantOverview ro = new RestaurantOverview();
         ro.computeMean(getRestaurantCritics(restaurantCode));
         RestaurantCatalogue.getInstance().setRestaurantOverview(restaurantCode,ro);
         System.out.println(ro.toString());
-        PersistenceFacade.getInstance().updateTable(OverviewMapper.class,ro,Integer.toString(restaurantCode));
+        PersistenceFacade.getInstance().updateTable(OverviewMapper.class,ro,restaurantCode);
     }
 
     /**
@@ -122,7 +122,7 @@ public class CritiqueCatalogue {
      *  @param grade, the vote used to select the critiques
      *  @return only the critiques which verify the condition
      */
-    public LinkedList<String> getRestCritByVoteToString(int grade, int restCode){
+    public LinkedList<String> getRestCritByVoteToString(int grade, String restCode){
         return this.getRestaurantCritiqueToString(this.critFilter.getRestCritByVote(this.getRestaurantCritics(restCode),
                 grade));
     }
@@ -136,7 +136,7 @@ public class CritiqueCatalogue {
      * @param section of the critiques
      * @return only the critiques which verify the condition
      */
-    public LinkedList<String> getRestCritByVoteSectionToString(int grade, int restCode, CritiqueSections section){
+    public LinkedList<String> getRestCritByVoteSectionToString(int grade, String restCode, CritiqueSections section){
         return this.getRestaurantCritiqueToString(this.critFilter.getRestCritByVoteSection(
                                                     this.getRestaurantCritics(restCode), grade, section));
     }

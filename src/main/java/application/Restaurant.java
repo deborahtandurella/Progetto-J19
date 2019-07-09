@@ -71,10 +71,10 @@ public class Restaurant {
      *
      * @return a map whose keys are the codes of the dishes and the values are the name of the dishes
      */
-    public LinkedHashMap<Integer, String> getMenuInfo () {
+    public LinkedHashMap<String, String> getMenuInfo () {
         if(this.menu == null)
             throw new EmptyMenuException("menu non presente");
-        LinkedHashMap<Integer,String> temp = new LinkedHashMap<>();
+        LinkedHashMap<String,String> temp = new LinkedHashMap<>();
         for (Map.Entry<DishType,ArrayList<MenuEntry>> a: this.menu.entrySet()) {
             for (MenuEntry me:a.getValue()) {
                 temp.put(me.getCod(),me.getDish());
@@ -88,8 +88,8 @@ public class Restaurant {
      *
      * @return a list of the codes of the dishes
      */
-    public ArrayList<Integer> getMenuCode(){
-        ArrayList<Integer> tmp = new ArrayList<>();
+    public ArrayList<String> getMenuCode(){
+        ArrayList<String> tmp = new ArrayList<>();
         for (DishType e : this.menu.keySet()) {
             for(MenuEntry me: this.menu.get(e)){
                 tmp.add(me.getCod());
@@ -104,10 +104,10 @@ public class Restaurant {
      *
      * @return the dish (matching the code) which is voted by a critic
      */
-    public MenuEntry getDish(int cod){
+    public MenuEntry getDish(String cod){
         for (Map.Entry<DishType,ArrayList<MenuEntry>> a: this.menu.entrySet()) {
             for (MenuEntry me:a.getValue()) {
-                if(me.getCod() == cod) {
+                if(me.getCod().equals(cod)) {
                     return me;
                 }
             }
@@ -158,7 +158,7 @@ public class Restaurant {
      * @param dishCode the code by which the system identifies the dish
      * @param restaurantCode the code of the restaurant to whom the MenuEntry has to be added
      */
-    public MenuEntry addMenuEntryToMenu(String dishType,String dish, double price, int dishCode, int restaurantCode){
+    public MenuEntry addMenuEntryToMenu(String dishType,String dish, double price, String dishCode, String restaurantCode){
         MenuEntry me = new MenuEntry(dish,price,dishCode,restaurantCode,dishType);
         this.menu.get(MenuHandler.getInstance().stringConverter(dishType)).add(me);
         return me;

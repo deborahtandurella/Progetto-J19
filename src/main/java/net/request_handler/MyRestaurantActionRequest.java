@@ -20,7 +20,7 @@ public class MyRestaurantActionRequest extends OverviewRequest {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if (req.getParameter("switch").equals("discover"))
-            sendRestaurantOverview(Integer.parseInt(req.getParameter("restaurant")), resp, req.getParameter("username"));
+            sendRestaurantOverview(req.getParameter("restaurant"), resp, req.getParameter("username"));
 
         else if(req.getParameter("switch").equals("modifyMenu"))
             //todo costruire metodo che modifica il menu

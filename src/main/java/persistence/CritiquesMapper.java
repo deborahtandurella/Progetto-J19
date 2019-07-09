@@ -88,7 +88,7 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
      * @throws SQLException
      */
     private Critique createCritique(ResultSet rs) throws SQLException {
-        Critique tmpCrit = new Critique(rs.getString(3), rs.getInt(2),rs.getInt(1));
+        Critique tmpCrit = new Critique(rs.getString(3), rs.getString(2),rs.getInt(1));
         calculateGradeCritique(rs, tmpCrit);
         return tmpCrit;
     }
@@ -127,7 +127,7 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
      */
     private void setStringCritiquesTable(PreparedStatement pstm,Critique c)throws SQLException{
         pstm.setString(1,Integer.toString(c.getCritiqueCode()));
-        pstm.setString(2,Integer.toString(c.getRestaurantCode()));
+        pstm.setString(2,c.getRestaurantCode());
         pstm.setString(3,c.getCritico());
         pstm.setString(9,c.getComment());
         setGradeSections(pstm,c);

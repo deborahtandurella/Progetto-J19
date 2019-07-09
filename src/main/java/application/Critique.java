@@ -14,7 +14,7 @@ public class Critique extends RestaurantOverview{
     private String comment;
     private String critico;
     private int critiqueCode;
-    private int restaurantCode;
+    private String restaurantCode;
 
     /**
      * Create a new critique
@@ -23,7 +23,7 @@ public class Critique extends RestaurantOverview{
      * @param critiqueCode code by which the system identifies the critique
      *
      */
-    public Critique(String critico,int restaurantCode, int critiqueCode) {
+    public Critique(String critico,String restaurantCode, int critiqueCode) {
         this.sections = new HashMap<>();
         this.dishes = new HashMap<>();
         this.restaurantCode = restaurantCode;
@@ -169,7 +169,7 @@ public class Critique extends RestaurantOverview{
 
 
 
-    public int getRestaurantCode() {
+    public String getRestaurantCode() {
         return restaurantCode;
     }
 

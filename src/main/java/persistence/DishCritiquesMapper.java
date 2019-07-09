@@ -44,7 +44,7 @@ public class DishCritiquesMapper extends AbstractPersistenceMapper {
             for (Map.Entry<MenuEntry,Double> temp:c.getDishes().entrySet()) {
                 PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?)");
                 pstm.setString(1,OID);
-                pstm.setString(2,Integer.toString(temp.getKey().getCod()));
+                pstm.setString(2,temp.getKey().getCod());
                 pstm.setDouble(3,temp.getValue());
                 pstm.execute();
 

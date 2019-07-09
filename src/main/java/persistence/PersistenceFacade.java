@@ -88,7 +88,7 @@ public class PersistenceFacade {
      * @param me the MenuEntry which has to be added
      */
     public void addMenuEntry(MenuEntry me){
-        mapper.get(MenuEntryMapper.class).put(Integer.toString(me.getCod()), me);
+        mapper.get(MenuEntryMapper.class).put(me.getCod(), me);
     }
 
     /**
