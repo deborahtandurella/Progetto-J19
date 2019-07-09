@@ -1,9 +1,8 @@
 package net.request_handler;
 
 import application.CritiqueSections;
-import application.controller.HomeCritic;
+import application.controller.Home;
 import application.MenuEntry;
-import application.RestaurantCatalogue;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,14 +42,14 @@ public class CritiqueRequest extends AbstractRequestStrategy {
 
         int restCode = Integer.parseInt(req.getParameter("restCode"));
 
-        HomeCritic.getInstance().writeCritique(restCode, getVoti(req), this.voteDishes(req,restCode),
+        Home.getInstance().writeCritique(restCode, getVoti(req), this.voteDishes(req,restCode),
                 req.getParameter("comment"), req.getParameter("username"));
     }
     private HashMap<MenuEntry,Double> voteDishes(HttpServletRequest req,int restCode){
-        ArrayList<Integer> menu = HomeCritic.getInstance().getMenuCode(restCode);
+        ArrayList<Integer> menu = Home.getInstance().getMenuCode(restCode);
         HashMap<MenuEntry, Double> dishVote = new HashMap<>();
         for (Integer i :menu) {
-            dishVote.put(HomeCritic.getInstance().getDish(restCode, i),
+            dishVote.put(Home.getInstance().getDish(restCode, i),
                     Double.parseDouble(req.getParameter(Integer.toString(i))));
         }
         return dishVote;

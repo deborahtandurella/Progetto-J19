@@ -1,7 +1,6 @@
 package net.request_handler;
 
-import application.RestaurantCatalogue;
-import application.controller.HomeCritic;
+import application.controller.Home;
 import application.restaurant_exception.NoCritiquesException;
 import org.rythmengine.Rythm;
 
@@ -39,7 +38,7 @@ public class HomeCriticoRequest extends HomeUserRequest {
         try {
             String tmp = req.getParameter("username");
             Map<String, Object> conf =new HashMap<>();
-            conf.put("critique", HomeCritic.getInstance().myCritique(tmp));
+            conf.put("critique", Home.getInstance().myCritique(tmp));
             conf.put("username", tmp);
             write(resp,Rythm.render("myCritiques.html", conf));
         }
