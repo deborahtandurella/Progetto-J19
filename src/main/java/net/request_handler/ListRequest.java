@@ -1,10 +1,7 @@
 package net.request_handler;
 
-import application.CritiqueCatalogue;
-import application.Restaurant;
-import application.RestaurantCatalogue;
+import application.controller.Home;
 import application.restaurant_exception.EmptyMenuException;
-import application.restaurant_exception.NoCritiquesException;
 import net.net_exception.MissingFormParameterException;
 import org.rythmengine.Rythm;
 
@@ -47,7 +44,7 @@ public class ListRequest extends OverviewRequest {
     private void sendCritiqueModule(int restaurantCode, HttpServletResponse resp, String username) throws IOException {
         Map<String, Object> conf = new HashMap<>();
         try{
-            LinkedHashMap<Integer, String> piatti = RestaurantCatalogue.getInstance().getMenuInfo(restaurantCode);
+            LinkedHashMap<Integer, String> piatti = Home.getInstance().getMenuInfo(restaurantCode);
             conf.put("piatti", piatti);
             conf.put("restCode", restaurantCode);
             conf.put("username", username);

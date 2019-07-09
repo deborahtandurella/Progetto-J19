@@ -1,6 +1,5 @@
 package application.controller;
 
-
 import application.*;
 import application.restaurant_exception.NoCritiquesException;
 import application.restaurant_exception.RestaurantNotFoundException;
@@ -128,6 +127,7 @@ public class Home {
      * @param section of the critiques
      * @return only the critiques which verify the condition
      */
+    //TODO try catch NoCritiquesException qundo verra` chiamato nella request
     public LinkedList<String> getRestCritByVoteSectionToString(int grade, int restCode, CritiqueSections section){
         return CritiqueCatalogue.getInstance().getRestCritByVoteSectionToString(grade, restCode, section);
     }
@@ -138,6 +138,7 @@ public class Home {
      *  @param grade, the vote used to select the critiques
      *  @return only the critiques which verify the condition
      */
+    //TODO try catch NoCritiquesException qundo verra` chiamato nella request
     public LinkedList<String> getRestCritByVoteToString(int grade, int restCode){
         return CritiqueCatalogue.getInstance().getRestCritByVoteToString(grade, restCode);
     }
@@ -174,5 +175,16 @@ public class Home {
 
     public Map<Integer,String> getAllRestaurantName(){
         return RestaurantCatalogue.getInstance().getAllRestaurantName();
+    }
+
+    /**
+     * Method which is called when a critic write a critique of a restaurant,
+     * in order to show the menu of the restaurant
+     *
+     * @param restaurantCode the code oh the restaurant
+     * @return a map whose keys are the code of the of the dishes of the restaurant and the values are the name of the dishes
+     */
+    public LinkedHashMap<Integer, String>  getMenuInfo(int restaurantCode){
+        return RestaurantCatalogue.getInstance().getMenuInfo(restaurantCode);
     }
 }

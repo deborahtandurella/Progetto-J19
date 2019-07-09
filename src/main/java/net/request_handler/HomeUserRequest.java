@@ -1,9 +1,7 @@
 package net.request_handler;
 
-import application.RestaurantCatalogue;
 import application.controller.Home;
 import org.rythmengine.Rythm;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
