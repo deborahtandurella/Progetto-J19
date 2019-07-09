@@ -43,6 +43,7 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
 
     @Override
     protected void updateCache(String OID,Object obj) {
+        this.restaurant.remove(OID);
         this.restaurant.put(OID,(Restaurant)obj);
     }
 
@@ -50,6 +51,7 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
     @Override
     public void put(String OID, Object obj) {
         Restaurant r = (Restaurant)obj;
+        updateCache(OID,r);
         try {
             PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?)");
             pstm.setString(1,OID);
@@ -58,7 +60,6 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
             pstm.setString(4,r.getCity());
             pstm.setString(5,r.getOwner());
             pstm.execute();
-            updateCache(OID,r);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,6 +67,20 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
 
     @Override
     public void updateTable(String OID, Object obj) {
+        Restaurant r = (Restaurant)obj;
+        updateCache(OID,r);
+        try{
+            PreparedStatement pstm = conn.prepareStatement("UPDATE " + tableName+" SET NAME=?, ADDRESS=?, CITY=?," +
+                    " OWNER=?  WHERE COD_REST=? ");
+            pstm.setString(1,r.getName());
+            pstm.setString(2,r.getAddress());
+            pstm.setString(3,r.getCity());
+            pstm.setString(4,r.getOwner());
+            pstm.setString(5,OID);
+            pstm.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 

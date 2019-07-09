@@ -51,6 +51,15 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
 
     @Override
     protected void updateCache(String OID, Object obj) {
+        MenuEntry me = null;
+        for (MenuEntry m:menuEntries) {
+            if(m.getCod() == Integer.parseInt(OID)){
+                me = m;
+                break;
+            }
+        }
+        if(me != null)
+            menuEntries.remove(me);
         menuEntries.add((MenuEntry)obj);
     }
 
@@ -58,6 +67,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
     @Override
     public void put(String OID, Object obj) {
         MenuEntry me = (MenuEntry)obj;
+        updateCache(OID,me);
         try {
             PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?)");
             pstm.setString(1,OID);
@@ -74,8 +84,15 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
     @Override
     public void updateTable(String OID, Object obj) {
         MenuEntry me = (MenuEntry) obj;
+        updateCache(OID,me);
         try{
-            PreparedStatement pstm = conn.prepareStatement("UPDATE " + tableName+" SET where RESTAURANT = ?");
+            PreparedStatement pstm = conn.prepareStatement("UPDATE " + tableName+" SET DISH =?, PRICE =?, " +
+                    "DISH_TYPE =?,where DISH_COD = ?");
+            pstm.setString(1,me.getDish());
+            pstm.setDouble(2,me.getPrice());
+            pstm.setString(3,me.getType());
+            pstm.setString(4,Integer.toString(me.getCod()));
+            pstm.execute();
         }catch (SQLException e) {
             e.printStackTrace();
         }

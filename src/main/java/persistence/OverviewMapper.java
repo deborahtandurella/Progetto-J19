@@ -52,6 +52,7 @@ public class OverviewMapper extends AbstractPersistenceMapper {
 
     @Override
     protected void updateCache(String OID, Object obj) {
+        this.overview.remove(OID);
         this.overview.put(OID,(RestaurantOverview)obj);
     }
 
@@ -60,6 +61,7 @@ public class OverviewMapper extends AbstractPersistenceMapper {
     @Override
     public void put(String OID, Object obj) {
         RestaurantOverview ro = (RestaurantOverview) obj;
+        updateCache(OID,ro);
         try{
             PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?,?)");
             pstm.setString(1,OID);
@@ -77,22 +79,19 @@ public class OverviewMapper extends AbstractPersistenceMapper {
 
     public void updateTable(String OID,Object obj){
         RestaurantOverview ro = (RestaurantOverview)obj;
+        updateCache(OID,ro);
         try{
             String query = "UPDATE " + tableName+" SET MENU= ? , LOCATION =? , SERVIZIO = ? , CONTO = ? , CUCINA = ? , MEAN = ?" +
                     " where RESTAURANT = ?";
             PreparedStatement pstm = conn.prepareStatement(query);
             setQueryParameters(pstm,ro,OID);
             pstm.execute();
-            updateCache(OID,ro);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    protected void updateCache(String OID,RestaurantOverview ro){
-        this.overview.replace(OID,ro);
-    }
     private void setQueryParameters(PreparedStatement pstm,RestaurantOverview ro, String OID) throws SQLException {
         pstm.setString(7,OID);
         pstm.setDouble(6,ro.getMean());

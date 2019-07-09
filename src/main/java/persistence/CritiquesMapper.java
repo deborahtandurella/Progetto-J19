@@ -42,11 +42,11 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
     public void put(String OID, Object obj) {
         Critique c = (Critique) obj;
         c.setCode(Integer.parseInt(OID));
+        updateCache(Integer.toString(c.getCritiqueCode()),c);
         try{
             PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?,?,?,?)");
             setStringCritiquesTable(pstm,c);
             pstm.execute();
-            this.critiques.add(c);
             this.dcm.put(Integer.toString(c.getCritiqueCode()),c);
         } catch (SQLException e) {
             e.printStackTrace();

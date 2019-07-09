@@ -65,6 +65,15 @@ public class UserMapper extends AbstractPersistenceMapper{
 
     @Override
     protected void updateCache(String OID, Object obj) {
+        User u = null;
+        for (User tmp : this.user) {
+            if(OID.equals(tmp.getUsername())) {
+                u = tmp;
+                break;
+            }
+        }
+        if(u != null)
+            this.user.remove(u);
         this.user.add((User) obj);
     }
 
@@ -76,14 +85,15 @@ public class UserMapper extends AbstractPersistenceMapper{
      */
     @Override
     public void put(String OID, Object obj) {
+        updateCache(OID,obj);
+        User u = (User)obj;
         try {
             PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?)");
-
             pstm.setString(1, OID);
-            pstm.setString(2, ((User)obj).getPassword());
-            pstm.setString(3, ((User)obj).getName());
-            pstm.setString(4, ((User)obj).getSurname());
-            pstm.setString(5, ((User)obj).getType().toString());
+            pstm.setString(2, u.getPassword());
+            pstm.setString(3, u.getName());
+            pstm.setString(4, u.getSurname());
+            pstm.setString(5, u.getType().toString());
             pstm.execute();
         }
         catch (SQLException e){
@@ -94,6 +104,19 @@ public class UserMapper extends AbstractPersistenceMapper{
 
     @Override
     public void updateTable(String OID, Object obj) {
+        updateCache(OID,obj);
+        User u = (User)obj;
+        try{
+            PreparedStatement pstm = conn.prepareStatement("UPDATE "+tableName+" VALUES PASSWORD=?, NAME=?, " +
+                    " SURNAME=? WHERE USERNAME=?");
+            pstm.setString(1,u.getPassword());
+            pstm.setString(2,u.getName());
+            pstm.setString(3,u.getSurname());
+            pstm.setString(4,OID);
+            pstm.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
