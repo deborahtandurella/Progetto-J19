@@ -1,6 +1,7 @@
 package net.request_handler;
 
 import application.RestaurantCatalogue;
+import application.controller.Home;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +42,7 @@ public abstract class HomeUserRequest extends AbstractRequestStrategy {
      */
     protected void postList(HttpServletRequest req, HttpServletResponse resp, String tmp) throws IOException{
         String username = req.getParameter("username");
-        Map<Integer, String> restaurant = RestaurantCatalogue.getInstance().getAllRestaurantName();
+        Map<Integer, String> restaurant = Home.getInstance().getAllRestaurantName();
         Map<String, Object> param = new HashMap<>();
         param.put("restaurant", restaurant);
         param.put("sw", tmp);

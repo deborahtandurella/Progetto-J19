@@ -2,6 +2,7 @@ package net.request_handler;
 
 import application.CritiqueCatalogue;
 import application.RestaurantCatalogue;
+import application.controller.Home;
 import application.restaurant_exception.NoCritiquesException;
 import org.rythmengine.Rythm;
 
@@ -32,13 +33,12 @@ public abstract class OverviewRequest extends AbstractRequestStrategy {
             Map<String, String> restaurantOverview = RestaurantCatalogue.getInstance()
                     .getRestaurantOverview(restaurantCode);
 
-            conf.put("name", RestaurantCatalogue.getInstance().getRestaurantName(restaurantCode));
-            conf.put("address", RestaurantCatalogue.getInstance().getRestaurantAddress(restaurantCode));
+            conf.put("name", Home.getInstance().getRestaurantName(restaurantCode));
+            conf.put("address", Home.getInstance().getRestaurantAddress(restaurantCode));
             conf.put("overview", restaurantOverview);
-            conf.put("critiques", CritiqueCatalogue.getInstance().getRestaurantCritiqueToString(
-                            CritiqueCatalogue.getInstance().getRestaurantCritics(restaurantCode)));
+            conf.put("critiques", Home.getInstance().getRestaurantCritiqueToString(restaurantCode));
             conf.put("username",username);
-            conf.put("votoMedio",Double.toString(RestaurantCatalogue.getInstance().getRestaurantMeanVote(restaurantCode)));
+            conf.put("votoMedio",Double.toString(Home.getInstance().getRestaurantMeanVote(restaurantCode)));
             write(resp, Rythm.render("restaurant_view.html", conf));
         }catch (NoCritiquesException e){
             NoCritiquesExceptionhandler(restaurantCode,conf,resp);
@@ -55,8 +55,8 @@ public abstract class OverviewRequest extends AbstractRequestStrategy {
      */
     private void NoCritiquesExceptionhandler(int restaurantCode,Map<String, Object> conf,HttpServletResponse resp)
             throws IOException {
-        conf.put("name",RestaurantCatalogue.getInstance().getRestaurantName(restaurantCode));
-        conf.put("address",RestaurantCatalogue.getInstance().getRestaurantAddress(restaurantCode));
+        conf.put("name",Home.getInstance().getRestaurantName(restaurantCode));
+        conf.put("address",Home.getInstance().getRestaurantAddress(restaurantCode));
         write(resp,Rythm.render("restaurantViewException.html",conf));
     }
     @Override

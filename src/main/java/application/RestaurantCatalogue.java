@@ -200,10 +200,9 @@ public  class RestaurantCatalogue {
         }
         return null;
     }
+
     private Map<String, Restaurant> getAllRestaurants(){
-
         return PersistenceFacade.getInstance().getAllRestaurants();
-
     }
 
 }

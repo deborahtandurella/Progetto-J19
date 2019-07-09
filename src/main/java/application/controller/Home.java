@@ -110,24 +110,14 @@ public class Home {
     }
 
     /**
-     * Method called by  'updateRestaurantOverview' and 'getRestaurantCritiqueToString' in this class.
-     * It selected only the critiques of a particular restaurant
-     *
-     * @param restaurantCode, the code of the restaurant selected
-     * @return restaurantCritics, the list of the critiques of the restaurant
-     */
-    public HashSet<Critique> getRestaurantCritics(int restaurantCode){
-        return CritiqueCatalogue.getInstance().getRestaurantCritics(restaurantCode);
-    }
-
-    /**
      * Method which is called to show to an user the overview of a restaurant with its critiques
      *
-     * @param restCrit, the critiques to print
+     * @param restCode, the critiques to print
      * @return critiques, the list of the critiques of the restaurant in String format
      */
-    public LinkedList<String> getRestaurantCritiqueToString(HashSet<Critique> restCrit){
-        return CritiqueCatalogue.getInstance().getRestaurantCritiqueToString(restCrit);
+    public LinkedList<String> getRestaurantCritiqueToString(int restCode){
+        return CritiqueCatalogue.getInstance().getRestaurantCritiqueToString(
+                                                        CritiqueCatalogue.getInstance().getRestaurantCritics(restCode));
     }
 
     /**
@@ -170,5 +160,19 @@ public class Home {
         return dv;
     }
 
+    public String getRestaurantName(int restaurantCode){
+        return RestaurantCatalogue.getInstance().getRestaurantName(restaurantCode);
+    }
 
+    public String getRestaurantAddress(int restaurantCode){
+        return RestaurantCatalogue.getInstance().getRestaurantAddress(restaurantCode);
+    }
+
+    public double getRestaurantMeanVote(int restaurantCode){
+        return RestaurantCatalogue.getInstance().getRestaurantMeanVote(restaurantCode);
+    }
+
+    public Map<Integer,String> getAllRestaurantName(){
+        return RestaurantCatalogue.getInstance().getAllRestaurantName();
+    }
 }
