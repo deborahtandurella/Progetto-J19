@@ -1,7 +1,7 @@
 package net.request_handler;
 
 import application.controller.HomeUser;
-import application.database_exception.InvalidUsernameException;
+import persistence.InvalidUsernameException;
 import application.user.UserType;
 import org.rythmengine.Rythm;
 

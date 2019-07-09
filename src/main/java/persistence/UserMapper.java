@@ -1,12 +1,10 @@
 package persistence;
 
-import application.database_exception.InvalidUsernameException;
 import application.user.User;
 import application.user.UserType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashSet;
 
 /**

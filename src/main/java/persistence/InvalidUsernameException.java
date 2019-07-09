@@ -1,4 +1,4 @@
-package application.database_exception;
+package persistence;
 
 public class InvalidUsernameException extends RuntimeException {
     public InvalidUsernameException(String message) {

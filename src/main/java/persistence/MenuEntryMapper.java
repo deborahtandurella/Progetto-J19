@@ -73,7 +73,12 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
 
     @Override
     public void updateTable(String OID, Object obj) {
-
+        MenuEntry me = (MenuEntry) obj;
+        try{
+            PreparedStatement pstm = conn.prepareStatement("UPDATE " + tableName+" SET where RESTAURANT = ?");
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

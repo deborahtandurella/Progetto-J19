@@ -2,7 +2,6 @@ package persistence;
 
 import application.CritiqueSections;
 import application.RestaurantOverview;
-import application.RestaurantRead;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

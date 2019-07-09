@@ -1,6 +1,6 @@
 package application.controller;
 
-import application.database_exception.InvalidUsernameException;
+import persistence.InvalidUsernameException;
 import application.user.UserCatalogue;
 import application.user.UserType;
 

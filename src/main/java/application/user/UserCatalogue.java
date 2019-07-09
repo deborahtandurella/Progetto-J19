@@ -1,13 +1,9 @@
 package application.user;
 
-import application.database_exception.InvalidUsernameException;
-import net.net_exception.InvalidParameterException;
+import persistence.InvalidUsernameException;
 import persistence.PersistenceFacade;
 
-import java.io.*;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Map;
 
 /**
  * Singleton class
