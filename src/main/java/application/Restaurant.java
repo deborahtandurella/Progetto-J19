@@ -146,9 +146,6 @@ public class Restaurant {
         }
         else
             MenuHandler.getInstance().checkExistance(dish,this.menu);
-        printMenu();    //debug
-
-
     }
 
     /**

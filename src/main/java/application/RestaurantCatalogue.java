@@ -50,11 +50,11 @@ public  class RestaurantCatalogue {
      * @return the counter of the class used to create the code of the new restaurant
      * @throws RestaurantAlreadyExistingException
      */
-    public  int addRestaurant(String name, String address, String owner) throws RestaurantAlreadyExistingException{
+    public  String addRestaurant(String name, String address, String owner) throws RestaurantAlreadyExistingException{
         checkExisting(name, address);
         Restaurant r = new Restaurant(name, address, owner,"city~~~");
-        int restaurantCode = OIDCreator.getInstance().getNewRestaurantCode();
-        PersistenceFacade.getInstance().addRestaurant(Integer.toString(restaurantCode),r);
+        String restaurantCode = OIDCreator.getInstance().getNewRestaurantCode();
+        PersistenceFacade.getInstance().addRestaurant(restaurantCode,r);
         return restaurantCode;
     }
 

@@ -104,7 +104,7 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
 
         }
 
-        OIDCreator.getInstance().setRestaurantCode(Integer.parseInt(getLastObjectCode("COD_REST")));
+        OIDCreator.getInstance().setRestaurantCode(getLastObjectCode("COD_REST"));
 
     }
 

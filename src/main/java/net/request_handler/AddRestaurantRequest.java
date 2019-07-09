@@ -30,11 +30,10 @@ public class AddRestaurantRequest extends AbstractRequestStrategy {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            int restaurantCode = addRestaurant(req);
-            System.out.println(restaurantCode);
+            String restaurantCode = addRestaurant(req);
             Map<String, Object> conf = new HashMap<>();
             conf.put("username", req.getParameter("owner"));
-            conf.put("rCode",Integer.toString(restaurantCode));
+            conf.put("rCode",restaurantCode);
             conf.put("rName",req.getParameter("name"));
             write(resp,Rythm.render("addMenu.html",conf));
         }catch (RestaurantAlreadyExistingException e){
@@ -42,7 +41,7 @@ public class AddRestaurantRequest extends AbstractRequestStrategy {
         }
     }
 
-    private int addRestaurant(HttpServletRequest req) throws RestaurantAlreadyExistingException {
+    private String addRestaurant(HttpServletRequest req) throws RestaurantAlreadyExistingException {
         String name = req.getParameter("name");
         String address = req.getParameter("address");
         String ownerUsername = req.getParameter("owner");
