@@ -1,17 +1,18 @@
-@args String message
+@args String username
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Clique - Oops!</title>
+    <title>Clique - Add Restaurant</title>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300|Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/animate.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/style_critique.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style_sign_up.css">
     <link rel="stylesheet" type="text/css" href="/static/css/fontface.css">
 
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -30,28 +31,70 @@
                     </div>
                     <div class="collapse navbar-collapse navbar-right" id="mynavbar">
                         <ul class="nav navbar-nav">
+
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
         <!--/ nav-->
-        <div class="container text-center">
-        </div>
+
     </div>
 </header>
 <!--/ header-->
+<!---->
 <section id="cta-1">
     <div class="container">
         <div class="row">
             <div class="cta-info text-center">
-                <h2><span class="dec-tec"></span>Mhm qualcosa sembra essere andato storto... <span class="fa fa-frown-o"></span> <br>@message<span class="dec-tec"></span></h2>
-                <a href="/home_critico" class="btn btn-submit">HOME</a>
+                <h2><span class="dec-tec"></span>Un nuovo ristorante? Vogliamo sapere tutto!<span class="dec-tec"></span></h2>
             </div>
         </div>
     </div>
 </section>
-<!---->
+
+
+<section id="feature" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 wow fadeInLeft delay-05s">
+                <div class="section-title">
+                    <h2 class="head-title">RACCONTACI DEL TUO RISTORANTE</h2>
+                    <hr class="botm-line">
+                    <p class="sec-para">Inserisci i dati per aggiungere la tua attività</p>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="col-md-6 wow fadeInRight delay-02s">
+
+                    <div class="icon-text">
+                        <form method="post" action="addRestaurant" >
+                            <input type="hidden" name="owner" value=@username>
+                            <h6>Nome del ristorante:<br></h6>
+                            <input type="text" name="name" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
+                            <h6>Indirizzo: <br></h6>
+                            <input type="text" name="address" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
+
+                            <h6>Scegli un'immagine per la tua copertina:<br><br></h6>
+                            <input type="file" name="img1" id="img1"><br>
+                            <input type="submit" value="Carica" name="submit">
+
+                            <br><br>
+                            <div class="g-recaptcha" data-sitekey="6LfP0qcUAAAAACsrmIVaM_we3zNYwHcafKfFXu2j"></div>
+                            <br>
+                            <button type="submit" class="btn btn-submit">CONFIRM</button>
+                        </form>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
 
 <section class="section-padding parallax bg-image-2 section wow fadeIn delay-08s" id="cta-2">
     <div class="container">
@@ -72,7 +115,9 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-7 footer-copyright">
+
                 <div class="credits">
+
                 </div>
             </div>
             <div class="col-sm-5 footer-social">
@@ -88,7 +133,6 @@
     </div>
 </footer>
 
-<!--contact ends-->
 <script src="/static/js/jquery.min.js"></script>
 <script src="/static/js/jquery.easing.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>

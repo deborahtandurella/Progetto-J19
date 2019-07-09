@@ -28,7 +28,7 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
               <span class="fa fa-bars"></span>
             </button>
-            <a href="/home" class="navbar-brand">CliQue</a>
+            <a href="/templates/home.html" class="navbar-brand">CliQue</a>
           </div>
           <div class="collapse navbar-collapse navbar-right" id="mynavbar">
             <ul class="nav navbar-nav">
@@ -47,7 +47,7 @@
         <h2 class="top-title"></h2>
         <h3 class="title">CliQue</h3>
         <h4 class="sub-title">IL PARERE DEGLI ESPERTI</h4>
-        <a href="/sign_up" class="btn btn-submit">SIGN UP</a>
+        <a href="signUp.html" class="btn btn-submit">SIGN UP</a>
 
 
       </div>
@@ -149,7 +149,9 @@
         </div>
       </div>
       <div class="col-md-4 text-center">
-        <a href="/sign_up" class="btn btn-submit">SIGN UP</a>
+        <form method="get" action="/signUp">
+            <button type="submit" class="btn btn-submit" >SIGN UP</button>
+        </form>
       </div>
     </div>
   </div>
@@ -192,9 +194,9 @@
 
             <form method="post" action="/home">
               Username:<br>
-              <input type="text" name="username"><br>
+              <input type="text" name="username" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
               Password:<br>
-              <input type="password" name="password"><br>
+              <input type="password" name="password" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
               <br><br>
               <div class="g-recaptcha" data-sitekey="6LfP0qcUAAAAACsrmIVaM_we3zNYwHcafKfFXu2j"></div>
               <br>
