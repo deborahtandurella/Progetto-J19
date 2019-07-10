@@ -1,6 +1,5 @@
 package net.request_handler;
 
-import application.CritiqueCatalogue;
 import application.RestaurantCatalogue;
 import application.controller.Home;
 import application.restaurant_exception.NoCritiquesException;
@@ -39,7 +38,7 @@ public abstract class OverviewRequest extends AbstractRequestStrategy {
             conf.put("critiques", Home.getInstance().getRestaurantCritiqueToString(restaurantCode));
             conf.put("username",username);
             conf.put("votoMedio",Double.toString(Home.getInstance().getRestaurantMeanVote(restaurantCode)));
-            write(resp, Rythm.render("restaurant_view.html", conf));
+            write(resp, Rythm.render("restaurantView.html", conf));
         }catch (NoCritiquesException e){
             NoCritiquesExceptionhandler(restaurantCode,conf,resp);
         }
