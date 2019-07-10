@@ -104,7 +104,7 @@ public class AddMenuRequest extends AbstractRequestStrategy {
      * @throws IOException
      */
     private void answerRequest(HttpServletRequest req,HttpServletResponse resp) throws IOException {
-        if(req.getParameter("action").equals("Inserisci un altro piatto"))
+        if(req.getParameter("action").equals("altro"))
             write(resp,Rythm.render("addMenu.html",req.getParameter("rCode")));
         else {
             Map<String, Object> conf = new HashMap<>();

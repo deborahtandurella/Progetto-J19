@@ -18,7 +18,7 @@ public class CritiqueFilter {
     protected HashSet<Critique> getRestCritByVote(HashSet<Critique> restCrit, int grade){
         HashSet<Critique> crit = new HashSet<>();
         for (Critique c: restCrit) {
-            if(c.getMean() >= grade)
+            if(c.getMeanCrit() >= grade)
                 crit.add(c);
         }
         if(crit.isEmpty())

@@ -71,11 +71,13 @@ public class CritiqueCatalogue {
     public HashSet<Critique> getRestaurantCritics(String restaurantCode){
         HashSet<Critique> restaurantCritics = new HashSet<>();
         for (Critique c: this.getCritiques()) {
-            if(c.getRestaurantCode().equals(restaurantCode))
+            if(c.getRestaurantCode().equals(restaurantCode)){
                 restaurantCritics.add(c);
+            }
         }
-        if (restaurantCritics.isEmpty())
+        if (restaurantCritics.isEmpty()) {
             throw new NoCritiquesException("Ancora nessuna critica per il ristorante selezionato");
+        }
         return restaurantCritics;
     }
 
@@ -89,7 +91,6 @@ public class CritiqueCatalogue {
         RestaurantOverview ro = new RestaurantOverview();
         ro.computeMean(getRestaurantCritics(restaurantCode));
         RestaurantCatalogue.getInstance().setRestaurantOverview(restaurantCode,ro);
-        System.out.println(ro.toString());
         PersistenceFacade.getInstance().updateTable(OverviewMapper.class,ro,restaurantCode);
     }
 
