@@ -8,6 +8,7 @@ import org.rythmengine.Rythm;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,19 +24,21 @@ public abstract class OverviewRequest extends AbstractRequestStrategy {
      * @param restaurantCode, the code of the restaurant which the user want visualize
      * @param resp, the HttpServletResponse to answer to the requests of the templates
      * @param username, the username of the user who is making the request
+     * @param critList, list of critiques that belong to the restaurant
      * @throws IOException
      */
-    protected void sendRestaurantOverview(String restaurantCode,HttpServletResponse resp, String username)throws IOException {
+    protected void sendRestaurantOverview(String restaurantCode, HttpServletResponse resp, String username,
+                                          List<String> critList)throws IOException {
         Map<String, Object> conf = new HashMap<>();
         try{
 
             Map<String, String> restaurantOverview = RestaurantCatalogue.getInstance()
                     .getRestaurantOverview(restaurantCode);
-
+            conf.put("restaurant", restaurantCode);
             conf.put("name", Home.getInstance().getRestaurantName(restaurantCode));
             conf.put("address", Home.getInstance().getRestaurantAddress(restaurantCode));
             conf.put("overview", restaurantOverview);
-            conf.put("critiques", Home.getInstance().getRestaurantCritiqueToString(restaurantCode));
+            conf.put("critiques", critList);
             conf.put("username",username);
             conf.put("votoMedio",Double.toString(Home.getInstance().getRestaurantMeanVote(restaurantCode)));
             write(resp, Rythm.render("restaurantView.html", conf));
