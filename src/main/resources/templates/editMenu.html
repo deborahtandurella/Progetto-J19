@@ -1,17 +1,20 @@
+@args  Map<Integer, String> piatti, int restCode, String name, String username
+
+
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Clique - Sign Up</title>
+    <title>Clique - Edit Menu</title>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300|Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/animate.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/style_sign_up.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style_list.css">
     <link rel="stylesheet" type="text/css" href="/static/css/fontface.css">
 
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 
 <body>
@@ -46,7 +49,7 @@
     <div class="container">
         <div class="row">
             <div class="cta-info text-center">
-                <h2><span class="dec-tec"></span>Diventa uno dei nostri!<span class="dec-tec"></span></h2>
+                <h2><span class="dec-tec"></span>Gestisci il tuo menu per @name<span class="dec-tec"></span></h2>
             </div>
         </div>
     </div>
@@ -58,31 +61,28 @@
         <div class="row">
             <div class="col-md-3 wow fadeInLeft delay-05s">
                 <div class="section-title">
-                    <h2 class="head-title">DICCI QUALCOSA DI TE</h2>
+                    <h2 class="head-title">MENU</h2>
                     <hr class="botm-line">
-                    <p class="sec-para">Inserisci i tuoi dati per registrarti</p>
+                    <p class="sec-para">Scegli il piatto che vuoi modificare</p>
                 </div>
             </div>
             <div class="col-md-9">
                 <div class="col-md-6 wow fadeInRight delay-02s">
 
-                    <div class="icon-text">
-                        <form method="post" action="/signUp">
-                            <h6>Scegli uno username:<br></h6>
-                            <input type="text" name="username" maxlength="30" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
-                            <h6>Scegli una password:<br></h6>
-                            <input type="password" name="password" maxlength="10" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
-                            <h6>Nome:<br></h6>
-                            <input type="text" name="name" maxlength="20" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
-                            <h6>Cognome:<br></h6>
-                            <input type="text" name="surname" maxlength="20" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
-                            <h6>Qual è il tuo superpotere?<br></h6>
-                            <input type="radio" name="type" value="CRITIC" oninvalid="alert('Completa tutti i campi per poter procedere');" required> Scrivere critiche puntigliose<br>
-                            <input type="radio" name="type" value="RESTAURANTOWNER" oninvalid="alert('Completa tutti i campi per poter procedere');" required> Preparare cibo delizioso<br>
-                            <input type="radio" name="type" value="user" oninvalid="alert('Completa tutti i campi per poter procedere');" required> Mangiare con gusto<br>
-                            <br><br>
-                                <button type="submit" class="btn btn-submit">CONFIRM</button>
-                        </form>
+                    <div class="icon-text" style="width: 600px">
+                        <div class="radios">
+                            <form method="post" action="/menu_view_owner">
+                                <h2>Piatti</h2>
+                                <tbody>
+                                @for(Map.Entry<Integer,String> p : piatti.entrySet()){
+                                <span></Integer><input type="radio" name = "dish" id ="dish" value = @p.getKey() /><h4><label for="dish">@p.getValue()</label></h4> <br></span>
+                                }
+
+                                <input type="hidden"  name="username" value=@username>
+                                <button type="submit" class="btn btn-submit" value="modifica">MODIFICA</button>
+                                <button type="submit" class="btn btn-submit" value="elimina">ELIMINA</button>
+                            </form>
+                        </div>
                     </div>
 
 
