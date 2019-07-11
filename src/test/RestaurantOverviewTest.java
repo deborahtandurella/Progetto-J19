@@ -25,8 +25,6 @@ import static org.junit.Assert.assertEquals;
         public void getMeanTest(){
             RestaurantOverview ro = createRestaurantOverview();
             assertEquals(5.6,ro.getMean(),delta);
-
-
         }
 
         private HashSet<Critique> getCritiqueSet(){

@@ -22,7 +22,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
 
 
     protected MenuEntryMapper() throws SQLException {
-        super("menuentry");
+        super("MENUENTRY");
         menuEntries = new ArrayList<>();
         OIDCreator.getInstance().setMenuEntryCode(getLastObjectCode("DISH_COD"));
     }
