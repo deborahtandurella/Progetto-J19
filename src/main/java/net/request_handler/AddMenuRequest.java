@@ -9,6 +9,7 @@ import org.rythmengine.Rythm;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +53,9 @@ public class AddMenuRequest extends AbstractRequestStrategy {
             answerRequest(req,resp);
         }catch (MissingFormParameterException | DishAlreadyInMenuException e){
             write(resp, Rythm.render("warn.html",e.getMessage()));
+        }catch (SQLException e){
+            e.printStackTrace();
+            SQLExcwptionHandler(resp);
         }
 
     }
@@ -84,7 +88,7 @@ public class AddMenuRequest extends AbstractRequestStrategy {
      * @throws InvalidParameterException
      */
     private void addMenuEntryToRestaurant(HttpServletRequest req)throws MissingFormParameterException,
-            InvalidParameterException{
+            InvalidParameterException, SQLException {
         String dishType = req.getParameter("dishType");
         checkParam(dishType);
         String restaurantCode = req.getParameter("restaurantCode");

@@ -8,6 +8,7 @@ import org.rythmengine.Rythm;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,21 +32,26 @@ public class CritiqueRequest extends AbstractRequestStrategy {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        writeCritique(req);
-        Map<String,Object> param = new HashMap<>();
-        param.put("username", req.getParameter("username"));
-        write(resp, Rythm.render("homeCritico.html",param));
+        try {
+            writeCritique(req);
+            Map<String, Object> param = new HashMap<>();
+            param.put("username", req.getParameter("username"));
+            write(resp, Rythm.render("homeCritico.html", param));
+        }catch (SQLException e){
+            e.printStackTrace();
+            SQLExcwptionHandler(resp);
+        }
     }
 
 
-    private void writeCritique(HttpServletRequest req){
+    private void writeCritique(HttpServletRequest req)throws SQLException {
 
         String restCode = req.getParameter("restCode");
 
         Home.getInstance().writeCritique(restCode, getVoti(req), this.voteDishes(req,restCode),
                 req.getParameter("comment"), req.getParameter("username"));
     }
-    private HashMap<MenuEntry,Double> voteDishes(HttpServletRequest req,String restCode){
+    private HashMap<MenuEntry,Double> voteDishes(HttpServletRequest req,String restCode)throws SQLException{
         ArrayList<String> menu = Home.getInstance().getMenuCode(restCode);
         HashMap<MenuEntry, Double> dishVote = new HashMap<>();
         for (String i :menu) {

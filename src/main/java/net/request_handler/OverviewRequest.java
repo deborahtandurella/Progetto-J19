@@ -7,6 +7,7 @@ import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,8 @@ public abstract class OverviewRequest extends AbstractRequestStrategy {
             write(resp, Rythm.render("restaurantView.html", conf));
         }catch (NoCritiquesException e){
             NoCritiquesExceptionhandler(restaurantCode,conf,resp);
+        }catch (SQLException e){
+
         }
     }
 
@@ -57,9 +60,14 @@ public abstract class OverviewRequest extends AbstractRequestStrategy {
      */
     private void NoCritiquesExceptionhandler(String restaurantCode,Map<String, Object> conf,HttpServletResponse resp)
             throws IOException {
-        conf.put("name",Home.getInstance().getRestaurantName(restaurantCode));
-        conf.put("address",Home.getInstance().getRestaurantAddress(restaurantCode));
-        write(resp,Rythm.render("restaurantViewException.html",conf));
+        try {
+            conf.put("name", Home.getInstance().getRestaurantName(restaurantCode));
+            conf.put("address", Home.getInstance().getRestaurantAddress(restaurantCode));
+            write(resp, Rythm.render("restaurantViewException.html", conf));
+        }catch (SQLException e){
+            e.printStackTrace();
+            SQLExcwptionHandler(resp);
+        }
     }
     @Override
     public void doGet(HttpServletResponse resp) {
