@@ -39,7 +39,7 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
     }
 
     @Override
-    public void put(String OID, Object obj) {
+    public synchronized void put(String OID, Object obj) {
         Critique c = (Critique) obj;
         c.setCode(Integer.parseInt(OID));
         updateCache(Integer.toString(c.getCritiqueCode()),c);
@@ -55,7 +55,7 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
     }
 
     @Override
-    public void updateTable(String OID, Object obj) {
+    public synchronized void updateTable(String OID, Object obj) {
 
     }
 
@@ -63,7 +63,7 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
      * Set the cache up when the system is started.
      * It instances all the critiques which are in the database.
      */
-    public void setUp() {
+    public  void setUp() {
         try {
             Statement stm = super.conn.createStatement();
             ResultSet rs = stm.executeQuery("select * from "+super.tableName);
@@ -114,7 +114,7 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
      * Method called by PersistenceFacade class
      *@return the cache of the critiques
      */
-    public HashSet<Critique> getCritiques() {
+    public synchronized HashSet<Critique> getCritiques() {
         return critiques;
     }
 

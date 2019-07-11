@@ -49,7 +49,7 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
 
 
     @Override
-    public void put(String OID, Object obj) {
+    public synchronized void put(String OID, Object obj) {
         Restaurant r = (Restaurant)obj;
         updateCache(OID,r);
         try {
@@ -66,7 +66,7 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
     }
 
     @Override
-    public void updateTable(String OID, Object obj) {
+    public synchronized void updateTable(String OID, Object obj) {
         Restaurant r = (Restaurant)obj;
         updateCache(OID,r);
         try{
@@ -110,7 +110,7 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
 
 
 
-    public Map<String, Restaurant> getRestaurant() {
+    public synchronized Map<String, Restaurant> getRestaurant() {
         return restaurant;
     }
 }

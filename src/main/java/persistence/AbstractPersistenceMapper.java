@@ -61,12 +61,14 @@ public abstract class AbstractPersistenceMapper implements IMapper {
      */
     protected abstract void updateCache(String OID,Object obj);
 
-    protected  String getLastObjectCode(String keyName) throws SQLException{
+    protected synchronized String getLastObjectCode(String keyName) throws SQLException{
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery("select max("+keyName+") from "+tableName);
         if(rs.next())
             return rs.getString(1);
         return null;
     }
+
+
 
 }

@@ -65,7 +65,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
 
 
     @Override
-    public void put(String OID, Object obj) {
+    public synchronized void put(String OID, Object obj) {
         MenuEntry me = (MenuEntry)obj;
         updateCache(OID,me);
         try {
@@ -82,7 +82,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
     }
 
     @Override
-    public void updateTable(String OID, Object obj) {
+    public synchronized void updateTable(String OID, Object obj) {
         MenuEntry me = (MenuEntry) obj;
         updateCache(OID,me);
         try{

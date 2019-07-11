@@ -13,7 +13,7 @@ public interface IMapper {
      String PASSWORD = "fK6Z9ygksS";
 
 
-    Object get(String OID) throws SQLException;
+    Object  get(String OID) throws SQLException;
     void put(String OID, Object obj);
     void updateTable(String OID,Object obj);
 

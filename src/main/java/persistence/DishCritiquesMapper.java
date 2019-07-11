@@ -38,7 +38,7 @@ public class DishCritiquesMapper extends AbstractPersistenceMapper {
     }
 
     @Override
-    public void put(String OID, Object obj) {
+    public synchronized void  put(String OID, Object obj) {
         Critique c = (Critique)obj;
         try{
             for (Map.Entry<MenuEntry,Double> temp:c.getDishes().entrySet()) {
@@ -56,7 +56,7 @@ public class DishCritiquesMapper extends AbstractPersistenceMapper {
     }
 
     @Override
-    public void updateTable(String OID, Object obj) {
+    public synchronized  void updateTable(String OID, Object obj) {
 
     }
 
