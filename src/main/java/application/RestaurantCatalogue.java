@@ -4,6 +4,7 @@ import application.restaurant_exception.RestaurantAlreadyExistingException;
 import application.restaurant_exception.RestaurantNotFoundException;
 import persistence.OIDCreator;
 import persistence.PersistenceFacade;
+import persistence.RestaurantsMapper;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -192,7 +193,7 @@ public  class RestaurantCatalogue {
 
     private Restaurant getRestaurant(String restaurantCode){
         try {
-            return PersistenceFacade.getInstance().getRestaurant(restaurantCode);
+            return (Restaurant) PersistenceFacade.getInstance().get(restaurantCode, RestaurantsMapper.class);
         }catch (SQLException e){
             e.printStackTrace();
         }

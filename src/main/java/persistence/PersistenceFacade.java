@@ -62,24 +62,8 @@ public class PersistenceFacade {
         mapper.get(OverviewMapper.class).put(OID,ro);
     }
 
-    /**
-     * It returns the Restaurant specified by its identifier.
-     * @param OID is the identifier of the restaurant.
-     * @return the Restaurant specified
-     * @throws SQLException
-     */
-    public Restaurant getRestaurant(String OID)throws SQLException{
-        return (Restaurant)this.mapper.get(RestaurantsMapper.class).get(OID);
-    }
-
-    /**
-     * It returns the user specified by its identifier.
-     * @param key is the identifier of the user
-     * @return the User selected
-     * @throws SQLException
-     */
-    public User getUser(String key) throws SQLException{
-        return (User) (mapper.get(UserMapper.class)).get(key);
+    public Object get(String OID, Class klass) throws SQLException{
+        return this.mapper.get(klass).get(OID);
     }
 
     /**
