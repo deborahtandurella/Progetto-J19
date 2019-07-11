@@ -127,7 +127,6 @@ public class Home {
      * @param section of the critiques
      * @return only the critiques which verify the condition
      */
-    //TODO try catch NoCritiquesException qundo verra` chiamato nella request
     public LinkedList<String> getRestCritByVoteSectionToString(int grade, String restCode, CritiqueSections section){
         return CritiqueCatalogue.getInstance().getRestCritByVoteSectionToString(grade, restCode, section);
     }
@@ -138,7 +137,6 @@ public class Home {
      *  @param grade, the vote used to select the critiques
      *  @return only the critiques which verify the condition
      */
-    //TODO try catch NoCritiquesException qundo verra` chiamato nella request
     public LinkedList<String> getRestCritByVoteToString(int grade, String restCode){
         return CritiqueCatalogue.getInstance().getRestCritByVoteToString(grade, restCode);
     }

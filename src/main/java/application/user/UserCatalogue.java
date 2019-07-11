@@ -2,6 +2,7 @@ package application.user;
 
 import persistence.InvalidUsernameException;
 import persistence.PersistenceFacade;
+import persistence.UserMapper;
 
 import java.sql.SQLException;
 
@@ -38,7 +39,7 @@ public class UserCatalogue {
      * @return true if 'username' and 'password' match, false if not
      */
     public UserType logInUser(String username, String psw) throws SQLException {
-        User userLog = PersistenceFacade.getInstance().getUser(username);
+        User userLog = getUser(username);
         if (!(userLog.getPassword().equals(psw)))
             throw new InvalidUsernameException("Password errata");
         return userLog.getType();
@@ -53,7 +54,7 @@ public class UserCatalogue {
      */
     public boolean userSignUp(String [] infoUser,UserType type) throws SQLException{
         try{
-            User userLog = PersistenceFacade.getInstance().getUser(infoUser[0]);
+            User userLog = getUser(infoUser[0]);
             return false;
         }
         catch (InvalidUsernameException e){
@@ -62,5 +63,7 @@ public class UserCatalogue {
             return true;
         }
     }
-
+    private User getUser(String OID) throws SQLException{
+        return (User)PersistenceFacade.getInstance().get(OID,UserMapper.class);
+    }
 }

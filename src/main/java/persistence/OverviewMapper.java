@@ -18,7 +18,7 @@ public class OverviewMapper extends AbstractPersistenceMapper {
     private Map<String, RestaurantOverview> overview;
 
     public OverviewMapper() throws SQLException {
-        super("overview");
+        super("OVERVIEW");
         this.overview = new HashMap<>();
     }
 

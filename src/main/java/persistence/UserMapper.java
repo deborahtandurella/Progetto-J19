@@ -19,7 +19,7 @@ public class UserMapper extends AbstractPersistenceMapper{
      * @throws SQLException
      */
     public UserMapper() throws SQLException{
-        super("users");
+        super("USERS");
         this.user = new HashSet<>();
     }
 

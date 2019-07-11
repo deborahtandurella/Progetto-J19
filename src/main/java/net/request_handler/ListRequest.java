@@ -35,7 +35,8 @@ public class ListRequest extends OverviewRequest {
             if(action.equals("write"))
                 sendCritiqueModule(restaurantCode,resp,username);
             else
-                sendRestaurantOverview(restaurantCode,resp, username);
+                sendRestaurantOverview(restaurantCode,resp, username,
+                        Home.getInstance().getRestaurantCritiqueToString(restaurantCode));
         }catch (MissingFormParameterException e){
             write(resp,Rythm.render("warn.html",e.getMessage()));
         }
