@@ -59,37 +59,32 @@ public class OverviewMapper extends AbstractPersistenceMapper {
 
 
     @Override
-    public synchronized void put(String OID, Object obj) {
+    public synchronized void put(String OID, Object obj) throws SQLException{
         RestaurantOverview ro = (RestaurantOverview) obj;
         updateCache(OID,ro);
-        try{
-            PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?,?)");
-            pstm.setString(1,OID);
-            pstm.setString(7,Double.toString(ro.getMean()));
-            for(int i = 0; i< RestaurantOverview.CRITIQUE_SECTIONS.length; i++){
-                pstm.setString(i+2,Double.toString(ro.getSections()
-                        .get(RestaurantOverview.CRITIQUE_SECTIONS[i])));
-            }
-            pstm.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?,?)");
+        pstm.setString(1,OID);
+        pstm.setString(7,Double.toString(ro.getMean()));
+        for(int i = 0; i< RestaurantOverview.CRITIQUE_SECTIONS.length; i++){
+            pstm.setString(i+2,Double.toString(ro.getSections()
+                    .get(RestaurantOverview.CRITIQUE_SECTIONS[i])));
         }
+        pstm.execute();
+
 
     }
 
-    public synchronized void updateTable(String OID,Object obj){
+    public synchronized void updateTable(String OID,Object obj)throws SQLException{
         RestaurantOverview ro = (RestaurantOverview)obj;
         updateCache(OID,ro);
-        try{
-            String query = "UPDATE " + tableName+" SET MENU= ? , LOCATION =? , SERVIZIO = ? , CONTO = ? , CUCINA = ? , MEAN = ?" +
-                    " where RESTAURANT = ?";
-            PreparedStatement pstm = conn.prepareStatement(query);
-            setQueryParameters(pstm,ro,OID);
-            pstm.execute();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        String query = "UPDATE " + tableName+" SET MENU= ? , LOCATION =? , SERVIZIO = ? , CONTO = ? , CUCINA = ? , MEAN = ?" +
+                " where RESTAURANT = ?";
+        PreparedStatement pstm = conn.prepareStatement(query);
+        setQueryParameters(pstm,ro,OID);
+        pstm.execute();
+
     }
 
     private void setQueryParameters(PreparedStatement pstm,RestaurantOverview ro, String OID) throws SQLException {

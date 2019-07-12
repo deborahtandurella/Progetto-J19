@@ -55,7 +55,7 @@ public class PersistenceFacade {
      * @param OID is the code of the restaurant
      * @param restaurant is the Restaurant which has to be added.
      */
-    public void addRestaurant(String OID, Restaurant restaurant){
+    public void addRestaurant(String OID, Restaurant restaurant)throws SQLException{
         RestaurantOverview ro = new RestaurantOverview();
         restaurant.setOverview(ro);
         mapper.get(RestaurantsMapper.class).put(OID,restaurant);
@@ -71,7 +71,7 @@ public class PersistenceFacade {
      * It updates the database.
      * @param me the MenuEntry which has to be added
      */
-    public void addMenuEntry(MenuEntry me){
+    public void addMenuEntry(MenuEntry me)throws SQLException{
         mapper.get(MenuEntryMapper.class).put(me.getCod(), me);
     }
 
@@ -99,13 +99,13 @@ public class PersistenceFacade {
      * @param critique the new critique
      * @return
      */
-    public void addNewCritique(Critique critique){
+    public void addNewCritique(Critique critique)throws SQLException{
         mapper.get(CritiquesMapper.class).put(
                 Integer.toString(OIDCreator.getInstance().getNewCritiquesCode()),
                 critique);
     }
 
-    public void updateTable(Class klass,Object obj,String OID){
+    public void updateTable(Class klass,Object obj,String OID)throws SQLException{
         mapper.get(klass).updateTable(OID,obj);
     }
 }

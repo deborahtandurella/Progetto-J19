@@ -39,23 +39,20 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
     }
 
     @Override
-    public synchronized void put(String OID, Object obj) {
+    public synchronized void put(String OID, Object obj) throws SQLException {
         Critique c = (Critique) obj;
         c.setCode(Integer.parseInt(OID));
         updateCache(Integer.toString(c.getCritiqueCode()),c);
-        try{
-            PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?,?,?,?)");
-            setStringCritiquesTable(pstm,c);
-            pstm.execute();
-            this.dcm.put(Integer.toString(c.getCritiqueCode()),c);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?,?,?,?)");
+        setStringCritiquesTable(pstm,c);
+        pstm.execute();
+        this.dcm.put(Integer.toString(c.getCritiqueCode()),c);
+
 
     }
 
     @Override
-    public synchronized void updateTable(String OID, Object obj) {
+    public synchronized void updateTable(String OID, Object obj) throws SQLException{
 
     }
 

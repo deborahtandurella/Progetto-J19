@@ -14,7 +14,7 @@ public interface IMapper {
 
 
     Object  get(String OID) throws SQLException;
-    void put(String OID, Object obj);
-    void updateTable(String OID,Object obj);
+    void put(String OID, Object obj) throws SQLException;
+    void updateTable(String OID,Object obj) throws SQLException;
 
 }

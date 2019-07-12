@@ -49,38 +49,34 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
 
 
     @Override
-    public synchronized void put(String OID, Object obj) {
+    public synchronized void put(String OID, Object obj) throws SQLException{
         Restaurant r = (Restaurant)obj;
         updateCache(OID,r);
-        try {
-            PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?)");
-            pstm.setString(1,OID);
-            pstm.setString(2,r.getName());
-            pstm.setString(3,r.getAddress());
-            pstm.setString(4,r.getCity());
-            pstm.setString(5,r.getOwner());
-            pstm.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+        PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?)");
+        pstm.setString(1,OID);
+        pstm.setString(2,r.getName());
+        pstm.setString(3,r.getAddress());
+        pstm.setString(4,r.getCity());
+        pstm.setString(5,r.getOwner());
+        pstm.execute();
+
     }
 
     @Override
-    public synchronized void updateTable(String OID, Object obj) {
+    public synchronized void updateTable(String OID, Object obj)throws SQLException {
         Restaurant r = (Restaurant)obj;
         updateCache(OID,r);
-        try{
-            PreparedStatement pstm = conn.prepareStatement("UPDATE " + tableName+" SET NAME=?, ADDRESS=?, CITY=?," +
-                    " OWNER=?  WHERE COD_REST=? ");
-            pstm.setString(1,r.getName());
-            pstm.setString(2,r.getAddress());
-            pstm.setString(3,r.getCity());
-            pstm.setString(4,r.getOwner());
-            pstm.setString(5,OID);
-            pstm.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+        PreparedStatement pstm = conn.prepareStatement("UPDATE " + tableName+" SET NAME=?, ADDRESS=?, CITY=?," +
+                " OWNER=?  WHERE COD_REST=? ");
+        pstm.setString(1,r.getName());
+        pstm.setString(2,r.getAddress());
+        pstm.setString(3,r.getCity());
+        pstm.setString(4,r.getOwner());
+        pstm.setString(5,OID);
+        pstm.execute();
+
 
     }
 

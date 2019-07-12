@@ -49,7 +49,8 @@ public  class RestaurantCatalogue {
      * @return the counter of the class used to create the code of the new restaurant
      * @throws RestaurantAlreadyExistingException
      */
-    public  String addRestaurant(String name, String address, String owner) throws RestaurantAlreadyExistingException{
+    public  String addRestaurant(String name, String address, String owner) throws RestaurantAlreadyExistingException,
+            SQLException{
         checkExisting(name, address);
         Restaurant r = new Restaurant(name, address, owner,"city~~~");
         String restaurantCode = OIDCreator.getInstance().getNewRestaurantCode();

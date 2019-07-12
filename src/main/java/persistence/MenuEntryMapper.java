@@ -65,37 +65,33 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
 
 
     @Override
-    public synchronized void put(String OID, Object obj) {
+    public synchronized void put(String OID, Object obj)throws SQLException {
         MenuEntry me = (MenuEntry)obj;
         updateCache(OID,me);
-        try {
-            PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?)");
-            pstm.setString(1,OID);
-            pstm.setString(2,me.getDish());
-            pstm.setString(3,Double.toString(me.getPrice()));
-            pstm.setString(4,me.getRestaurantCode());
-            pstm.setString(5,me.getType());
-            pstm.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+        PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?)");
+        pstm.setString(1,OID);
+        pstm.setString(2,me.getDish());
+        pstm.setString(3,Double.toString(me.getPrice()));
+        pstm.setString(4,me.getRestaurantCode());
+        pstm.setString(5,me.getType());
+        pstm.execute();
+
     }
 
     @Override
-    public synchronized void updateTable(String OID, Object obj) {
+    public synchronized void updateTable(String OID, Object obj)throws SQLException {
         MenuEntry me = (MenuEntry) obj;
         updateCache(OID,me);
-        try{
-            PreparedStatement pstm = conn.prepareStatement("UPDATE " + tableName+" SET DISH =?, PRICE =?, " +
-                    "DISH_TYPE =?,where DISH_COD = ?");
-            pstm.setString(1,me.getDish());
-            pstm.setDouble(2,me.getPrice());
-            pstm.setString(3,me.getType());
-            pstm.setString(4,me.getCod());
-            pstm.execute();
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+        PreparedStatement pstm = conn.prepareStatement("UPDATE " + tableName+" SET DISH =?, PRICE =?, " +
+                "DISH_TYPE =?,where DISH_COD = ?");
+        pstm.setString(1,me.getDish());
+        pstm.setDouble(2,me.getPrice());
+        pstm.setString(3,me.getType());
+        pstm.setString(4,me.getCod());
+        pstm.execute();
+
     }
 
     /**
