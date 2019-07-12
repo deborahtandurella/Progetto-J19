@@ -18,6 +18,7 @@ public class CritiqueCatalogue {
     private CritiqueFilter critFilter = null;
 
     private CritiqueCatalogue() {
+
         this.critFilter = new CritiqueFilter();
     }
 

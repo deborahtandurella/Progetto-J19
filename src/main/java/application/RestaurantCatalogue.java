@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public  class RestaurantCatalogue {
     private static RestaurantCatalogue instance = null;
-    private  int counter;
+
 
     /**
      * Create a new RestaurantCatalogue
@@ -26,7 +26,6 @@ public  class RestaurantCatalogue {
      * initialize counter, the counter used to generate the code of the restaurant in the system
      */
     private RestaurantCatalogue(){
-        this.counter = 0;
     }
 
     /**
