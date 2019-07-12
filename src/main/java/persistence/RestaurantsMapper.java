@@ -24,7 +24,7 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
      * @throws SQLException
      */
     public RestaurantsMapper(OverviewMapper om, MenuEntryMapper mem) throws SQLException {
-        super("restaurants");
+        super("RESTAURANTS");
         this.restaurant = new HashMap<>();
         setUp(om, mem);
     }

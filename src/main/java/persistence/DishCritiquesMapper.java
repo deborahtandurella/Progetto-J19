@@ -18,7 +18,7 @@ public class DishCritiquesMapper extends AbstractPersistenceMapper {
     private MenuEntryMapper menuEntryMapper;
 
     public DishCritiquesMapper(MenuEntryMapper menuEntryMapper) throws SQLException {
-        super("critique_dish");
+        super("CRITIQUE_DISH");
         this.menuEntryMapper = menuEntryMapper;
     }
 

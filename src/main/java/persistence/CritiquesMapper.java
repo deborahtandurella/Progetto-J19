@@ -17,7 +17,7 @@ public class CritiquesMapper extends AbstractPersistenceMapper {
 
 
     public CritiquesMapper(DishCritiquesMapper dcm) throws SQLException {
-        super("critiques");
+        super("CRITIQUES");
         this.critiques = new HashSet<>();
         this.dcm = dcm;
         setUp();
