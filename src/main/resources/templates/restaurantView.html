@@ -111,15 +111,7 @@
                 <div class="col-md-4 col-sm-6 padding-right-zero" >
                     <div class="portfolio-box design" >
                         <h7 class="txt-tl">VOTO MEDIO: @votoMedio<br>
-                            @for(int i = 1; i <= (Double.parseDouble(votoMedio)/2); i++){
-                                <span class="fa fa-star checked"></span>
-                            }
-                            @if(Double.parseDouble(votoMedio)%2 >= 1){
-                            <span class="fa fa-star-half-full checked"></span>
-                            }
-                            @for(int j=1; j <= (10-Double.parseDouble(votoMedio))/2; j++){
-                            <span class="fa fa-star-o checked"></span>
-                            }
+
                         </h7>
                         <br><br>
                         @for(Map.Entry<String, String> ov: overview.entrySet()){
