@@ -7,9 +7,11 @@ Applicazione web  per critici gastronomici , i quali posso esprimere critiche ri
 - [JAVA JDK](https://www.oracle.com/technetwork/java/javase/downloads/index.html) 
 (testato sulle versioni 1.8.0_201 e 1.10)
 
-- [JDBC](https://dev.mysql.com/downloads/connector/j/)
+- [JDBC](https://dev.mysql.com/downloads/connector/j/) - versione 5.1.47
 
-- [Jetty](https://www.eclipse.org/jetty/)
+- [Jetty](https://www.eclipse.org/jetty/) - versione 9.4.17.v20190418
+
+- [MAVEN](https://maven.apache.org/) - versione 3.6.1
 
 ### Avvio del server( porta 8282 )
 - scaricare tutte le dipendenze,compilare il progetto e generare la directory **target** :
