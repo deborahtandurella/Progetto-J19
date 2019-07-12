@@ -35,7 +35,7 @@ public class HomeRistoratoreRequest extends HomeUserRequest {
     }
 
     private void myRest(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-        int restCode = Integer.parseInt(req.getParameter("restaurant"));
+        String restCode = req.getParameter("restaurant");
         String username = req.getParameter("username");
         write(resp, Rythm.render("myRestaurantAction.html", restCode, username));
     }

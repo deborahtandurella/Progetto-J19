@@ -39,6 +39,7 @@ public class HomeCriticoRequest extends HomeUserRequest {
             String tmp = req.getParameter("username");
             Map<String, Object> conf =new HashMap<>();
             conf.put("critique", Home.getInstance().myCritique(tmp));
+            System.out.println(conf.get("critique").toString());
             conf.put("username", tmp);
             write(resp,Rythm.render("myCritiques.html", conf));
         }
