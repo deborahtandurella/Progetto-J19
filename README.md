@@ -1,7 +1,16 @@
 # Progetto-J19 (Clique)
 Applicazione web  per critici gastronomici , i quali posso esprimere critiche riguardanti la loro esperienza nei ristoranti iscritti al servizio. I proprietari di ristoranti posso iscrivere le loro attività per essere valutate dai critici.
 
-## Come iniziare
+## Set up del sistema
+
+### Requisiti
+- [JAVA JDK](https://www.oracle.com/technetwork/java/javase/downloads/index.html) 
+(testato sulle versioni 1.8.0_201 e 1.10)
+
+- [JDBC](https://dev.mysql.com/downloads/connector/j/)
+
+- [Jetty](https://www.eclipse.org/jetty/)
+
 ### Avvio del server( porta 8282 )
 - scaricare tutte le dipendenze,compilare il progetto e generare la directory **target** :
 
@@ -10,18 +19,12 @@ Applicazione web  per critici gastronomici , i quali posso esprimere critiche ri
 - eseguire il progetto :
 
 ``` $  mvn exec:java -Dexec.mainClass=net.Main```
-### Client
-Supponendo che la connessione avvenga dalla stessa macchina su cui è attivo il server, connetersi al server tramite un browser alla pagina :
+### Accedere al servizio
+Supponendo che la connessione avvenga dalla stessa macchina su cui è attivo il server, connetersi al server alla pagina:
 [Clique](http://localhost:8282/home)
 
+In generale, se addressOfMyServer è l'indirizzo del server e ServerPort è la porta di quest'ultimo dedicata al servizio, connettersi tramite l'indirizzo http://addressOfMyServer:ServerPort/home
 
-## Requisiti
-- [JAVA JDK](https://www.oracle.com/technetwork/java/javase/downloads/index.html) 
-(testato sulle versioni 1.8.0_201 e 1.10)
-
-- [JDBC](https://dev.mysql.com/downloads/connector/j/)
-
-- [Jetty](https://www.eclipse.org/jetty/)
 
 ## Come eseguire i test automatici
 
