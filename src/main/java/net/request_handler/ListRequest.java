@@ -2,6 +2,7 @@ package net.request_handler;
 
 import application.controller.Home;
 import application.restaurant_exception.EmptyMenuException;
+import application.restaurant_exception.NoCritiquesException;
 import net.net_exception.MissingFormParameterException;
 import org.rythmengine.Rythm;
 
@@ -40,6 +41,9 @@ public class ListRequest extends OverviewRequest {
                         Home.getInstance().getRestaurantCritiqueToString(restaurantCode));
         }catch (MissingFormParameterException e){
             write(resp,Rythm.render("warn.html",e.getMessage()));
+        }catch (NoCritiquesException e){
+            HashMap<String,Object> conf = new HashMap<>();
+            NoCritiquesExceptionhandler(req.getParameter("restaurant"),conf,resp);
         }
     }
 

@@ -31,7 +31,7 @@ public abstract class OverviewRequest extends AbstractRequestStrategy {
     protected void sendRestaurantOverview(String restaurantCode, HttpServletResponse resp, String username,
                                           List<String> critList)throws IOException {
         Map<String, Object> conf = new HashMap<>();
-        try{
+        try {
 
             Map<String, String> restaurantOverview = RestaurantCatalogue.getInstance()
                     .getRestaurantOverview(restaurantCode);
@@ -40,13 +40,14 @@ public abstract class OverviewRequest extends AbstractRequestStrategy {
             conf.put("address", Home.getInstance().getRestaurantAddress(restaurantCode));
             conf.put("overview", restaurantOverview);
             conf.put("critiques", critList);
-            conf.put("username",username);
-            conf.put("votoMedio",Double.toString(Home.getInstance().getRestaurantMeanVote(restaurantCode)));
+            conf.put("username", username);
+            conf.put("votoMedio", Double.toString(Home.getInstance().getRestaurantMeanVote(restaurantCode)));
             write(resp, Rythm.render("restaurantView.html", conf));
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("SWLException: "+e.getMessage());
         }catch (NoCritiquesException e){
             NoCritiquesExceptionhandler(restaurantCode,conf,resp);
-        }catch (SQLException e){
-
         }
     }
 
@@ -58,7 +59,7 @@ public abstract class OverviewRequest extends AbstractRequestStrategy {
      * @param resp, the HttpServletResponse to answer to the requests of the templates
      * @throws IOException
      */
-    private void NoCritiquesExceptionhandler(String restaurantCode,Map<String, Object> conf,HttpServletResponse resp)
+    protected void NoCritiquesExceptionhandler(String restaurantCode,Map<String, Object> conf,HttpServletResponse resp)
             throws IOException {
         try {
             conf.put("name", Home.getInstance().getRestaurantName(restaurantCode));
