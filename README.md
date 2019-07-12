@@ -12,5 +12,4 @@ Applicazione web  per critici gastronomici , i quali posso esprimere critiche ri
 ``` $  mvn exec:java -Dexec.mainClass=net.Main```
 ### Client
 Supponendo che la connessione avvenga dalla stessa macchina su cui è attivo il server, connetersi al server dal browser alla pagina :
-
 [Clique](http://localhost:8282/home)
