@@ -69,18 +69,18 @@
             <div class="col-md-9">
                 <div class="col-md-6 wow fadeInRight delay-02s">
 
-                    <div class="icon-text">
+                    <div class="icon-text" style="width: 600px">
                         <form method="post" action="/addMenu">
                             <input type="hidden" name="restaurantCode" value=@rCode>
                             <input type="hidden" name="username" value=@username>
-                            <h3>Di che piatto si tratta?</h3><br>
+                            <h2>Di che piatto si tratta?</h2><br>
                             <input type="radio" name = "dishType" value = "antipasto" /> antipasto <br>
                             <input type="radio" name = "dishType" value = "primo" /> primo <br>
                             <input type="radio" name = "dishType" value = "secondo" /> secondo<br>
                             <input type="radio" name = "dishType" value = "dolce" /> dolce <br>
-                            <h3>Come si chiama?</h3><br>
+                            <h2>Come si chiama?</h2><br>
                             <input type="text" name="dishName" maxlength="40" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
-                            <h3>Non è bello parlare di queste cose ma... Quanto costa?</h3>
+                            <h2>Non è bello parlare di queste cose ma... Quanto costa?</h2>
                             <input type="number" min="0" step="0.01" name="dishPrice" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
                             <br>
                             <button type="submit" class="btn btn-submit" name="action">ALTRO PIATTO</button>

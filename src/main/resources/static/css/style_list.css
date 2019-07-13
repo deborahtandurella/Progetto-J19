@@ -194,6 +194,13 @@ h1, h2, h4, h5, h6 {
     padding: 25px 0px;
 }
 
+.home-button{
+    background: transparent;
+    font-size: 40px;
+    border-color: transparent;
+    padding: 0px 0px;
+}
+
 .btn-submit {
     background: #FFD34E;
     border: 0px;

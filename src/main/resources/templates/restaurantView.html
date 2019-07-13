@@ -29,7 +29,7 @@
                             <span class="fa fa-bars"></span>
                         </button>
                         <form method="get" action="/home">
-                            <button type="submit" class="btn btn-submit" >CLIQUE</button>
+                            <button type="submit" class="home-button" ><h3 style="color: white"><i class="fa fa-home"></i> CliQue</h3></button>
                         </form>
                     </div>
                     <div class="collapse navbar-collapse navbar-right" id="mynavbar">
@@ -173,9 +173,8 @@
                 </div>
                 <div class="col-md-4 col-sm-6 padding-right-zero" >
                     <div class="portfolio-box design" >
-                        <div class="portfolio-box design" style="overflow-y: scroll; height:400px; width: 600px;">
-                            <form method="post" action="restaurantView">
-                                Categoria:
+					<form method="post" action="restaurantView">
+                                <h4>Categoria:</h4>
                                 <select name="section">
                                     <option value="mean">Media Complessiva</option>
                                     <option value="SERVIZIO">Servizio</option>
@@ -184,7 +183,7 @@
                                     <option value="MENU">Menu</option>
                                     <option value="CUCINA">Cucina</option>
                                 </select>
-                                Voto:
+                                <h4>Voto:</h4>
                                 <select name="grade">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -201,10 +200,13 @@
                                 <button type="submit" class="btn btn-submit" name="action" value="filter">FILTER</button>
                                 <button type="submit" class="btn btn-submit" name="action" value="reset">RESET</button>
                             </form>
+                        <div class="portfolio-box design" style="overflow-y: scroll; height:400px; width: 600px;">
+                            
                             @for(String crit : critiques){
                                 @for(String s : crit.split("£")){
                                     <h7>@s<br></h7>
                                 }
+								<br><hr size="4" style="color: #2b2b2b"><br>
                             }
                         </div>
                     </div>

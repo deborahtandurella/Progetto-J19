@@ -29,7 +29,7 @@
               <span class="fa fa-bars"></span>
             </button>
             <form method="get" action="/home">
-              <button type="submit" class="btn btn-submit" >CLIQUE</button>
+              <button type="submit" class="home-button" ><h3 style="color: white"><i class="fa fa-home"></i> CliQue</h3></button>
             </form>
           </div>
           <div class="collapse navbar-collapse navbar-right" id="mynavbar">
@@ -67,12 +67,12 @@
           <p class="sec-para">Inserisci i voti e crea la tua critica. Essere critici non è sempre un male!</p>
         </div>
       </div>
-      <div class="slidecontainer" id="slidercontainer">
+      <div class="slidecontainer" id="slidercontainer" style="width: 600px">
         <form method = "post" action = "/critique">
           <input type="hidden" id="restCode" name="restCode" value=@restCode>
           <input type="hidden" id="username" name="username" value=@username>
           <div class="icon">
-            <i class="fa fa-cutlery"></i>
+            <i class="fa fa-hand-pointer"></i>
           </div>
           <h2>SERVIZIO:</h2>
           <br><input type="range" min="0" max="10" value="0" class="slider" id = "serv" name="SERVIZIO"><br>
@@ -99,13 +99,13 @@
             <i class="fa fa-book"></i>
           </div>
           <h2>MENU:</h2>
-          <br><input type="range" min="1" max="10" value="1" class="slider" id="menu" name="MENU"><br>
+          <br><input type="range" min="0" max="10" value="0" class="slider" id="menu" name="MENU"><br>
           <div class="index">
             <img src="/static/img/slider_ticks.png" alt="ticks" style="width: 100%">
           </div>
 
           <div class="icon">
-            <i class="fa fa-random"></i>
+            <i class="fa fa-cutlery"></i>
           </div>
 
             <h2>CUCINA:</h2>
