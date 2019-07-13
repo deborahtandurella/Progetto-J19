@@ -7,6 +7,7 @@ import org.rythmengine.Rythm;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +44,9 @@ public class HomeCriticoRequest extends HomeUserRequest {
         }
         catch (NoCritiquesException e){
             write(resp, Rythm.render("warn.html", e.getMessage()));
+        }catch (SQLException e){
+            e.printStackTrace();
+            SQLExcwptionHandler(resp);
         }
     }
 }

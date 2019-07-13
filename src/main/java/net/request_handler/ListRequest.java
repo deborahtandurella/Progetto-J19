@@ -2,6 +2,7 @@ package net.request_handler;
 
 import application.controller.Home;
 import application.restaurant_exception.EmptyMenuException;
+import application.restaurant_exception.NoCritiquesException;
 import net.net_exception.MissingFormParameterException;
 import org.rythmengine.Rythm;
 
@@ -9,6 +10,7 @@ import org.rythmengine.Rythm;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 
 public class ListRequest extends OverviewRequest {
@@ -35,9 +37,13 @@ public class ListRequest extends OverviewRequest {
             if(action.equals("write"))
                 sendCritiqueModule(restaurantCode,resp,username);
             else
-                sendRestaurantOverview(restaurantCode,resp, username);
+                sendRestaurantOverview(restaurantCode,resp, username,
+                        Home.getInstance().getRestaurantCritiqueToString(restaurantCode));
         }catch (MissingFormParameterException e){
             write(resp,Rythm.render("warn.html",e.getMessage()));
+        }catch (NoCritiquesException e){
+            HashMap<String,Object> conf = new HashMap<>();
+            NoCritiquesExceptionhandler(req.getParameter("restaurant"),conf,resp);
         }
     }
 
@@ -51,6 +57,9 @@ public class ListRequest extends OverviewRequest {
             write(resp, Rythm.render("critique.html", conf));
         }catch(EmptyMenuException e){
             write(resp,Rythm.render("warn.html", e.getMessage()));
+        }catch (SQLException e){
+            e.printStackTrace();
+            SQLExcwptionHandler(resp);
         }
     }
 

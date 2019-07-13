@@ -26,7 +26,9 @@
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
                             <span class="fa fa-bars"></span>
                         </button>
-                        <a href="/home" class="navbar-brand">CliQue</a>
+                        <form method="get" action="/home">
+                            <button type="submit" class="btn btn-submit" >CLIQUE</button>
+                        </form>
                     </div>
                     <div class="collapse navbar-collapse navbar-right" id="mynavbar">
                         <ul class="nav navbar-nav">
@@ -69,20 +71,17 @@
                     <div class="icon-text">
                         <form method="post" action="/signUp">
                             <h6>Scegli uno username:<br></h6>
-                            <input type="text" name="username" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
+                            <input type="text" name="username" maxlength="30" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
                             <h6>Scegli una password:<br></h6>
-                            <input type="password" name="password" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
+                            <input type="password" name="password" maxlength="10" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
                             <h6>Nome:<br></h6>
-                            <input type="text" name="name" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
+                            <input type="text" name="name" maxlength="20" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
                             <h6>Cognome:<br></h6>
-                            <input type="text" name="surname" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
+                            <input type="text" name="surname" maxlength="20" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
                             <h6>Qual è il tuo superpotere?<br></h6>
                             <input type="radio" name="type" value="CRITIC" oninvalid="alert('Completa tutti i campi per poter procedere');" required> Scrivere critiche puntigliose<br>
                             <input type="radio" name="type" value="RESTAURANTOWNER" oninvalid="alert('Completa tutti i campi per poter procedere');" required> Preparare cibo delizioso<br>
-                            <input type="radio" name="type" value="user" oninvalid="alert('Completa tutti i campi per poter procedere');" required> Mangiare con gusto<br>
                             <br><br>
-                                <div class="g-recaptcha" data-sitekey="6LfP0qcUAAAAACsrmIVaM_we3zNYwHcafKfFXu2j"></div>
-                            <br>
                                 <button type="submit" class="btn btn-submit">CONFIRM</button>
                         </form>
                     </div>

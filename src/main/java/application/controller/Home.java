@@ -3,6 +3,8 @@ package application.controller;
 import application.*;
 import application.restaurant_exception.NoCritiquesException;
 import application.restaurant_exception.RestaurantNotFoundException;
+
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -46,7 +48,7 @@ public class Home {
      * @param owner of the new restaurant
      * @return the code of the new restaurant
      */
-    public String addRestaurant(String name, String address, String owner){
+    public String addRestaurant(String name, String address, String owner)throws SQLException{
         return RestaurantCatalogue.getInstance().addRestaurant(name,address,owner);
     }
 
@@ -58,7 +60,7 @@ public class Home {
      * @param dish, the new dish
      * @param price, the price of the dish
      */
-    public void addMenuEntry(String restaurantCode,String dishType,String dish, double price){
+    public void addMenuEntry(String restaurantCode,String dishType,String dish, double price)throws SQLException {
         RestaurantCatalogue.getInstance().addMenuEntry(restaurantCode,dishType,dish,price);
     }
 
@@ -70,7 +72,7 @@ public class Home {
      * @param critico, the author of the critique
      */
     public void writeCritique(String codResturant, double [] voti, HashMap<MenuEntry,Double> votiPiatti,
-                              String comment,String critico){
+                              String comment,String critico)throws SQLException{
 
         Critique c = new Critique(critico,codResturant,0);
         c.writeVotes(voti);
@@ -84,7 +86,7 @@ public class Home {
      * @param restCode
      * @return the menu of a restaurant
      */
-    public ArrayList<String> getMenuCode(String restCode){
+    public ArrayList<String> getMenuCode(String restCode)throws SQLException{
         return RestaurantCatalogue.getInstance().getMenuCode(restCode);
     }
 
@@ -93,7 +95,7 @@ public class Home {
      * @param dishCod
      * @return the dish of the restaurant
      */
-    public MenuEntry getDish(String restCod, String dishCod){
+    public MenuEntry getDish(String restCod, String dishCod)throws SQLException{
         return RestaurantCatalogue.getInstance().getDish(restCod, dishCod);
     }
 
@@ -104,7 +106,7 @@ public class Home {
      * @return  the Critiques in string format
      * @throws NoCritiquesException
      */
-    public ArrayList<String> myCritique(String critic) throws NoCritiquesException {
+    public ArrayList<String> myCritique(String critic) throws NoCritiquesException,SQLException {
         return CritiqueCatalogue.getInstance().getCritiquesByUser(critic);
     }
 
@@ -127,7 +129,6 @@ public class Home {
      * @param section of the critiques
      * @return only the critiques which verify the condition
      */
-    //TODO try catch NoCritiquesException qundo verra` chiamato nella request
     public LinkedList<String> getRestCritByVoteSectionToString(int grade, String restCode, CritiqueSections section){
         return CritiqueCatalogue.getInstance().getRestCritByVoteSectionToString(grade, restCode, section);
     }
@@ -138,7 +139,6 @@ public class Home {
      *  @param grade, the vote used to select the critiques
      *  @return only the critiques which verify the condition
      */
-    //TODO try catch NoCritiquesException qundo verra` chiamato nella request
     public LinkedList<String> getRestCritByVoteToString(int grade, String restCode){
         return CritiqueCatalogue.getInstance().getRestCritByVoteToString(grade, restCode);
     }
@@ -161,15 +161,15 @@ public class Home {
         return dv;
     }
 
-    public String getRestaurantName(String restaurantCode){
+    public String getRestaurantName(String restaurantCode)throws SQLException{
         return RestaurantCatalogue.getInstance().getRestaurantName(restaurantCode);
     }
 
-    public String getRestaurantAddress(String restaurantCode){
+    public String getRestaurantAddress(String restaurantCode)throws SQLException{
         return RestaurantCatalogue.getInstance().getRestaurantAddress(restaurantCode);
     }
 
-    public double getRestaurantMeanVote(String restaurantCode){
+    public double getRestaurantMeanVote(String restaurantCode)throws SQLException{
         return RestaurantCatalogue.getInstance().getRestaurantMeanVote(restaurantCode);
     }
 
@@ -184,7 +184,7 @@ public class Home {
      * @param restaurantCode the code oh the restaurant
      * @return a map whose keys are the code of the of the dishes of the restaurant and the values are the name of the dishes
      */
-    public LinkedHashMap<String, String>  getMenuInfo(String restaurantCode){
+    public LinkedHashMap<String, String>  getMenuInfo(String restaurantCode)throws SQLException{
         return RestaurantCatalogue.getInstance().getMenuInfo(restaurantCode);
     }
 }

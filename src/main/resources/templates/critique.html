@@ -1,4 +1,4 @@
-@args  Map<String, String> piatti, String restCode , String username
+@args  LinkedHashMap<String, String> piatti, String restCode , String username
 
 <html lang="en">
 
@@ -28,7 +28,9 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
               <span class="fa fa-bars"></span>
             </button>
-            <a href="/home" class="navbar-brand">CliQue</a>
+            <form method="get" action="/home">
+              <button type="submit" class="btn btn-submit" >CLIQUE</button>
+            </form>
           </div>
           <div class="collapse navbar-collapse navbar-right" id="mynavbar">
             <ul class="nav navbar-nav">
@@ -121,7 +123,7 @@
           </div>
           <h2>I numeri non bastano? Aggiungi un commento!</h2>
 
-          <textarea name="comment" maxlength="250" style="height: 100px; width: 100%; resize: none"></textarea>
+          <textarea name="comment" maxlength="200" style="height: 100px; width: 100%; resize: none"></textarea>
 
 
           <button type="submit" class="btn btn-submit">CONFIRM</button>

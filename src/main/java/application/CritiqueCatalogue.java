@@ -3,6 +3,8 @@ package application;
 import application.restaurant_exception.NoCritiquesException;
 import persistence.OverviewMapper;
 import persistence.PersistenceFacade;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -16,6 +18,7 @@ public class CritiqueCatalogue {
     private CritiqueFilter critFilter = null;
 
     private CritiqueCatalogue() {
+
         this.critFilter = new CritiqueFilter();
     }
 
@@ -37,7 +40,7 @@ public class CritiqueCatalogue {
      *
      * @param critique the critique
      */
-    public void addNewCritique(Critique critique){
+    public void addNewCritique(Critique critique)throws SQLException{
         PersistenceFacade.getInstance().addNewCritique(critique);
         updateRestaurantOverview(critique.getRestaurantCode());
     }
@@ -48,7 +51,7 @@ public class CritiqueCatalogue {
      * @param critic, the name of the critic ('username')
      * @return critique, the list of critiques of the critic selected
      */
-    public ArrayList<String> getCritiquesByUser(String critic){
+    public ArrayList<String> getCritiquesByUser(String critic)throws SQLException {
         ArrayList<String> critique = new ArrayList<>();
         for (Critique c: this.getCritiques()) {
             if(c.getCritico().equals(critic)){
@@ -71,11 +74,13 @@ public class CritiqueCatalogue {
     public HashSet<Critique> getRestaurantCritics(String restaurantCode){
         HashSet<Critique> restaurantCritics = new HashSet<>();
         for (Critique c: this.getCritiques()) {
-            if(c.getRestaurantCode().equals(restaurantCode))
+            if(c.getRestaurantCode().equals(restaurantCode)){
                 restaurantCritics.add(c);
+            }
         }
-        if (restaurantCritics.isEmpty())
+        if (restaurantCritics.isEmpty()) {
             throw new NoCritiquesException("Ancora nessuna critica per il ristorante selezionato");
+        }
         return restaurantCritics;
     }
 
@@ -85,11 +90,10 @@ public class CritiqueCatalogue {
      *
      * @param restaurantCode, the code of the restaurant which has been critiqued
      */
-    private void updateRestaurantOverview(String restaurantCode){
+    private void updateRestaurantOverview(String restaurantCode)throws SQLException{
         RestaurantOverview ro = new RestaurantOverview();
         ro.computeMean(getRestaurantCritics(restaurantCode));
         RestaurantCatalogue.getInstance().setRestaurantOverview(restaurantCode,ro);
-        System.out.println(ro.toString());
         PersistenceFacade.getInstance().updateTable(OverviewMapper.class,ro,restaurantCode);
     }
 

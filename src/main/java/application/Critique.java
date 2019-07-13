@@ -184,4 +184,12 @@ public class Critique extends RestaurantOverview{
     public HashMap<MenuEntry, Double> getDishes() {
         return dishes;
     }
+
+    public double getMeanCrit(){
+        double temp = 0;
+        for(Map.Entry<CritiqueSections, Double> e : this.sections.entrySet() ){
+            temp = e.getValue() + temp;
+        }
+        return temp/this.sections.size();
+    }
 }

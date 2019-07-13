@@ -27,7 +27,9 @@
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
                             <span class="fa fa-bars"></span>
                         </button>
-                        <a href="/home" class="navbar-brand">CliQue</a>
+                        <form method="get" action="/home">
+                            <button type="submit" class="btn btn-submit" >CLIQUE</button>
+                        </form>
                     </div>
                     <div class="collapse navbar-collapse navbar-right" id="mynavbar">
                         <ul class="nav navbar-nav">
@@ -77,7 +79,7 @@
                             <input type="radio" name = "dishType" value = "secondo" /> secondo<br>
                             <input type="radio" name = "dishType" value = "dolce" /> dolce <br>
                             <h3>Come si chiama?</h3><br>
-                            <input type="text" name="dishName" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
+                            <input type="text" name="dishName" maxlength="40" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
                             <h3>Non è bello parlare di queste cose ma... Quanto costa?</h3>
                             <input type="number" min="0" step="0.01" name="dishPrice" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
                             <br>

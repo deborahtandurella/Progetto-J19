@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-@args String name,String address, Map<String, String> overview, List<String> critiques, String votoMedio
+﻿@args String name,String address, Map<String, String> overview, List<String> critiques, String votoMedio, String restaurant
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -28,7 +28,9 @@
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
                             <span class="fa fa-bars"></span>
                         </button>
-                        <a href="/home" class="navbar-brand">CliQue</a>
+                        <form method="get" action="/home">
+                            <button type="submit" class="btn btn-submit" >CLIQUE</button>
+                        </form>
                     </div>
                     <div class="collapse navbar-collapse navbar-right" id="mynavbar">
                         <ul class="nav navbar-nav">
@@ -109,15 +111,7 @@
                 <div class="col-md-4 col-sm-6 padding-right-zero" >
                     <div class="portfolio-box design" >
                         <h7 class="txt-tl">VOTO MEDIO: @votoMedio<br>
-                            @for(int i = 1; i <= (Double.parseDouble(votoMedio)/2); i++){
-                                <span class="fa fa-star checked"></span>
-                            }
-                            @if(Double.parseDouble(votoMedio)%2 >= 1){
-                            <span class="fa fa-star-half-full checked"></span>
-                            }
-                            @for(int j=1; j <= (10-Double.parseDouble(votoMedio))/2; j++){
-                            <span class="fa fa-star-o checked"></span>
-                            }
+
                         </h7>
                         <br><br>
                         @for(Map.Entry<String, String> ov: overview.entrySet()){
@@ -133,7 +127,6 @@
                             }
                         }
 
-                        <a href="/detail" class="btn btn-submit">DETTAGLI</a>
 
                         <br><br><br><br>
 
@@ -181,11 +174,37 @@
                 <div class="col-md-4 col-sm-6 padding-right-zero" >
                     <div class="portfolio-box design" >
                         <div class="portfolio-box design" style="overflow-y: scroll; height:400px; width: 600px;">
+                            <form method="post" action="restaurantView">
+                                Categoria:
+                                <select name="section">
+                                    <option value="mean">Media Complessiva</option>
+                                    <option value="SERVIZIO">Servizio</option>
+                                    <option value="CONTO">Conto</option>
+                                    <option value="LOCATION">Location</option>
+                                    <option value="MENU">Menu</option>
+                                    <option value="CUCINA">Cucina</option>
+                                </select>
+                                Voto:
+                                <select name="grade">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                                <input type="hidden" name = "restaurant" value=@restaurant>
+                                <button type="submit" class="btn btn-submit" name="action" value="filter">FILTER</button>
+                                <button type="submit" class="btn btn-submit" name="action" value="reset">RESET</button>
+                            </form>
                             @for(String crit : critiques){
                                 @for(String s : crit.split("£")){
                                     <h7>@s<br></h7>
                                 }
-                            <br><h7>***********************************</h7><br>
                             }
                         </div>
                     </div>

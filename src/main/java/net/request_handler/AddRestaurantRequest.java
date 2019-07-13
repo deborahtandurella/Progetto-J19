@@ -7,6 +7,7 @@ import org.rythmengine.Rythm;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,10 +39,13 @@ public class AddRestaurantRequest extends AbstractRequestStrategy {
             write(resp,Rythm.render("addMenu.html",conf));
         }catch (RestaurantAlreadyExistingException e){
             write(resp,Rythm.render("warn.html",e.getMessage()));
+        }catch (SQLException e){
+            SQLExcwptionHandler(resp);
+            e.printStackTrace();
         }
     }
 
-    private String addRestaurant(HttpServletRequest req) throws RestaurantAlreadyExistingException {
+    private String addRestaurant(HttpServletRequest req) throws RestaurantAlreadyExistingException, SQLException {
         String name = req.getParameter("name");
         String address = req.getParameter("address");
         String ownerUsername = req.getParameter("owner");

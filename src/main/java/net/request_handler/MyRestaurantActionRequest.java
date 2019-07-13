@@ -1,8 +1,13 @@
 package net.request_handler;
 
+import application.controller.Home;
+import application.restaurant_exception.NoCritiquesException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class MyRestaurantActionRequest extends OverviewRequest {
 
@@ -19,11 +24,17 @@ public class MyRestaurantActionRequest extends OverviewRequest {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        if (req.getParameter("switch").equals("discover"))
-            sendRestaurantOverview(req.getParameter("restaurant"), resp, req.getParameter("username"));
+        try{
+            if (req.getParameter("switch").equals("discover"))
+                sendRestaurantOverview(req.getParameter("restaurant"), resp, req.getParameter("username"),
+                        Home.getInstance().getRestaurantCritiqueToString(req.getParameter("restaurant")));
 
-        else if(req.getParameter("switch").equals("modifyMenu"))
-            //todo costruire metodo che modifica il menu
-            System.out.println("costruire metedo modifica menu");
+            else if(req.getParameter("switch").equals("modifyMenu"))
+                //todo costruire metodo che modifica il menu
+                System.out.println("costruire metedo modifica menu");
+        }catch (NoCritiquesException e){
+            HashMap<String,Object> conf = new HashMap<>();
+            NoCritiquesExceptionhandler(req.getParameter("restaurant"),conf,resp);
+        }
     }
 }
