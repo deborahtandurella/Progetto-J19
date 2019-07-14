@@ -69,7 +69,7 @@ public class RestaurantsMapper extends AbstractPersistenceMapper {
         updateCache(OID,r);
 
         PreparedStatement pstm = conn.prepareStatement("UPDATE " + tableName+" SET NAME=?, ADDRESS=?, CITY=?," +
-                " OWNER=?  WHERE COD_REST=? ");
+                " OWNER=?  WHERE BINARY COD_REST=? ");
         pstm.setString(1,r.getName());
         pstm.setString(2,r.getAddress());
         pstm.setString(3,r.getCity());
