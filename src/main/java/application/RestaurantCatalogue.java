@@ -180,7 +180,7 @@ public  class RestaurantCatalogue {
         return getRestaurant(restaurantCode).getName();
     }
     public String getRestaurantAddress(String restaurantCode)throws SQLException{
-        return getRestaurant(restaurantCode).getAddress();
+        return getRestaurant(restaurantCode).getCityAddress();
     }
 
     public void setRestaurantOverview(String restaurantCode,RestaurantOverview overview)throws SQLException{

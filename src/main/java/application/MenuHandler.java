@@ -8,17 +8,11 @@ import java.util.Map;
 
 public class MenuHandler {
 
-    private static MenuHandler instance = null;
-
-    private MenuHandler() {
+    public MenuHandler() {
     }
 
-    public static MenuHandler getInstance(){
-        if(instance == null)
-            instance = new MenuHandler();
-        return instance;
-    }
-    public DishType stringConverter(String choice){
+
+    public static DishType stringConverter(String choice){
         switch (choice.toLowerCase()){
             case "antipasto" :
                 return DishType.ANTIPASTI;
@@ -29,7 +23,7 @@ public class MenuHandler {
         }
     }
 
-    public  HashMap<DishType,ArrayList<MenuEntry>> initializeMenu(HashMap<DishType,ArrayList<MenuEntry>> menu){
+    public  static HashMap<DishType,ArrayList<MenuEntry>> initializeMenu(HashMap<DishType,ArrayList<MenuEntry>> menu){
         menu.put(DishType.ANTIPASTI, new ArrayList<>());
         menu.put(DishType.PRIMI, new ArrayList<>());
         menu.put(DishType.SECONDI, new ArrayList<>());

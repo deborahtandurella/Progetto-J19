@@ -15,6 +15,7 @@ public class Restaurant {
     private RestaurantOverview overview;
     private String owner ;
     private String city;
+    private MenuHandler menuH;
 
     /**
      * Create a new restaurant .
@@ -29,6 +30,7 @@ public class Restaurant {
         this.overview = new RestaurantOverview();
         this.owner = owner;
         this.city = city;
+        this.menuH = new MenuHandler();
     }
 
     /**
@@ -142,10 +144,10 @@ public class Restaurant {
     public void checkMenuEntryExistence(String dishType,String dish, double price){
         if(this.menu == null){
             this.menu = new HashMap<>();
-            this.menu = MenuHandler.getInstance().initializeMenu(this.menu);
+            this.menu = this.menuH.initializeMenu(this.menu);
         }
         else
-            MenuHandler.getInstance().checkExistance(dish,this.menu);
+            this.menuH.checkExistance(dish,this.menu);
     }
 
     /**
@@ -160,7 +162,7 @@ public class Restaurant {
      */
     public MenuEntry addMenuEntryToMenu(String dishType,String dish, double price, String dishCode, String restaurantCode){
         MenuEntry me = new MenuEntry(dish,price,dishCode,restaurantCode,dishType);
-        this.menu.get(MenuHandler.getInstance().stringConverter(dishType)).add(me);
+        this.menu.get(this.menuH.stringConverter(dishType)).add(me);
         return me;
     }
 
@@ -171,6 +173,10 @@ public class Restaurant {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getCityAddress(){
+        return city+", "+address;
     }
 
     public String getOwner() {
@@ -189,6 +195,6 @@ public class Restaurant {
     }
 
     public void removeDishFromMenu(String dishCode){
-        MenuHandler.getInstance().removeDishFromMenu(dishCode,menu);
+        this.menuH.removeDishFromMenu(dishCode,menu);
     }
 }

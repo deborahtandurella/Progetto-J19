@@ -103,7 +103,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
      */
     protected HashMap<DishType,ArrayList<MenuEntry>> getMenu(String OID_Restaurant) throws SQLException {
         HashMap<DishType,ArrayList<MenuEntry>> menu = new HashMap<>();
-        menu  = MenuHandler.getInstance().initializeMenu(menu);
+        menu  = MenuHandler.initializeMenu(menu);
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery("select * from "+super.tableName + " where RESTAURANT ="+ OID_Restaurant);
         if(!rs.isBeforeFirst())
@@ -112,7 +112,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
             MenuEntry me =  new MenuEntry(rs.getString(2),rs.getDouble(3),
                     rs.getString(1),OID_Restaurant,rs.getString(5));
             updateCache(me.getCod(),me);
-            menu.get(MenuHandler.getInstance().stringConverter(rs.getString(5)))
+            menu.get(MenuHandler.stringConverter(rs.getString(5)))
                     .add(me);
         }
         return menu;
