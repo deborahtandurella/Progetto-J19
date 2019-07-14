@@ -8,9 +8,9 @@ import java.util.List;
  */
 public interface IMapper {
 
-     String DB_URL = "jdbc:mysql://sql7.freesqldatabase.com/sql7297779";
-     String USER = "sql7297779";
-     String PASSWORD = "fK6Z9ygksS";
+     String DB_URL = "jdbc:mysql://localhost:3306/clique_db";
+     String USER = "cliqueAdmin";
+     String PASSWORD = "cliquePassword";
 
 
     Object  get(String OID) throws SQLException;

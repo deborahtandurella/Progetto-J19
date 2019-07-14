@@ -1,4 +1,4 @@
-@args  Map<Integer, String> piatti, int restCode, String name
+@args  Map<String, String> piatti, String restCode, String name
 
 
 <html lang="en">
@@ -81,7 +81,7 @@
                             </thead>
 
                             <tbody>
-                            @for(Map.Entry<Integer,String> p : piatti.entrySet()){
+                            @for(Map.Entry<String,String> p : piatti.entrySet()){
                             <tr>
                                 <td><h2>@p.getValue()</h2></td>
                                 <td><h2>666</h2></td>

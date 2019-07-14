@@ -1,4 +1,4 @@
-@args  Map<Integer, String> piatti, int restCode, String name, String username
+@args  Map<String, String> piatti, String restCode, String name, String username
 
 
 <html lang="en">
@@ -76,7 +76,7 @@
                             <form method="post" action="/menu_view_owner">
                                 <h2>Piatti</h2>
                                 <tbody>
-                                @for(Map.Entry<Integer,String> p : piatti.entrySet()){
+                                @for(Map.Entry<String,String> p : piatti.entrySet()){
                                 <span></Integer><input type="radio" name = "dish" id ="dish" value = @p.getKey() /><h4><label for="dish">@p.getValue()</label></h4> <br></span>
                                 }
 
