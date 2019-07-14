@@ -66,7 +66,7 @@ public class DishCritiquesMapper extends AbstractPersistenceMapper {
     protected HashMap<MenuEntry,Double> getDishesGrades(String critiqueCode) throws SQLException{
         HashMap<MenuEntry, Double> gradeDish = new HashMap<>();
 
-        PreparedStatement pstm = conn.prepareStatement("SELECT DISH_CODE,VOTO_DISH FROM "+tableName+" WHERE CRITIQUE_CODE = ?" );
+        PreparedStatement pstm = conn.prepareStatement("SELECT DISH_CODE,VOTO_DISH FROM "+tableName+" WHERE BINARY CRITIQUE_CODE = ?" );
         pstm.setInt(1, Integer.parseInt(critiqueCode));
         ResultSet rs = pstm.executeQuery();
         while (rs.next()){

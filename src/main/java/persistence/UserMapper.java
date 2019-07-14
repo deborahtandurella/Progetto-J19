@@ -32,7 +32,7 @@ public class UserMapper extends AbstractPersistenceMapper{
      */
     @Override
     protected Object getObjectFromTable(String OID) throws SQLException {
-        PreparedStatement stm = conn.prepareStatement("SELECT * from "+super.tableName+" where USERNAME = ?");
+        PreparedStatement stm = conn.prepareStatement("SELECT * from "+super.tableName+" where BINARY USERNAME = ?");
         stm.setString(1,OID);
         ResultSet rs = stm.executeQuery();
         if (!rs.isBeforeFirst())

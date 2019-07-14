@@ -31,7 +31,7 @@ public class OverviewMapper extends AbstractPersistenceMapper {
     @Override
     protected Object getObjectFromTable(String OID) throws SQLException {
         Statement stm = conn.createStatement();
-        ResultSet rs = stm.executeQuery("select * from "+ super.tableName +" where RESTAURANT ="+ OID);
+        ResultSet rs = stm.executeQuery("select * from "+ super.tableName +" where BINARY RESTAURANT ="+ OID);
         double [] grade = new double[5];
         if(rs.next()) {
             for (int i = 0; i < grade.length; i++) {
