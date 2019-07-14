@@ -117,4 +117,21 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
         }
         return menu;
     }
+
+    protected synchronized void remove(String OID) throws SQLException {
+        removeFromCahce(OID);
+        PreparedStatement pstm = conn.prepareStatement("delete from "+ tableName+ " where DISH_COD =?");
+        pstm.setString(1,OID);
+        pstm.execute();
+
+    }
+
+    private void removeFromCahce(String OID){
+        MenuEntry me = null;
+        for (MenuEntry m: menuEntries) {
+            if(m.getCod().equals(OID))
+                me = m;
+        }
+        menuEntries.remove(me);
+    }
 }

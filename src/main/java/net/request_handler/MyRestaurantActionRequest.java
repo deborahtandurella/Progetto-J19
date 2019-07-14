@@ -47,7 +47,7 @@ public class MyRestaurantActionRequest extends OverviewRequest {
         HashMap<String,Object> conf = new HashMap<>();
         String restaurantCode = req.getParameter("restaurant");
         conf.put("piatti",Home.getInstance().getMenuInfo(restaurantCode));
-        conf.put("rest",restaurantCode);
+        conf.put("restCode",restaurantCode);
         conf.put("username",req.getParameter("username"));
         conf.put("name",Home.getInstance().getRestaurantName(restaurantCode));
         write(resp, Rythm.render("editMenu.html",conf));

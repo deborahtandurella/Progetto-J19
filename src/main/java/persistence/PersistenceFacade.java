@@ -108,4 +108,9 @@ public class PersistenceFacade {
     public void updateTable(Class klass,Object obj,String OID)throws SQLException{
         mapper.get(klass).updateTable(OID,obj);
     }
+
+    public void removeDish(String OID, String restaurantOID) throws SQLException {
+        ((MenuEntryMapper)mapper.get(MenuEntry.class)).remove(OID);
+        //((Restaurant)mapper.get(RestaurantsMapper.class).get(restaurantOID)).
+    }
 }
