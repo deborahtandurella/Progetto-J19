@@ -110,7 +110,7 @@ public class PersistenceFacade {
     }
 
     public void removeDish(String OID, String restaurantOID) throws SQLException {
-        ((MenuEntryMapper)mapper.get(MenuEntry.class)).remove(OID);
-        //((Restaurant)mapper.get(RestaurantsMapper.class).get(restaurantOID)).
+        ((MenuEntryMapper)mapper.get(MenuEntryMapper.class)).remove(OID);
+        ((Restaurant)mapper.get(RestaurantsMapper.class).get(restaurantOID)).removeDishFromMenu(OID);
     }
 }

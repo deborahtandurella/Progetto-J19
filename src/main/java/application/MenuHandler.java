@@ -45,4 +45,19 @@ public class MenuHandler {
             }
         }
     }
+
+    public void removeDishFromMenu(String dishCode,HashMap<DishType,ArrayList<MenuEntry>> menu){
+        MenuEntry m = null;
+        DishType d = null;
+        for (DishType dt : DishType.values()) {
+            for (MenuEntry me:menu.get(dt)) {
+                    if(me.getCod().equals(dishCode)){
+                        m=me;
+                        d=dt;
+                    }
+
+            }
+        }
+        menu.get(d).remove(m);
+    }
 }

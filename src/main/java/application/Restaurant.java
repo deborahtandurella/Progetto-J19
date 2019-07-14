@@ -187,4 +187,8 @@ public class Restaurant {
     public String getCity() {
         return city;
     }
+
+    public void removeDishFromMenu(String dishCode){
+        MenuHandler.getInstance().removeDishFromMenu(dishCode,menu);
+    }
 }

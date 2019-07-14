@@ -50,10 +50,9 @@ public class EditMenuRequest extends AbstractEditMenu {
 
     }
 
-    private void removeDish(HttpServletResponse resp, HttpServletRequest req){
-        String dishCode = req.getParameter("dishCode");
-        // todo elimina piatto
-
+    private void removeDish(HttpServletResponse resp, HttpServletRequest req) throws SQLException {
+        Home.getInstance().removeDish(req.getParameter("dishCode"),
+                req.getParameter("restaurant"));
     }
     private void sendEditMenuTmpl(String restaurantCode, String username, HttpServletResponse resp)
             throws SQLException, IOException {
