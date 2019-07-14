@@ -384,10 +384,10 @@ a, a:hover {
 
 .contact-icon-container {
   position: absolute;
-  top: -38px;
+  top: -200px;
   right: 0;
   padding-right: 20px;
-  font-size: 320px;
+  font-size: 120px;
   color: #555;
   line-height: 300px;
   -ms-transform: rotate(20deg);
