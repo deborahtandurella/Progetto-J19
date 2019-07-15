@@ -95,6 +95,12 @@ public class RestaurantViewRequest extends OverviewRequest {
         }
     }
 
+    /**
+     * Method which returns all the critiques(in string format) of the restaurant
+     * 
+     * @param req
+     * @return
+     */
     private LinkedList<String> allCritiques(HttpServletRequest req){
         try {
             return Home.getInstance().getRestaurantCritiqueToString(req.getParameter("restaurant"));

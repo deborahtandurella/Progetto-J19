@@ -87,6 +87,13 @@ public class OverviewMapper extends AbstractPersistenceMapper {
 
     }
 
+    /**
+     * Method called by updateTable method of this class. It set the parameter for the SQL query used
+     * @param pstm is the PreparedStatement used in updateTable
+     * @param ro is the RestaurantOverview which has to be updated
+     * @param OID is the code of the RestaurantOverview
+     * @throws SQLException
+     */
     private void setQueryParameters(PreparedStatement pstm,RestaurantOverview ro, String OID) throws SQLException {
         pstm.setString(7,OID);
         pstm.setDouble(6,ro.getMean());

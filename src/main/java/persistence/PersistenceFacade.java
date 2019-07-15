@@ -105,6 +105,13 @@ public class PersistenceFacade {
                 critique);
     }
 
+    /**
+     * Method called
+     * @param klass
+     * @param obj
+     * @param OID
+     * @throws SQLException
+     */
     public void updateTable(Class klass,Object obj,String OID)throws SQLException{
         mapper.get(klass).updateTable(OID,obj);
     }

@@ -118,6 +118,11 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
         return menu;
     }
 
+    /**
+     * Method which removes a MenuEntry from the table
+     * @param OID is the code of the MenuEntry which has to be removed
+     * @throws SQLException
+     */
     protected synchronized void remove(String OID) throws SQLException {
         removeFromCahce(OID);
         PreparedStatement pstm = conn.prepareStatement("delete from "+ tableName+ " where DISH_COD =?");
@@ -126,6 +131,11 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
 
     }
 
+    /**
+     * Method which removes a MenuEntry from the cache. It is called by remove method of this class
+     * @param OID the code of the MenuEntry which has to be removed.
+     *
+     */
     private void removeFromCahce(String OID){
         MenuEntry me = null;
         for (MenuEntry m: menuEntries) {
