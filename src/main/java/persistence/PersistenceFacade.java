@@ -106,16 +106,22 @@ public class PersistenceFacade {
     }
 
     /**
-     * Method called
-     * @param klass
-     * @param obj
-     * @param OID
+     * Method called to update an Object in a table.
+     * @param klass is a Class which is used to determine which Mapper has to be used
+     * @param obj is the Object which has been modified
+     * @param OID is the code of the Object
      * @throws SQLException
      */
     public void updateTable(Class klass,Object obj,String OID)throws SQLException{
         mapper.get(klass).updateTable(OID,obj);
     }
 
+    /**
+     * Method called when a RestaurantOwner wants to remove a dish from a menu of one of is restaurants
+     * @param OID is the code of the dish
+     * @param restaurantOID is the code of the Restaurant whose menu contains the dish
+     * @throws SQLException
+     */
     public void removeDish(String OID, String restaurantOID) throws SQLException {
         ((MenuEntryMapper)mapper.get(MenuEntryMapper.class)).remove(OID);
         ((Restaurant)mapper.get(RestaurantsMapper.class).get(restaurantOID)).removeDishFromMenu(OID);

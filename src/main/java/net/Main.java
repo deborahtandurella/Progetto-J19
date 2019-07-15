@@ -10,7 +10,10 @@ import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        new CliqueServer(8282, new RythmCliqueServlet())
+        int portNumber = 8282;
+        if(args.length !=0)
+            portNumber = Integer.parseInt(args[0]);
+        new CliqueServer(portNumber, new RythmCliqueServlet())
                 .withRythm()
                 .start();
         PersistenceFacade.getInstance();
