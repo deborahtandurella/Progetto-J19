@@ -45,6 +45,7 @@ public class RestaurantViewRequest extends OverviewRequest {
     }
 
     /**
+     * Using the parameter in the form return the correct critiques required by the user
      *
      * @param req, HttpServletRequest request
      * @return  the critiques(in String format) which the user wants

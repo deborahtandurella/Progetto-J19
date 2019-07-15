@@ -9,21 +9,36 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.HashSet;
 
+/**
+ * Singleton class (concreteStrategy)
+ */
 public class MyRestaurantActionRequest extends OverviewRequest {
 
     private static MyRestaurantActionRequest instance = null;
 
     private MyRestaurantActionRequest(){ }
 
+    /**
+     * 'Pattern Singleton Implementation'
+     *
+     * If class has not been already created it instantiates the class and returns the instance
+     * @return instance(MyRestaurantActionRequest)
+     */
     public static MyRestaurantActionRequest getInstance(){
         if(instance == null)
             instance = new MyRestaurantActionRequest();
         return instance;
     }
 
-
+    /**
+     * Thanks to the parameter in the form of the template calls the correct method to answer
+     * to the request of the user
+     *
+     * @param req, the HttpServletRequest to get parameter
+     * @param resp, the HttpServletResponse to answer to the requests of the templates
+     * @throws IOException
+     */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try{
@@ -43,6 +58,14 @@ public class MyRestaurantActionRequest extends OverviewRequest {
         }
     }
 
+    /**
+     * Send the view to modify a menu
+     *
+     * @param req, the HttpServletRequest to get parameter
+     * @param resp, the HttpServletResponse to answer to the requests of the templates
+     * @throws SQLException
+     * @throws IOException
+     */
     private void sendEditMenuTmpl(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
         HashMap<String,Object> conf = new HashMap<>();
         String restaurantCode = req.getParameter("restaurant");

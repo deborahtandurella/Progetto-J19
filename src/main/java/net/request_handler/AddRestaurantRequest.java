@@ -11,12 +11,21 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Singleton class (concreteStrategy)
+ */
 public class AddRestaurantRequest extends AbstractEditMenu{
     private static  AddRestaurantRequest instance = null;
 
     private AddRestaurantRequest() {
     }
 
+    /**
+     * 'Pattern Singleton Implementation'
+     *
+     * If class has not been already created it instantiates the class and returns the instance
+     * @return instance(AddRestaurantRequest)
+     */
     public static AddRestaurantRequest getInstance(){
         if(instance == null)
             instance = new AddRestaurantRequest();
@@ -28,6 +37,13 @@ public class AddRestaurantRequest extends AbstractEditMenu{
 
     }
 
+    /**
+     * Sends the view to add a restaurant to the user
+     *
+     * @param req, the HttpServletRequest to get parameter
+     * @param resp, the HttpServletResponse to answer to the requests of the templates
+     * @throws IOException
+     */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
@@ -42,6 +58,13 @@ public class AddRestaurantRequest extends AbstractEditMenu{
         }
     }
 
+    /**
+     * Initializes the new restaurant for the owner
+     * 
+     * @return
+     * @throws RestaurantAlreadyExistingException
+     * @throws SQLException
+     */
     private String addRestaurant(HttpServletRequest req) throws RestaurantAlreadyExistingException, SQLException {
         String name = req.getParameter("name");
         String address = req.getParameter("address");
