@@ -34,7 +34,7 @@ public class MenuHandler {
     public void checkExistance(String dishName,HashMap<DishType,ArrayList<MenuEntry>> menu){
         for(DishType dt : DishType.values()){
             for (MenuEntry me:menu.get(dt)) {
-                if(dishName.equals(me.getDish()))
+                if(dishName.equalsIgnoreCase(me.getDish()))
                     throw new DishAlreadyInMenuException("Il piatto risulta gia' inserito nel menu!");
             }
         }
