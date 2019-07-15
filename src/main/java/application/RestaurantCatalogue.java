@@ -48,31 +48,15 @@ public  class RestaurantCatalogue {
      * @return the counter of the class used to create the code of the new restaurant
      * @throws RestaurantAlreadyExistingException
      */
-    public  String addRestaurant(String name, String address, String owner) throws RestaurantAlreadyExistingException,
+    public  String addRestaurant(String name, String address,String city, String owner) throws RestaurantAlreadyExistingException,
             SQLException{
         checkExisting(name, address);
-        Restaurant r = new Restaurant(name, address, owner,"city~~~");
+        Restaurant r = new Restaurant(name, address, owner,city);
         String restaurantCode = OIDCreator.getInstance().getNewRestaurantCode();
         PersistenceFacade.getInstance().addRestaurant(restaurantCode,r);
         return restaurantCode;
     }
 
-    /**
-     * Add a new menu to the restaurant selected by the code
-     * @param menu the menu of the restaurant
-     * @param key the code of the restaurant
-     */
-    public  void addMenu(HashMap<DishType,ArrayList<MenuEntry>> menu, String key)throws SQLException{
-        getRestaurant(key).addMenu(menu);
-    }
-
-    /**
-     * Method for debugging
-     * @param key
-     */
-    public  void printMenu(String key)throws SQLException {
-        getRestaurant(key).printMenu();
-    }
 
     /**
      * Method which is called when an user wants to see the list of the restaurants in the system

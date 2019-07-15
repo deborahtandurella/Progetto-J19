@@ -49,8 +49,8 @@ public class Home {
      * @param owner of the new restaurant
      * @return the code of the new restaurant
      */
-    public String addRestaurant(String name, String address, String owner)throws SQLException{
-        return RestaurantCatalogue.getInstance().addRestaurant(name,address,owner);
+    public String addRestaurant(String name, String address,String city, String owner)throws SQLException{
+        return RestaurantCatalogue.getInstance().addRestaurant(name,address,city,owner);
     }
 
     /**

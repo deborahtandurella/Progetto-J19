@@ -69,6 +69,7 @@ public class AddRestaurantRequest extends AbstractEditMenu{
         String name = req.getParameter("name");
         String address = req.getParameter("address");
         String ownerUsername = req.getParameter("owner");
-        return Home.getInstance().addRestaurant(name,address,ownerUsername);
+        String city = req.getParameter("city");
+        return Home.getInstance().addRestaurant(name,address,city,ownerUsername);
     }
 }
