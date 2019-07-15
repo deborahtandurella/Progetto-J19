@@ -142,7 +142,7 @@ public  class RestaurantCatalogue {
      */
     public void addMenuEntry(String restaurantCode,String dishType,String dishName, double price)throws SQLException{
        Restaurant r = getRestaurant(restaurantCode);
-       r.checkMenuEntryExistence(dishType, dishName, price);
+       r.checkMenuEntryExistence(dishName);
        MenuEntry me = r.addMenuEntryToMenu(dishType,dishName,price,OIDCreator.getInstance().getNewMenuEntryCode()
                ,restaurantCode);
        PersistenceFacade.getInstance().addMenuEntry(me);

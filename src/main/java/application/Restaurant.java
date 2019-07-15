@@ -137,11 +137,9 @@ public class Restaurant {
      *
      * It adds a new dish to the menu of the restaurant.
      *
-     * @param dishType the type of the dish(antipasto,primo...)
      * @param dish the name of the dish
-     * @param price the price of the dish
      */
-    public void checkMenuEntryExistence(String dishType,String dish, double price){
+    public void checkMenuEntryExistence(String dish){
         if(this.menu == null){
             this.menu = new HashMap<>();
             this.menu = this.menuH.initializeMenu(this.menu);

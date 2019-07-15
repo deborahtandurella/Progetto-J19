@@ -40,7 +40,6 @@ public class MenuEntry {
     }
 
     public String getCod() {
-        // todo change name!!
         return code;
     }
 

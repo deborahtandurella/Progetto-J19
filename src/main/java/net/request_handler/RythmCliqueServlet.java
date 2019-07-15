@@ -56,7 +56,8 @@ public class RythmCliqueServlet extends HttpServlet {
         try {
             setRequestStrategy(tmp).doGet(response);
         }catch (InvalidURIException e){
-
+            if(!(e.getMessage().equals("/favicon.ico")))
+                e.printStackTrace();
         }
     }
 
@@ -74,7 +75,9 @@ public class RythmCliqueServlet extends HttpServlet {
         try {
             setRequestStrategy(request.getRequestURI()).doPost(request, response);
         }catch (InvalidURIException e){
-            // todo /fav.ico
+            if(!(e.getMessage().equals("/favicon.ico")))
+                e.printStackTrace();
+
         }
     }
 
@@ -85,7 +88,7 @@ public class RythmCliqueServlet extends HttpServlet {
     private void isURIValid(String URI){
         ArrayList<String> requestList =  ArrayToList(this.rightRequest);
         if(!(requestList.contains(URI)))
-            throw new InvalidURIException();
+            throw new InvalidURIException(URI);
     }
 
 
