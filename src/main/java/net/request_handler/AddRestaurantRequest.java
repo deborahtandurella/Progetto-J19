@@ -60,7 +60,7 @@ public class AddRestaurantRequest extends AbstractEditMenu{
 
     /**
      * Initializes the new restaurant for the owner
-     * 
+     *
      * @return
      * @throws RestaurantAlreadyExistingException
      * @throws SQLException
