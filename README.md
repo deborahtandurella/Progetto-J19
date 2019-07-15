@@ -13,14 +13,17 @@ Applicazione web  per critici gastronomici , i quali posso esprimere critiche ri
 
 - [MAVEN](https://maven.apache.org/) - versione 3.6.1
 
-### Avvio del server( porta 8282 )
+### Avvio del server
+- il numero della porta del server è configurabile tramite linea di comando(se non specificata il programma usa la porta 8282)
 - scaricare tutte le dipendenze,compilare il progetto e generare la directory **target** :
 
 ``` $ mvn compile```
 
 - eseguire il progetto :
 
-``` $  mvn exec:java -Dexec.mainClass=net.Main```
+``` $  mvn exec:java -Dexec.mainClass=net.Main -Dexec.args="portNumber" ```
+
+dove portNumber è il numero della porta desiderata. 
 ### Accedere al servizio
 Supponendo che la connessione avvenga dalla stessa macchina su cui è attivo il server, connetersi al server alla pagina:
 [Clique](http://localhost:8282/home)
