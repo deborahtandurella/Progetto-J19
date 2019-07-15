@@ -1,6 +1,7 @@
 package net.request_handler;
 
 import application.controller.Home;
+import net.net_exception.MissingFormParameterException;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,12 +48,20 @@ public class EditMenuRequest extends AbstractEditMenu {
             e.printStackTrace();
             write(resp,Rythm.render("warn.html","siamo offline,ci scusiamo per il disagio"));
        }
+       catch (MissingFormParameterException e){
+           write(resp,Rythm.render("warn.html",e.getMessage()));
+       }
 
     }
 
     private void removeDish(HttpServletResponse resp, HttpServletRequest req) throws SQLException {
-        Home.getInstance().removeDish(req.getParameter("dishCode"),
-                req.getParameter("restaurant"));
+        String dishCode = req.getParameter("dishCode");
+        if(dishCode == null){
+            throw new MissingFormParameterException("Selezionare un piatto da eliminare");
+        }else {
+            Home.getInstance().removeDish(req.getParameter("dishCode"),
+                    req.getParameter("restaurant"));
+        }
     }
     private void sendEditMenuTmpl(String restaurantCode, String username, HttpServletResponse resp)
             throws SQLException, IOException {

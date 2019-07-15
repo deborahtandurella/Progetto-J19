@@ -1,5 +1,6 @@
 package net.request_handler;
 
+import net.net_exception.MissingFormParameterException;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,8 +36,18 @@ public class HomeRistoratoreRequest extends HomeUserRequest {
     }
 
     private void myRest(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-        String restCode = req.getParameter("restaurant");
-        String username = req.getParameter("username");
-        write(resp, Rythm.render("myRestaurantAction.html", restCode, username));
+        try{
+            String restCode = req.getParameter("restaurant");
+            checkParam(restCode);
+            String username = req.getParameter("username");
+            write(resp, Rythm.render("myRestaurantAction.html", restCode, username));
+        }catch (MissingFormParameterException e){
+            write(resp,Rythm.render("warn.html",e.getMessage()));
+        }
+    }
+
+    private void checkParam(String restCode){
+        if(restCode == null)
+            throw new MissingFormParameterException("Selezionare un ristorante per poter continuare");
     }
 }
