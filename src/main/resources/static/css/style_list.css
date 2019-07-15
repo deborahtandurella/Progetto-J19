@@ -199,6 +199,8 @@ h1, h2, h4, h5, h6 {
     font-size: 40px;
     border-color: transparent;
     padding: 0px 0px;
+    border: none;
+
 }
 
 .btn-submit {
