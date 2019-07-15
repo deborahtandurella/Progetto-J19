@@ -19,6 +19,7 @@
 <body>
 <!--header-->
 <header class="main-header" id="header">
+
     <div class="bg-color">
         <!--nav-->
         <nav class="nav navbar-default navbar-fixed-top">
@@ -95,8 +96,8 @@
 
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 padding-right-zero" >
-                    <div class="portfolio-box design" >
+                <div align="center" class="col-md-4 col-sm-6 padding-right-zero" style="width: 600px">
+                    <div align="right" class="portfolio-box design" >
                         <h7 class="txt-tl">VOTO MEDIO: @votoMedio<br>
 
                         </h7>
@@ -115,10 +116,13 @@
                         }
 
 
-                        <br><br><br><br>
+                        <br><br><br>
 
+
+                    </div>
+                    <div align="center">
                         <h7 class="txt-tl"><span class = "fa fa-book"></span> MENU </h7><br>
-                        <a href="/detail" class="btn btn-submit">VISUALIZZA</a>
+                        <a href="/detail" class="btn btn-submit">VISUALIZZA</a><br>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 padding-right-zero">
@@ -158,10 +162,10 @@
                 <div class="col-md-4 col-sm-6 padding-right-zero">
 
                 </div>
-                <div class="col-md-4 col-sm-6 padding-right-zero" >
-                    <div class="portfolio-box design" >
+                <div align="center" class="col-md-4 col-sm-6 padding-right-zero" style="width: 600px">
+                    <div align="left" class="portfolio-box design" style="width: 600px">
 					<form method="post" action="restaurantView">
-                                <h4>Categoria:</h4>
+                                <h4>Categoria:
                                 <select name="section">
                                     <option value="mean">Media Complessiva</option>
                                     <option value="SERVIZIO">Servizio</option>
@@ -170,7 +174,8 @@
                                     <option value="MENU">Menu</option>
                                     <option value="CUCINA">Cucina</option>
                                 </select>
-                                <h4>Voto:</h4>
+
+                                Voto:
                                 <select name="grade">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -182,13 +187,15 @@
                                     <option value="8">8</option>
                                     <option value="9">9</option>
                                     <option value="10">10</option>
+
                                 </select>
+                                </h4>
                                 <input type="hidden" name = "restaurant" value=@restaurant>
                                 <button type="submit" class="btn btn-submit" name="action" value="filter">FILTER</button>
                                 <button type="submit" class="btn btn-submit" name="action" value="reset">RESET</button>
                             </form>
                         <div class="portfolio-box design" style="overflow-y: scroll; height:400px; width: 600px;">
-                            
+                            <br><br>
                             @for(String crit : critiques){
                                 @for(String s : crit.split("£")){
                                     <h7>@s<br></h7>
