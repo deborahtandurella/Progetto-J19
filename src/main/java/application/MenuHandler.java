@@ -8,17 +8,11 @@ import java.util.Map;
 
 public class MenuHandler {
 
-    private static MenuHandler instance = null;
-
-    private MenuHandler() {
+    public MenuHandler() {
     }
 
-    public static MenuHandler getInstance(){
-        if(instance == null)
-            instance = new MenuHandler();
-        return instance;
-    }
-    public DishType stringConverter(String choice){
+
+    public static DishType stringConverter(String choice){
         switch (choice.toLowerCase()){
             case "antipasto" :
                 return DishType.ANTIPASTI;
@@ -29,7 +23,7 @@ public class MenuHandler {
         }
     }
 
-    public  HashMap<DishType,ArrayList<MenuEntry>> initializeMenu(HashMap<DishType,ArrayList<MenuEntry>> menu){
+    public  static HashMap<DishType,ArrayList<MenuEntry>> initializeMenu(HashMap<DishType,ArrayList<MenuEntry>> menu){
         menu.put(DishType.ANTIPASTI, new ArrayList<>());
         menu.put(DishType.PRIMI, new ArrayList<>());
         menu.put(DishType.SECONDI, new ArrayList<>());
@@ -44,5 +38,20 @@ public class MenuHandler {
                     throw new DishAlreadyInMenuException("Il piatto risulta gia' inserito nel menu!");
             }
         }
+    }
+
+    public void removeDishFromMenu(String dishCode,HashMap<DishType,ArrayList<MenuEntry>> menu){
+        MenuEntry m = null;
+        DishType d = null;
+        for (DishType dt : DishType.values()) {
+            for (MenuEntry me:menu.get(dt)) {
+                    if(me.getCod().equals(dishCode)){
+                        m=me;
+                        d=dt;
+                    }
+
+            }
+        }
+        menu.get(d).remove(m);
     }
 }

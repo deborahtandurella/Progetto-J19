@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddRestaurantRequest extends AbstractRequestStrategy {
+public class AddRestaurantRequest extends AbstractEditMenu{
     private static  AddRestaurantRequest instance = null;
 
     private AddRestaurantRequest() {
@@ -32,11 +32,8 @@ public class AddRestaurantRequest extends AbstractRequestStrategy {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             String restaurantCode = addRestaurant(req);
-            Map<String, Object> conf = new HashMap<>();
-            conf.put("username", req.getParameter("owner"));
-            conf.put("rCode",restaurantCode);
-            conf.put("rName",req.getParameter("name"));
-            write(resp,Rythm.render("addMenu.html",conf));
+            sendMenuAddTmpl(req.getParameter("owner"),restaurantCode,resp);
+
         }catch (RestaurantAlreadyExistingException e){
             write(resp,Rythm.render("warn.html",e.getMessage()));
         }catch (SQLException e){

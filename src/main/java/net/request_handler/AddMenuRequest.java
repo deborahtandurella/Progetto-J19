@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Singleton class (concreteStrategy)
  */
-public class AddMenuRequest extends AbstractRequestStrategy {
+public class AddMenuRequest extends AbstractEditMenu {
     private static AddMenuRequest instance = null;
 
     private AddMenuRequest() {
@@ -107,9 +107,10 @@ public class AddMenuRequest extends AbstractRequestStrategy {
      * @param resp, the HttpServletResponse to answer to the requests of the templates
      * @throws IOException
      */
-    private void answerRequest(HttpServletRequest req,HttpServletResponse resp) throws IOException {
+    private void answerRequest(HttpServletRequest req,HttpServletResponse resp) throws IOException, SQLException {
         if(req.getParameter("action").equals("altro"))
-            write(resp,Rythm.render("addMenu.html",req.getParameter("rCode")));
+            sendMenuAddTmpl(req.getParameter("username"),req.getParameter("restaurantCode"),
+                    resp);
         else {
             Map<String, Object> conf = new HashMap<>();
             conf.put("myRest", Home.getInstance().getOwnedRestaurant(req.getParameter("username")));

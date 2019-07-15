@@ -45,7 +45,7 @@ public class MyRestaurantActionRequest extends OverviewRequest {
 
     private void sendEditMenuTmpl(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
         HashMap<String,Object> conf = new HashMap<>();
-        String restaurantCode = req.getParameter("restCode");
+        String restaurantCode = req.getParameter("restaurant");
         conf.put("piatti",Home.getInstance().getMenuInfo(restaurantCode));
         conf.put("restCode",restaurantCode);
         conf.put("username",req.getParameter("username"));

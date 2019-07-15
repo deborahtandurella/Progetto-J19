@@ -103,7 +103,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
      */
     protected HashMap<DishType,ArrayList<MenuEntry>> getMenu(String OID_Restaurant) throws SQLException {
         HashMap<DishType,ArrayList<MenuEntry>> menu = new HashMap<>();
-        menu  = MenuHandler.getInstance().initializeMenu(menu);
+        menu  = MenuHandler.initializeMenu(menu);
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery("select * from "+super.tableName + " where RESTAURANT ="+ OID_Restaurant);
         if(!rs.isBeforeFirst())
@@ -112,9 +112,26 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
             MenuEntry me =  new MenuEntry(rs.getString(2),rs.getDouble(3),
                     rs.getString(1),OID_Restaurant,rs.getString(5));
             updateCache(me.getCod(),me);
-            menu.get(MenuHandler.getInstance().stringConverter(rs.getString(5)))
+            menu.get(MenuHandler.stringConverter(rs.getString(5)))
                     .add(me);
         }
         return menu;
+    }
+
+    protected synchronized void remove(String OID) throws SQLException {
+        removeFromCahce(OID);
+        PreparedStatement pstm = conn.prepareStatement("delete from "+ tableName+ " where DISH_COD =?");
+        pstm.setString(1,OID);
+        pstm.execute();
+
+    }
+
+    private void removeFromCahce(String OID){
+        MenuEntry me = null;
+        for (MenuEntry m: menuEntries) {
+            if(m.getCod().equals(OID))
+                me = m;
+        }
+        menuEntries.remove(me);
     }
 }

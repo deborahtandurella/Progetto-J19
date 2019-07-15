@@ -3,6 +3,7 @@ package application.controller;
 import application.*;
 import application.restaurant_exception.NoCritiquesException;
 import application.restaurant_exception.RestaurantNotFoundException;
+import persistence.PersistenceFacade;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -186,5 +187,9 @@ public class Home {
      */
     public LinkedHashMap<String, String>  getMenuInfo(String restaurantCode)throws SQLException{
         return RestaurantCatalogue.getInstance().getMenuInfo(restaurantCode);
+    }
+
+    public void removeDish(String dishCode,String restaurantCode) throws SQLException {
+        PersistenceFacade.getInstance().removeDish(dishCode, restaurantCode);
     }
 }
