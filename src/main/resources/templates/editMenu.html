@@ -1,4 +1,4 @@
-@args  Map<String, String> piatti, String restCode, String name, String username
+@args  LinkedHashMap<String, String> piatti, String restCode, String name, String username
 
 
 <html lang="en">
@@ -73,16 +73,18 @@
 
                     <div class="icon-text" style="width: 600px">
                         <div class="radios">
-                            <form method="post" action="/menu_view_owner">
+                            <form method="post" action="/editMenu">
                                 <h2>Piatti</h2>
                                 <tbody>
                                 @for(Map.Entry<String,String> p : piatti.entrySet()){
-                                <span></Integer><input type="radio" name = "dish" id ="dish" value = @p.getKey() /><h4><label for="dish">@p.getValue()</label></h4> <br></span>
+                                <input type="radio" name = "dishCode" value =  @p.getKey() /> @p.getValue() <br>
                                 }
 
                                 <input type="hidden"  name="username" value=@username>
-                                <button type="submit" class="btn btn-submit" value="modifica">MODIFICA</button>
-                                <button type="submit" class="btn btn-submit" value="elimina">ELIMINA</button>
+                                <input type="hidden"  name="restaurant" value=@restCode>
+                                <button type="submit" class="btn btn-submit" name = "action" value="add">AGGIUNGI PIATTO</button>
+                                <button type="submit" class="btn btn-submit" name = "action" value="elimina">ELIMINA</button>
+                                <button type="submit" class="btn btn-submit" name = "action" value="end">CONCLUDI LE MODIFICHE</button>
                             </form>
                         </div>
                     </div>
@@ -123,11 +125,11 @@
             </div>
             <div class="col-sm-5 footer-social">
                 <div class="pull-right hidden-xs hidden-sm">
-                    <a><i class="fa fa-facebook"></i></a>
-                    <a><i class="fa fa-dribbble"></i></a>
-                    <a><i class="fa fa-twitter"></i></a>
-                    <a><i class="fa fa-google-plus"></i></a>
-                    <a><i class="fa fa-pinterest"></i></a>
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-dribbble"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                    <a href="#"><i class="fa fa-pinterest"></i></a>
                 </div>
             </div>
         </div>
