@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Singleton class (concreteStrategy)
@@ -49,10 +49,10 @@ public class ViewMenuRequest extends AbstractRequestStrategy {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try{
             String restaurantCode = req.getParameter("restaurant");
-            Map<String, List<String>> menuToString = Home.getInstance()
+            LinkedHashMap<String, List<String>> menuToString = Home.getInstance()
                     .restaurantMenuToString(restaurantCode);
             HashMap<String,Object> conf = new HashMap<>();
-            conf.put("menu",menuToString);
+            conf.put("piatti",menuToString);
             conf.put("username", req.getParameter("username"));
             conf.put("restCode",req.getParameter("restaurant"));
             conf.put("name",Home.getInstance().getRestaurantName(restaurantCode));

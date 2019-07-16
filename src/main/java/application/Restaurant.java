@@ -185,7 +185,7 @@ public class Restaurant {
         this.menuHandler.removeDishFromMenu(dishCode,menu);
     }
 
-    public Map<String, List<String>> menuToString(){
+    public LinkedHashMap<String, List<String>> menuToString(){
         if (this.menu == null)
             throw new EmptyMenuException();
         return this.menuHandler.menuToString(menu);

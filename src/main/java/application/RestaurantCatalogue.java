@@ -182,7 +182,7 @@ public  class RestaurantCatalogue {
         return PersistenceFacade.getInstance().getAllRestaurants();
     }
 
-    public Map<String, List<String>> restaurantMenuToString(String restaurantCode) throws SQLException {
+    public LinkedHashMap<String, List<String>> restaurantMenuToString(String restaurantCode) throws SQLException {
         return getRestaurant(restaurantCode).menuToString();
     }
 }
