@@ -39,6 +39,6 @@ public class ViewMenuRequest extends AbstractRequestStrategy {
      */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        
+
     }
 }
