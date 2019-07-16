@@ -50,7 +50,7 @@ public class HomeRistoratoreRequest extends HomeUserRequest {
 
     /**
      * Addresses the user to the page of his restaurant
-     * 
+     *
      * @throws IOException
      */
     private void myRest(HttpServletRequest req, HttpServletResponse resp) throws IOException{
