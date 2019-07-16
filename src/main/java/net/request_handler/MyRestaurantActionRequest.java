@@ -50,7 +50,8 @@ public class MyRestaurantActionRequest extends OverviewRequest {
                 sendEditMenuTmpl(req,resp);
         }catch (NoCritiquesException e){
             HashMap<String,Object> conf = new HashMap<>();
-            NoCritiquesExceptionhandler(req.getParameter("restaurant"),conf,resp);
+            NoCritiquesExceptionhandler(req.getParameter("restaurant"),conf,resp,
+                    req.getParameter("username"));
         }catch (SQLException e){
             e.printStackTrace();
             System.out.println(e.getMessage());

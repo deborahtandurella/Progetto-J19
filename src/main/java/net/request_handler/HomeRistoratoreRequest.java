@@ -7,15 +7,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Singleton class (concreteStrategy)
+ */
 public class HomeRistoratoreRequest extends HomeUserRequest {
-
     private static HomeRistoratoreRequest instance = null;
 
     private HomeRistoratoreRequest() {
         super();
     }
 
-
+    /**
+     * 'Pattern Singleton Implementation'
+     *
+     * If class has not been already created it instantiates the class and returns the instance
+     * @return instance(HomeRistoratoreRequest)
+     */
     public static HomeRistoratoreRequest getInstance(){
 
         if(instance == null)
@@ -23,7 +30,13 @@ public class HomeRistoratoreRequest extends HomeUserRequest {
         return instance;
     }
 
-
+    /**
+     * Addresses the user to the page required
+     *
+     * @param req, the HttpServletRequest to get parameter
+     * @param resp, the HttpServletResponse to answer to the requests of the templates
+     * @throws IOException
+     */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
@@ -35,6 +48,11 @@ public class HomeRistoratoreRequest extends HomeUserRequest {
             myRest(req,resp);
     }
 
+    /**
+     * Addresses the user to the page of his restaurant
+     *
+     * @throws IOException
+     */
     private void myRest(HttpServletRequest req, HttpServletResponse resp) throws IOException{
         try{
             String restCode = req.getParameter("restaurant");

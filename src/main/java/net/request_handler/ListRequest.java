@@ -25,7 +25,7 @@ public class ListRequest extends OverviewRequest {
      * 'Pattern Singleton Implementation'
      *
      * If class has not been already created it instantiates the class and returns the instance
-     * @return instance(MyRestaurantActionRequest)
+     * @return instance(ListRequest)
      */
     public static ListRequest getInstance(){
         if(instance == null)
@@ -58,7 +58,8 @@ public class ListRequest extends OverviewRequest {
             write(resp,Rythm.render("warn.html",e.getMessage()));
         }catch (NoCritiquesException e){
             HashMap<String,Object> conf = new HashMap<>();
-            NoCritiquesExceptionhandler(req.getParameter("restaurant"),conf,resp);
+            NoCritiquesExceptionhandler(req.getParameter("restaurant"),conf,resp,
+                    req.getParameter("username"));
         }
     }
 
