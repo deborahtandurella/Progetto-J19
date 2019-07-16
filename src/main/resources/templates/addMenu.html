@@ -27,7 +27,8 @@
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
                             <span class="fa fa-bars"></span>
                         </button>
-                        <form method="get" action="/home">
+                        <form method="post" action="/homeButton">
+                            <input type="hidden" name="username" value=@username>
                             <button type="submit" class="btn btn-submit" >CLIQUE</button>
                         </form>
                     </div>
