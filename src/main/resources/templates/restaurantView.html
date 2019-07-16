@@ -118,8 +118,12 @@
 
                         <br><br><br><br>
 
-                        <h7 class="txt-tl"><span class = "fa fa-book"></span> MENU </h7><br>
-                        <a href="/detail" class="btn btn-submit">VISUALIZZA</a>
+                        <form method="post" action="/viewMenu">
+                            <input type="hidden" name="username" value=@username>
+                            <input type="hidden" name="restaurant" value=@restaurant>
+                            <h7 class="txt-tl"><span class = "fa fa-book"></span> MENU </h7><br>
+                            <button  class="btn btn-submit">VISUALIZZA</button>
+                        </form>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 padding-right-zero">

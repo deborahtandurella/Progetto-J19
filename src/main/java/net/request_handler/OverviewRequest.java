@@ -48,7 +48,7 @@ public abstract class OverviewRequest extends AbstractRequestStrategy {
             e.printStackTrace();
             System.out.println("SWLException: "+e.getMessage());
         }catch (NoCritiquesException e){
-            NoCritiquesExceptionhandler(restaurantCode,conf,resp);
+            NoCritiquesExceptionhandler(restaurantCode,conf,resp,username);
         }
     }
 
@@ -60,9 +60,10 @@ public abstract class OverviewRequest extends AbstractRequestStrategy {
      * @param resp, the HttpServletResponse to answer to the requests of the templates
      * @throws IOException
      */
-    protected void NoCritiquesExceptionhandler(String restaurantCode,Map<String, Object> conf,HttpServletResponse resp)
-            throws IOException {
+    protected void NoCritiquesExceptionhandler(String restaurantCode,Map<String, Object> conf,HttpServletResponse resp,
+                                               String username) throws IOException {
         try {
+            conf.put("username",username);
             conf.put("name", Home.getInstance().getRestaurantName(restaurantCode));
             conf.put("address", Home.getInstance().getRestaurantAddress(restaurantCode));
             write(resp, Rythm.render("restaurantViewException.html", conf));
