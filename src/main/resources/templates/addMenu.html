@@ -27,7 +27,10 @@
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
                             <span class="fa fa-bars"></span>
                         </button>
-                        <a href="/home" class="navbar-brand">CliQue</a>
+                        <form method="post" action="/homeButton">
+                            <input type="hidden" name="username" value=@username>
+                            <button type="submit" class="btn btn-submit" >CLIQUE</button>
+                        </form>
                     </div>
                     <div class="collapse navbar-collapse navbar-right" id="mynavbar">
                         <ul class="nav navbar-nav">
@@ -67,22 +70,22 @@
             <div class="col-md-9">
                 <div class="col-md-6 wow fadeInRight delay-02s">
 
-                    <div class="icon-text">
+                    <div class="icon-text" style="width: 600px">
                         <form method="post" action="/addMenu">
                             <input type="hidden" name="restaurantCode" value=@rCode>
                             <input type="hidden" name="username" value=@username>
-                            <h3>Di che piatto si tratta?</h3><br>
+                            <h2>Di che piatto si tratta?</h2><br>
                             <input type="radio" name = "dishType" value = "antipasto" /> antipasto <br>
                             <input type="radio" name = "dishType" value = "primo" /> primo <br>
                             <input type="radio" name = "dishType" value = "secondo" /> secondo<br>
                             <input type="radio" name = "dishType" value = "dolce" /> dolce <br>
-                            <h3>Come si chiama?</h3><br>
-                            <input type="text" name="dishName" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
-                            <h3>Non è bello parlare di queste cose ma... Quanto costa?</h3>
+                            <h2>Come si chiama?</h2><br>
+                            <input type="text" name="dishName" maxlength="40" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
+                            <h2>Non è bello parlare di queste cose ma... Quanto costa?</h2>
                             <input type="number" min="0" step="0.01" name="dishPrice" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
                             <br>
-                            <button type="submit" class="btn btn-submit" name="action">ALTRO PIATTO</button>
-                            <button type="submit" class="btn btn-submit" name="action">FINE</button>
+                            <button type="submit" class="btn btn-submit" name="action" value="altro">ALTRO PIATTO</button>
+                            <button type="submit" class="btn btn-submit" name="action" value="fine">FINE</button>
                         </form>
                     </div>
 
@@ -122,11 +125,11 @@
             </div>
             <div class="col-sm-5 footer-social">
                 <div class="pull-right hidden-xs hidden-sm">
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                    <a><i class="fa fa-facebook"></i></a>
+                    <a><i class="fa fa-dribbble"></i></a>
+                    <a><i class="fa fa-twitter"></i></a>
+                    <a><i class="fa fa-google-plus"></i></a>
+                    <a><i class="fa fa-pinterest"></i></a>
                 </div>
             </div>
         </div>

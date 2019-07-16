@@ -28,7 +28,7 @@ public class MenuEntry {
 
     @Override
     public String toString() {
-        return this.dish + " " + this.price;
+        return this.dish + " " + this.price + "€";
     }
 
     public String getDish() {
@@ -40,7 +40,6 @@ public class MenuEntry {
     }
 
     public String getCod() {
-        // todo change name!!
         return code;
     }
 

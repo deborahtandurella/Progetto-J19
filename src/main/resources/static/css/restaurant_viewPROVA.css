@@ -64,9 +64,10 @@ h8{
 }
 
 .main-header {
-    background: url(../img/korte.jpg) no-repeat;
+    background: url(../img/clique_backdrop.png) no-repeat;
     background-size: cover;
-    min-height: 530px;
+    max-height: 100%;
+    max-width: 100%;
 }
 
 .bg-color {
@@ -159,6 +160,15 @@ h8{
     opacity: 1;
     /* text-transform: uppercase; */
     padding: 25px 0px;
+}
+
+.home-button{
+    background-color: transparent;
+    font-size: 40px;
+    border-color: transparent;
+    padding: 0px 0px;
+    border: none;
+    border: none;
 }
 
 .btn-submit {
@@ -274,7 +284,7 @@ h3.txt-tl {
 }
 
 .bg-image-2 {
-    background: url('../img/korte2.jpg') no-repeat center fixed;
+    /*background: url('../img/clique_backdrop.png') no-repeat center fixed;*/
     -webkit-background-size: 100% auto;
     -moz-background-size: 100% auto;
     -o-background-size: 100% auto;

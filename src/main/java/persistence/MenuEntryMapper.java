@@ -22,7 +22,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
 
 
     protected MenuEntryMapper() throws SQLException {
-        super("menuentry");
+        super("MENUENTRY");
         menuEntries = new ArrayList<>();
         OIDCreator.getInstance().setMenuEntryCode(getLastObjectCode("DISH_COD"));
     }
@@ -65,37 +65,33 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
 
 
     @Override
-    public void put(String OID, Object obj) {
+    public synchronized void put(String OID, Object obj)throws SQLException {
         MenuEntry me = (MenuEntry)obj;
         updateCache(OID,me);
-        try {
-            PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?)");
-            pstm.setString(1,OID);
-            pstm.setString(2,me.getDish());
-            pstm.setString(3,Double.toString(me.getPrice()));
-            pstm.setString(4,me.getRestaurantCode());
-            pstm.setString(5,me.getType());
-            pstm.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+        PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?)");
+        pstm.setString(1,OID);
+        pstm.setString(2,me.getDish());
+        pstm.setString(3,Double.toString(me.getPrice()));
+        pstm.setString(4,me.getRestaurantCode());
+        pstm.setString(5,me.getType());
+        pstm.execute();
+
     }
 
     @Override
-    public void updateTable(String OID, Object obj) {
+    public synchronized void updateTable(String OID, Object obj)throws SQLException {
         MenuEntry me = (MenuEntry) obj;
         updateCache(OID,me);
-        try{
-            PreparedStatement pstm = conn.prepareStatement("UPDATE " + tableName+" SET DISH =?, PRICE =?, " +
-                    "DISH_TYPE =?,where DISH_COD = ?");
-            pstm.setString(1,me.getDish());
-            pstm.setDouble(2,me.getPrice());
-            pstm.setString(3,me.getType());
-            pstm.setString(4,me.getCod());
-            pstm.execute();
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+        PreparedStatement pstm = conn.prepareStatement("UPDATE " + tableName+" SET DISH =?, PRICE =?, " +
+                "DISH_TYPE =?,where DISH_COD = ?");
+        pstm.setString(1,me.getDish());
+        pstm.setDouble(2,me.getPrice());
+        pstm.setString(3,me.getType());
+        pstm.setString(4,me.getCod());
+        pstm.execute();
+
     }
 
     /**
@@ -107,7 +103,7 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
      */
     protected HashMap<DishType,ArrayList<MenuEntry>> getMenu(String OID_Restaurant) throws SQLException {
         HashMap<DishType,ArrayList<MenuEntry>> menu = new HashMap<>();
-        menu  = MenuHandler.getInstance().initializeMenu(menu);
+        menu  = MenuHandler.initializeMenu(menu);
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery("select * from "+super.tableName + " where RESTAURANT ="+ OID_Restaurant);
         if(!rs.isBeforeFirst())
@@ -116,9 +112,36 @@ public class MenuEntryMapper extends AbstractPersistenceMapper {
             MenuEntry me =  new MenuEntry(rs.getString(2),rs.getDouble(3),
                     rs.getString(1),OID_Restaurant,rs.getString(5));
             updateCache(me.getCod(),me);
-            menu.get(MenuHandler.getInstance().stringConverter(rs.getString(5)))
+            menu.get(MenuHandler.stringConverter(rs.getString(5)))
                     .add(me);
         }
         return menu;
+    }
+
+    /**
+     * Method which removes a MenuEntry from the table
+     * @param OID is the code of the MenuEntry which has to be removed
+     * @throws SQLException
+     */
+    protected synchronized void remove(String OID) throws SQLException {
+        removeFromCahce(OID);
+        PreparedStatement pstm = conn.prepareStatement("delete from "+ tableName+ " where DISH_COD =?");
+        pstm.setString(1,OID);
+        pstm.execute();
+
+    }
+
+    /**
+     * Method which removes a MenuEntry from the cache. It is called by remove method of this class
+     * @param OID the code of the MenuEntry which has to be removed.
+     *
+     */
+    private void removeFromCahce(String OID){
+        MenuEntry me = null;
+        for (MenuEntry m: menuEntries) {
+            if(m.getCod().equals(OID))
+                me = m;
+        }
+        menuEntries.remove(me);
     }
 }

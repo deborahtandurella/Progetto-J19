@@ -8,7 +8,6 @@ public class OIDCreator {
     private static OIDCreator instance = null;
     private int restaurantCode;
     private int menuEntryCode;
-    private int criticCode;
     private int critiquesCode;
 
 
@@ -27,21 +26,17 @@ public class OIDCreator {
         return instance;
     }
 
-    public String getNewRestaurantCode() {
+    public synchronized String getNewRestaurantCode() {
         restaurantCode++;
         return Integer.toString(restaurantCode);
     }
 
-    public String getNewMenuEntryCode() {
+    public synchronized String getNewMenuEntryCode() {
         menuEntryCode++;
         return Integer.toString(menuEntryCode);
     }
 
-    public int getNewCriticCode() {
-        return ++criticCode;
-    }
-
-    public int getNewCritiquesCode() {
+    public synchronized int getNewCritiquesCode() {
         return ++critiquesCode;
     }
 
@@ -52,10 +47,6 @@ public class OIDCreator {
 
     public void setMenuEntryCode(String menuEntryCode) {
         this.menuEntryCode = Integer.parseInt(menuEntryCode);
-    }
-
-    public void setCriticCode(int criticCode) {
-        this.criticCode = criticCode;
     }
 
     public void setCritiquesCode(int critiquesCode) {

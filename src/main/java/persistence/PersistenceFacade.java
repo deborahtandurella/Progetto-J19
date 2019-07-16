@@ -4,7 +4,7 @@ import application.Critique;
 import application.MenuEntry;
 import application.Restaurant;
 import application.RestaurantOverview;
-import application.user.User;
+import application.User;
 
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -55,31 +55,15 @@ public class PersistenceFacade {
      * @param OID is the code of the restaurant
      * @param restaurant is the Restaurant which has to be added.
      */
-    public void addRestaurant(String OID, Restaurant restaurant){
+    public void addRestaurant(String OID, Restaurant restaurant)throws SQLException{
         RestaurantOverview ro = new RestaurantOverview();
         restaurant.setOverview(ro);
         mapper.get(RestaurantsMapper.class).put(OID,restaurant);
         mapper.get(OverviewMapper.class).put(OID,ro);
     }
 
-    /**
-     * It returns the Restaurant specified by its identifier.
-     * @param OID is the identifier of the restaurant.
-     * @return the Restaurant specified
-     * @throws SQLException
-     */
-    public Restaurant getRestaurant(String OID)throws SQLException{
-        return (Restaurant)this.mapper.get(RestaurantsMapper.class).get(OID);
-    }
-
-    /**
-     * It returns the user specified by its identifier.
-     * @param key is the identifier of the user
-     * @return the User selected
-     * @throws SQLException
-     */
-    public User getUser(String key) throws SQLException{
-        return (User) (mapper.get(UserMapper.class)).get(key);
+    public Object get(String OID, Class klass) throws SQLException{
+        return this.mapper.get(klass).get(OID);
     }
 
     /**
@@ -87,7 +71,7 @@ public class PersistenceFacade {
      * It updates the database.
      * @param me the MenuEntry which has to be added
      */
-    public void addMenuEntry(MenuEntry me){
+    public void addMenuEntry(MenuEntry me)throws SQLException{
         mapper.get(MenuEntryMapper.class).put(me.getCod(), me);
     }
 
@@ -115,13 +99,31 @@ public class PersistenceFacade {
      * @param critique the new critique
      * @return
      */
-    public void addNewCritique(Critique critique){
+    public void addNewCritique(Critique critique)throws SQLException{
         mapper.get(CritiquesMapper.class).put(
                 Integer.toString(OIDCreator.getInstance().getNewCritiquesCode()),
                 critique);
     }
 
-    public void updateTable(Class klass,Object obj,String OID){
+    /**
+     * Method called to update an Object in a table.
+     * @param klass is a Class which is used to determine which Mapper has to be used
+     * @param obj is the Object which has been modified
+     * @param OID is the code of the Object
+     * @throws SQLException
+     */
+    public void updateTable(Class klass,Object obj,String OID)throws SQLException{
         mapper.get(klass).updateTable(OID,obj);
+    }
+
+    /**
+     * Method called when a RestaurantOwner wants to remove a dish from a menu of one of is restaurants
+     * @param OID is the code of the dish
+     * @param restaurantOID is the code of the Restaurant whose menu contains the dish
+     * @throws SQLException
+     */
+    public void removeDish(String OID, String restaurantOID) throws SQLException {
+        ((MenuEntryMapper)mapper.get(MenuEntryMapper.class)).remove(OID);
+        ((Restaurant)mapper.get(RestaurantsMapper.class).get(restaurantOID)).removeDishFromMenu(OID);
     }
 }

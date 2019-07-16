@@ -27,7 +27,10 @@
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
                             <span class="fa fa-bars"></span>
                         </button>
-                        <a href="/home" class="navbar-brand">CliQue</a>
+                        <form method="post" action="/homeButton">
+                            <input type="hidden" name="username" value=@username>
+                            <button type="submit" class="btn btn-submit" >CLIQUE</button>
+                        </form>
                     </div>
                     <div class="collapse navbar-collapse navbar-right" id="mynavbar">
                         <ul class="nav navbar-nav">
@@ -72,16 +75,11 @@
                             <input type="hidden" name="owner" value=@username>
                             <h6>Nome del ristorante:<br></h6>
                             <input type="text" name="name" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
+                            <h6>Città: <br></h6>
+                            <input type="text" name="city" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
                             <h6>Indirizzo: <br></h6>
-                            <input type="text" name="address" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
-
-                            <h6>Scegli un'immagine per la tua copertina:<br><br></h6>
-                            <input type="file" name="img1" id="img1"><br>
-                            <input type="submit" value="Carica" name="submit">
-
+                            <input type="text" name="address" oninvalid="alert('Completa tutti i campi per poter procedere');"required><br>
                             <br><br>
-                            <div class="g-recaptcha" data-sitekey="6LfP0qcUAAAAACsrmIVaM_we3zNYwHcafKfFXu2j"></div>
-                            <br>
                             <button type="submit" class="btn btn-submit">CONFIRM</button>
                         </form>
                     </div>
@@ -122,11 +120,11 @@
             </div>
             <div class="col-sm-5 footer-social">
                 <div class="pull-right hidden-xs hidden-sm">
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                    <a><i class="fa fa-facebook"></i></a>
+                    <a><i class="fa fa-dribbble"></i></a>
+                    <a><i class="fa fa-twitter"></i></a>
+                    <a><i class="fa fa-google-plus"></i></a>
+                    <a><i class="fa fa-pinterest"></i></a>
                 </div>
             </div>
         </div>

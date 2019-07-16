@@ -15,6 +15,7 @@ public class Restaurant {
     private RestaurantOverview overview;
     private String owner ;
     private String city;
+    private MenuHandler menuHandler;
 
     /**
      * Create a new restaurant .
@@ -29,6 +30,7 @@ public class Restaurant {
         this.overview = new RestaurantOverview();
         this.owner = owner;
         this.city = city;
+        this.menuHandler = new MenuHandler();
     }
 
     /**
@@ -44,17 +46,6 @@ public class Restaurant {
         return this.name + "&" + this.address + "&" + this.overview.toString();
     }
     
-    public void printMenu(){
-        System.out.println("++++" + this.name + "++++");
-        DishType  [] type = {DishType.ANTIPASTI,DishType.PRIMI, DishType.SECONDI, DishType.DOLCI} ;
-
-        for (int i=0 ; i < type.length ; i++) {
-            System.out.println("\n"+type[i].toString());
-            for (MenuEntry tmp2: menu.get(type[i])) {
-                System.out.println(tmp2.toString());
-            }
-        }
-    }
 
     /**
      * Method which is called when a new critique about the restaurant is written.
@@ -75,8 +66,8 @@ public class Restaurant {
         if(this.menu == null)
             throw new EmptyMenuException("menu non presente");
         LinkedHashMap<String,String> temp = new LinkedHashMap<>();
-        for (Map.Entry<DishType,ArrayList<MenuEntry>> a: this.menu.entrySet()) {
-            for (MenuEntry me:a.getValue()) {
+        for (DishType dt : DishType.values()) {
+            for (MenuEntry me:this.menu.get(dt)) {
                 temp.put(me.getCod(),me.getDish());
             }
         }
@@ -135,17 +126,15 @@ public class Restaurant {
      *
      * It adds a new dish to the menu of the restaurant.
      *
-     * @param dishType the type of the dish(antipasto,primo...)
      * @param dish the name of the dish
-     * @param price the price of the dish
      */
-    public void checkMenuEntryExistence(String dishType,String dish, double price){
+    public void checkMenuEntryExistence(String dish){
         if(this.menu == null){
             this.menu = new HashMap<>();
-            this.menu = MenuHandler.getInstance().initializeMenu(this.menu);
+            this.menu = this.menuHandler.initializeMenu(this.menu);
         }
         else
-            MenuHandler.getInstance().checkExistance(dish,this.menu);
+            this.menuHandler.checkExistance(dish,this.menu);
     }
 
     /**
@@ -160,7 +149,7 @@ public class Restaurant {
      */
     public MenuEntry addMenuEntryToMenu(String dishType,String dish, double price, String dishCode, String restaurantCode){
         MenuEntry me = new MenuEntry(dish,price,dishCode,restaurantCode,dishType);
-        this.menu.get(MenuHandler.getInstance().stringConverter(dishType)).add(me);
+        this.menu.get(this.menuHandler.stringConverter(dishType)).add(me);
         return me;
     }
 
@@ -171,6 +160,10 @@ public class Restaurant {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getCityAddress(){
+        return city+", "+address;
     }
 
     public String getOwner() {
@@ -186,5 +179,15 @@ public class Restaurant {
 
     public String getCity() {
         return city;
+    }
+
+    public void removeDishFromMenu(String dishCode){
+        this.menuHandler.removeDishFromMenu(dishCode,menu);
+    }
+
+    public LinkedHashMap<String, List<String>> menuToString(){
+        if (this.menu == null)
+            throw new EmptyMenuException();
+        return this.menuHandler.menuToString(menu);
     }
 }

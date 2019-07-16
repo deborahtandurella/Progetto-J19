@@ -18,7 +18,7 @@ public class OverviewMapper extends AbstractPersistenceMapper {
     private Map<String, RestaurantOverview> overview;
 
     public OverviewMapper() throws SQLException {
-        super("overview");
+        super("OVERVIEW");
         this.overview = new HashMap<>();
     }
 
@@ -31,7 +31,7 @@ public class OverviewMapper extends AbstractPersistenceMapper {
     @Override
     protected Object getObjectFromTable(String OID) throws SQLException {
         Statement stm = conn.createStatement();
-        ResultSet rs = stm.executeQuery("select * from "+ super.tableName +" where RESTAURANT ="+ OID);
+        ResultSet rs = stm.executeQuery("select * from "+ super.tableName +" where BINARY RESTAURANT ="+ OID);
         double [] grade = new double[5];
         if(rs.next()) {
             for (int i = 0; i < grade.length; i++) {
@@ -59,39 +59,41 @@ public class OverviewMapper extends AbstractPersistenceMapper {
 
 
     @Override
-    public void put(String OID, Object obj) {
+    public synchronized void put(String OID, Object obj) throws SQLException{
         RestaurantOverview ro = (RestaurantOverview) obj;
         updateCache(OID,ro);
-        try{
-            PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?,?)");
-            pstm.setString(1,OID);
-            pstm.setString(7,Double.toString(ro.getMean()));
-            for(int i = 0; i< RestaurantOverview.CRITIQUE_SECTIONS.length; i++){
-                pstm.setString(i+2,Double.toString(ro.getSections()
-                        .get(RestaurantOverview.CRITIQUE_SECTIONS[i])));
-            }
-            pstm.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        PreparedStatement pstm = conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?,?)");
+        pstm.setString(1,OID);
+        pstm.setString(7,Double.toString(ro.getMean()));
+        for(int i = 0; i< RestaurantOverview.CRITIQUE_SECTIONS.length; i++){
+            pstm.setString(i+2,Double.toString(ro.getSections()
+                    .get(RestaurantOverview.CRITIQUE_SECTIONS[i])));
         }
+        pstm.execute();
+
 
     }
 
-    public void updateTable(String OID,Object obj){
+    public synchronized void updateTable(String OID,Object obj)throws SQLException{
         RestaurantOverview ro = (RestaurantOverview)obj;
         updateCache(OID,ro);
-        try{
-            String query = "UPDATE " + tableName+" SET MENU= ? , LOCATION =? , SERVIZIO = ? , CONTO = ? , CUCINA = ? , MEAN = ?" +
-                    " where RESTAURANT = ?";
-            PreparedStatement pstm = conn.prepareStatement(query);
-            setQueryParameters(pstm,ro,OID);
-            pstm.execute();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        String query = "UPDATE " + tableName+" SET MENU= ? , LOCATION =? , SERVIZIO = ? , CONTO = ? , CUCINA = ? , MEAN = ?" +
+                " where RESTAURANT = ?";
+        PreparedStatement pstm = conn.prepareStatement(query);
+        setQueryParameters(pstm,ro,OID);
+        pstm.execute();
+
     }
 
+    /**
+     * Method called by updateTable method of this class. It set the parameter for the SQL query used
+     * @param pstm is the PreparedStatement used in updateTable
+     * @param ro is the RestaurantOverview which has to be updated
+     * @param OID is the code of the RestaurantOverview
+     * @throws SQLException
+     */
     private void setQueryParameters(PreparedStatement pstm,RestaurantOverview ro, String OID) throws SQLException {
         pstm.setString(7,OID);
         pstm.setDouble(6,ro.getMean());

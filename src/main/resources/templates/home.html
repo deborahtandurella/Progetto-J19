@@ -28,7 +28,9 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
               <span class="fa fa-bars"></span>
             </button>
-            <a href="/templates/home.html" class="navbar-brand">CliQue</a>
+            <form method="get" action="/home">
+              <button type="submit" class="home-button" ><h3 style="color: white"><i class="fa fa-home"></i> CliQue</h3></button>
+            </form>
           </div>
           <div class="collapse navbar-collapse navbar-right" id="mynavbar">
             <ul class="nav navbar-nav">
@@ -47,7 +49,9 @@
         <h2 class="top-title"></h2>
         <h3 class="title">CliQue</h3>
         <h4 class="sub-title">IL PARERE DEGLI ESPERTI</h4>
-        <a href="signUp.html" class="btn btn-submit">SIGN UP</a>
+        <form method="get" action="/signUp">
+          <button type="submit" class="btn btn-submit" >SIGN UP</button>
+        </form>
 
 
       </div>
@@ -198,8 +202,6 @@
               Password:<br>
               <input type="password" name="password" oninvalid="alert('Completa tutti i campi per poter procedere');" required><br>
               <br><br>
-              <div class="g-recaptcha" data-sitekey="6LfP0qcUAAAAACsrmIVaM_we3zNYwHcafKfFXu2j"></div>
-              <br>
               <button type="submit" class="btn btn-submit">LOGIN</button>
             </form>
           </div>
@@ -227,47 +229,17 @@
         </div>
       </div>
       <div class="col-md-12 col-sm-12">
-        <div class="col-md-4 col-sm-6" style="padding-left:0px;">
-          <h2 class="cont-title">Email Us</h2>
-          <div id="sendmessage">Your message has been sent. Thank you!</div>
-          <div id="errormessage"></div>
-          <div class="contact-info">
-            <form action="" method="post" role="form" class="contactForm">
-              <div class="form-group">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                <div class="validation"></div>
-              </div>
-              <div class="form-group">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                <div class="validation"></div>
-              </div>
-
-              <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                <div class="validation"></div>
-              </div>
-
-              <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                <div class="validation"></div>
-              </div>
-              <button type="submit" class="btn btn-send">SEND</button>
-            </form>
-          </div>
 
         </div>
         <div class="col-md-4 col-sm-6">
           <h2 class="cont-title">Visit Us</h2>
           <div class="location-info">
             <p class="white"><span aria-hidden="true" class="fa fa-map-marker"></span>Via Adolfo Ferrata 9, Pavia, Italy</p>
-            <p class="white"><span aria-hidden="true" class="fa fa-phone"></span>Phone: 666 666 666</p>
-            <p class="white"><span aria-hidden="true" class="fa fa-envelope"></span>Email: <a href="" class="link-dec">lalo.magni<i class="fa fa-at"></i>unipv.it</a></p>
+            <p class="white"><span aria-hidden="true" class="fa fa-envelope"></span>Email: <a class="link-dec">cliqueadvisor<i class="fa fa-at"></i>gmail.com</a></p>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="contact-icon-container hidden-md hidden-sm hidden-xs">
-            <span aria-hidden="true" class="fa fa-envelope-o"></span>
-          </div>
+          <img src="../static/img/clique_logo.png" alt="" style="max-height: 100%; max-width: 100%">
         </div>
       </div>
     </div>
@@ -292,11 +264,11 @@
       </div>
       <div class="col-sm-5 footer-social">
         <div class="pull-right hidden-xs hidden-sm">
-          <a href="#"><i class="fa fa-facebook"></i></a>
-          <a href="#"><i class="fa fa-dribbble"></i></a>
-          <a href="#"><i class="fa fa-twitter"></i></a>
-          <a href="#"><i class="fa fa-google-plus"></i></a>
-          <a href="#"><i class="fa fa-pinterest"></i></a>
+          <a><i class="fa fa-facebook"></i></a>
+          <a><i class="fa fa-dribbble"></i></a>
+          <a><i class="fa fa-twitter"></i></a>
+          <a><i class="fa fa-google-plus"></i></a>
+          <a><i class="fa fa-pinterest"></i></a>
         </div>
       </div>
     </div>

@@ -4,12 +4,10 @@ import application.restaurant_exception.RestaurantAlreadyExistingException;
 import application.restaurant_exception.RestaurantNotFoundException;
 import persistence.OIDCreator;
 import persistence.PersistenceFacade;
+import persistence.RestaurantsMapper;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Singleton class
@@ -17,7 +15,7 @@ import java.util.Map;
  */
 public  class RestaurantCatalogue {
     private static RestaurantCatalogue instance = null;
-    private  int counter;
+
 
     /**
      * Create a new RestaurantCatalogue
@@ -25,7 +23,6 @@ public  class RestaurantCatalogue {
      * initialize counter, the counter used to generate the code of the restaurant in the system
      */
     private RestaurantCatalogue(){
-        this.counter = 0;
     }
 
     /**
@@ -48,30 +45,15 @@ public  class RestaurantCatalogue {
      * @return the counter of the class used to create the code of the new restaurant
      * @throws RestaurantAlreadyExistingException
      */
-    public  String addRestaurant(String name, String address, String owner) throws RestaurantAlreadyExistingException{
+    public  String addRestaurant(String name, String address,String city, String owner) throws RestaurantAlreadyExistingException,
+            SQLException{
         checkExisting(name, address);
-        Restaurant r = new Restaurant(name, address, owner,"city~~~");
+        Restaurant r = new Restaurant(name, address, owner,city);
         String restaurantCode = OIDCreator.getInstance().getNewRestaurantCode();
         PersistenceFacade.getInstance().addRestaurant(restaurantCode,r);
         return restaurantCode;
     }
 
-    /**
-     * Add a new menu to the restaurant selected by the code
-     * @param menu the menu of the restaurant
-     * @param key the code of the restaurant
-     */
-    public  void addMenu(HashMap<DishType,ArrayList<MenuEntry>> menu, String key){
-        getRestaurant(key).addMenu(menu);
-    }
-
-    /**
-     * Method for debugging
-     * @param key
-     */
-    public  void printMenu(String key) {
-        getRestaurant(key).printMenu();
-    }
 
     /**
      * Method which is called when an user wants to see the list of the restaurants in the system
@@ -93,7 +75,7 @@ public  class RestaurantCatalogue {
      * @param restaurantCode the code oh the restaurant
      * @return a map whose keys are the code of the of the dishes of the restaurant and the values are the name of the dishes
      */
-    public LinkedHashMap<String, String>  getMenuInfo(String restaurantCode){
+    public LinkedHashMap<String, String>  getMenuInfo(String restaurantCode)throws SQLException{
         return getRestaurant(restaurantCode).getMenuInfo();
     }
 
@@ -155,53 +137,53 @@ public  class RestaurantCatalogue {
      * @param dishName the name of the dish
      * @param price the price of the dish
      */
-    public void addMenuEntry(String restaurantCode,String dishType,String dishName, double price){
+    public void addMenuEntry(String restaurantCode,String dishType,String dishName, double price)throws SQLException{
        Restaurant r = getRestaurant(restaurantCode);
-       r.checkMenuEntryExistence(dishType, dishName, price);
+       r.checkMenuEntryExistence(dishName);
        MenuEntry me = r.addMenuEntryToMenu(dishType,dishName,price,OIDCreator.getInstance().getNewMenuEntryCode()
                ,restaurantCode);
        PersistenceFacade.getInstance().addMenuEntry(me);
 
     }
 
-    public ArrayList<String> getMenuCode(String restCode){
+    public ArrayList<String> getMenuCode(String restCode)throws SQLException{
         return getRestaurant(restCode).getMenuCode();
     }
 
-    public MenuEntry getDish(String restCode, String dishCode){
+    public MenuEntry getDish(String restCode, String dishCode)throws SQLException{
         return getRestaurant(restCode).getDish(dishCode);
     }
 
-    public HashMap<String,String> getRestaurantOverview(String restCode){
+    public HashMap<String,String> getRestaurantOverview(String restCode)throws SQLException{
         return getRestaurant(restCode).getOverview();
     }
-    public String getRestaurantName(String restaurantCode){
+    public String getRestaurantName(String restaurantCode)throws SQLException{
         return getRestaurant(restaurantCode).getName();
     }
-    public String getRestaurantAddress(String restaurantCode){
-        return getRestaurant(restaurantCode).getAddress();
+    public String getRestaurantAddress(String restaurantCode)throws SQLException{
+        return getRestaurant(restaurantCode).getCityAddress();
     }
 
-    public void setRestaurantOverview(String restaurantCode,RestaurantOverview overview){
+    public void setRestaurantOverview(String restaurantCode,RestaurantOverview overview)throws SQLException{
         getRestaurant(restaurantCode).setOverview(overview);
     }
 
-    public double getRestaurantMeanVote(String restaurantCode){
+    public double getRestaurantMeanVote(String restaurantCode)throws SQLException{
         return  getRestaurant(restaurantCode).getMeanVote();
     }
 
-    private Restaurant getRestaurant(String restaurantCode){
-        try {
-            return PersistenceFacade.getInstance().getRestaurant(restaurantCode);
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return null;
+    private Restaurant getRestaurant(String restaurantCode) throws SQLException{
+
+        return (Restaurant) PersistenceFacade.getInstance().get(restaurantCode, RestaurantsMapper.class);
+
     }
 
     private Map<String, Restaurant> getAllRestaurants(){
         return PersistenceFacade.getInstance().getAllRestaurants();
     }
 
+    public LinkedHashMap<String, List<String>> restaurantMenuToString(String restaurantCode) throws SQLException {
+        return getRestaurant(restaurantCode).menuToString();
+    }
 }
     

@@ -1,8 +1,8 @@
 package application.controller;
 
 import persistence.InvalidUsernameException;
-import application.user.UserCatalogue;
-import application.user.UserType;
+import application.UserCatalogue;
+import application.UserType;
 
 import java.sql.SQLException;
 
@@ -26,4 +26,7 @@ public class HomeUser {
         return UserCatalogue.getInstance().userSignUp(credential,type);
     }
 
+    public UserType getUserType(String username) throws SQLException{
+        return UserCatalogue.getInstance().getUserType(username);
+    }
 }

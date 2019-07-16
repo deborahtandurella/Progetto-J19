@@ -1,0 +1,142 @@
+@args  LinkedHashMap<String, List<String>> piatti, String restCode, String name, String username
+
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clique - View Menu</title>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300|Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style_list.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/fontface.css">
+
+
+</head>
+
+<body>
+<!--header-->
+<header class="main-header" id="header">
+    <div class="bg-color">
+        <!--nav-->
+        <nav class="nav navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="fa fa-bars"></span>
+                        </button>
+                        <form method="post" action="/homeButton">
+                            <input type="hidden" name="username" value=@username>
+                            <button type="submit" class="home-button" ><h3 style="color: white"><i class="fa fa-home"></i> CliQue</h3></button>
+                        </form>
+                    </div>
+                    <div class="collapse navbar-collapse navbar-right" id="mynavbar">
+                        <ul class="nav navbar-nav">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!--/ nav-->
+
+    </div>
+</header>
+<!--/ header-->
+<!---->
+<section id="cta-1">
+    <div class="container">
+        <div class="row">
+            <div class="cta-info text-center">
+                <h2><span class="dec-tec"></span>Che si mangia?<span class="dec-tec"></span></h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="feature" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 wow fadeInLeft delay-05s">
+                <div class="section-title">
+                    <h2 class="head-title">MENU</h2>
+                    <hr class="botm-line">
+                    <p class="sec-para">Le specialità di @name</p>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="col-md-6 wow fadeInRight delay-02s">
+
+                    <div class="icon-text" style="width: 600px">
+
+                            @for(Map.Entry<String,List<String>> p : piatti.entrySet()){
+                                <h2>@p.getKey()</h2>
+                                <br>
+                                @for(String piatto : p.getValue()){
+                                    <h2>@piatto</h2>
+                                }
+                                <br>
+                                <br>
+                            }
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<section class="section-padding parallax bg-image-2 section wow fadeIn delay-08s" id="cta-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="cta-txt">
+
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="" id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7 footer-copyright">
+
+                <div class="credits">
+
+                </div>
+            </div>
+            <div class="col-sm-5 footer-social">
+                <div class="pull-right hidden-xs hidden-sm">
+                    <a><i class="fa fa-facebook"></i></a>
+                    <a><i class="fa fa-dribbble"></i></a>
+                    <a><i class="fa fa-twitter"></i></a>
+                    <a><i class="fa fa-google-plus"></i></a>
+                    <a><i class="fa fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/jquery.easing.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/wow.js"></script>
+<script src="/static/js/custom.js"></script>
+<script src="/static/contactform/contactform.js"></script>
+
+</body>
+</html>

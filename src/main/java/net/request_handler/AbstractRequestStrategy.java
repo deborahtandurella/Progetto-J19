@@ -1,5 +1,7 @@
 package net.request_handler;
 
+import org.rythmengine.Rythm;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -18,5 +20,9 @@ public abstract class AbstractRequestStrategy implements RequestStrategy {
      */
      protected void write(HttpServletResponse resp, String message) throws IOException {
         resp.getWriter().write(message);
+    }
+
+    protected void SQLExcwptionHandler(HttpServletResponse resp) throws IOException{
+            write(resp, Rythm.render("warn.html","Server offline.Ci scusiamo per il disagio"));
     }
 }
