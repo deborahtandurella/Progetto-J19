@@ -1,7 +1,7 @@
 package persistence;
 
-import application.user.User;
-import application.user.UserType;
+import application.User;
+import application.UserType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

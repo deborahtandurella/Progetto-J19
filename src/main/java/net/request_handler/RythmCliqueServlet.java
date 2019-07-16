@@ -17,7 +17,7 @@ public class RythmCliqueServlet extends HttpServlet {
      * A list of the name of the right URI which can be accepted
      */
     private String [] rightRequest = {"/home", "/homeCritico", "/list", "/critique","/homeRistoratore", "/signUp"
-            ,"/addRestaurant","/myRestaurantAction","/addMenu", "/restaurantView","/editMenu"};
+            ,"/addRestaurant","/myRestaurantAction","/addMenu", "/restaurantView","/editMenu", "/homeButton"};
 
 
     /**

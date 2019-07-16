@@ -11,6 +11,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Singleton class (concreteStrategy)
+ */
 public class HomeCriticoRequest extends HomeUserRequest {
 
     private static HomeCriticoRequest instance = null;
@@ -18,12 +21,25 @@ public class HomeCriticoRequest extends HomeUserRequest {
     protected HomeCriticoRequest(){
     }
 
+    /**
+     * 'Pattern Singleton Implementation'
+     *
+     * If class has not been already created it instantiates the class and returns the instance
+     * @return instance(HomeCriticoRequest)
+     */
     public static HomeCriticoRequest getInstance(){
         if(instance == null)
             instance = new HomeCriticoRequest();
         return instance;
     }
 
+    /**
+     * Addresses the critic in the correct page that he had required
+     *
+     * @param req, the HttpServletRequest to get parameter
+     * @param resp, the HttpServletResponse to answer to the requests of the templates
+     * @throws IOException
+     */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String tmp = req.getParameter("switch");
@@ -33,7 +49,11 @@ public class HomeCriticoRequest extends HomeUserRequest {
             postCritiquesView(req, resp);
     }
 
-
+    /**
+     * Prepares the page to view the own critiques
+     *
+     * @throws IOException
+     */
     private void postCritiquesView(HttpServletRequest req, HttpServletResponse resp)throws IOException{
         try {
             String tmp = req.getParameter("username");

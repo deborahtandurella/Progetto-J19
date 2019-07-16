@@ -2,7 +2,7 @@ package net.request_handler;
 
 import application.controller.HomeUser;
 import persistence.InvalidUsernameException;
-import application.user.UserType;
+import application.UserType;
 import org.rythmengine.Rythm;
 
 import javax.servlet.http.HttpServletRequest;
