@@ -1,4 +1,4 @@
-package application.user;
+package application;
 
 public enum UserType {
     CRITIC, RESTAURANTOWNER

@@ -4,7 +4,7 @@ import application.Critique;
 import application.MenuEntry;
 import application.Restaurant;
 import application.RestaurantOverview;
-import application.user.User;
+import application.User;
 
 import java.sql.SQLException;
 import java.util.HashSet;

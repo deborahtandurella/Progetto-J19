@@ -1,4 +1,4 @@
-package application.user;
+package application;
 
 /**
  * A class used to represent the user registered in the system

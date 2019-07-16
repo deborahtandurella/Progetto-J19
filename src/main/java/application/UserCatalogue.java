@@ -1,4 +1,4 @@
-package application.user;
+package application;
 
 import persistence.InvalidUsernameException;
 import persistence.PersistenceFacade;
@@ -65,5 +65,8 @@ public class UserCatalogue {
     }
     private User getUser(String OID) throws SQLException{
         return (User)PersistenceFacade.getInstance().get(OID,UserMapper.class);
+    }
+    public UserType getUserType(String username)throws SQLException{
+        return ((User)PersistenceFacade.getInstance().get(username, UserMapper.class)).getType();
     }
 }
