@@ -7,10 +7,7 @@ import persistence.PersistenceFacade;
 import persistence.RestaurantsMapper;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Singleton class
@@ -185,5 +182,8 @@ public  class RestaurantCatalogue {
         return PersistenceFacade.getInstance().getAllRestaurants();
     }
 
+    public Map<String, List<String>> restaurantMenuToString(String restaurantCode) throws SQLException {
+        return getRestaurant(restaurantCode).menuToString();
+    }
 }
     

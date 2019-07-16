@@ -1,4 +1,4 @@
-@args  Map<String, String> piatti, String restCode, String name, String username
+@args  Map<String, List<String>> piatti, String restCode, String name, String username
 
 
 <html lang="en">
@@ -73,24 +73,17 @@
                 <div class="col-md-6 wow fadeInRight delay-02s">
 
                     <div class="icon-text" style="width: 600px">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th scope="col"><h1>Piatto</h1></th>
-                                <th scope="col"><h1>Prezzo</h1></th>
-                            </tr>
-                            </thead>
 
-                            <tbody>
-                            @for(Map.Entry<String,String> p : piatti.entrySet()){
-                            <tr>
-                                <td><h2>@p.getValue()</h2></td>
-                                <td><h2>todo</h2></td>
-                            </tr>
+                            @for(Map.Entry<String,List<String>> p : piatti.entrySet()){
+                                <h2>@p.getKey()</h2>
+                                <br>
+                                @for(String piatto : p.getValue()){
+                                    <h2>@piatto</h2>
+                                }
+                                <br>
+                                <br>
                             }
-                        </table>
                     </div>
-
 
                 </div>
 

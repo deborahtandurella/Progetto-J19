@@ -192,4 +192,8 @@ public class Home {
     public void removeDish(String dishCode,String restaurantCode) throws SQLException {
         PersistenceFacade.getInstance().removeDish(dishCode, restaurantCode);
     }
+
+    public Map<String, List<String>> restaurantMenuToString(String restaurantCode) throws SQLException {
+        return RestaurantCatalogue.getInstance().restaurantMenuToString(restaurantCode);
+    }
 }

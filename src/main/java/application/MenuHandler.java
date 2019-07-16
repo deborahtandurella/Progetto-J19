@@ -4,6 +4,7 @@ import application.restaurant_exception.DishAlreadyInMenuException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MenuHandler {
@@ -53,5 +54,16 @@ public class MenuHandler {
             }
         }
         menu.get(d).remove(m);
+    }
+
+    public Map<String, List<String>> menuToString(HashMap<DishType,ArrayList<MenuEntry>> menu){
+        Map<String, List<String>> menuString = new HashMap<>();
+        for (DishType dt:DishType.values()) {
+            menuString.put(dt.toString(),new ArrayList<>());
+            for (MenuEntry me :menu.get(dt)) {
+                menuString.get(dt.toString()).add(me.toString());
+            }
+        }
+        return menuString;
     }
 }

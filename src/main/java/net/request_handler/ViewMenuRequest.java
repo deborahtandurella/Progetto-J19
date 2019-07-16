@@ -1,8 +1,16 @@
 package net.request_handler;
 
+import application.controller.Home;
+import application.restaurant_exception.EmptyMenuException;
+import org.rythmengine.Rythm;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Singleton class (concreteStrategy)
@@ -17,7 +25,7 @@ public class ViewMenuRequest extends AbstractRequestStrategy {
      * 'Pattern Singleton Implementation'
      *
      * If class has not been already created it instantiates the class and returns the instance
-     * @return instance(HomeButtonRequest)
+     * @return instance(ViewMenuRequest)
      */
     public static ViewMenuRequest getInstance(){
         if(instance == null)
@@ -39,6 +47,21 @@ public class ViewMenuRequest extends AbstractRequestStrategy {
      */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        try{
+            String restaurantCode = req.getParameter("restaurant");
+            Map<String, List<String>> menuToString = Home.getInstance()
+                    .restaurantMenuToString(restaurantCode);
+            HashMap<String,Object> conf = new HashMap<>();
+            conf.put("menu",menuToString);
+            conf.put("username", req.getParameter("username"));
+            conf.put("restCode",req.getParameter("restaurant"));
+            conf.put("name",Home.getInstance().getRestaurantName(restaurantCode));
+            write(resp, Rythm.render("viewMenu.html",conf));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }catch (EmptyMenuException e){
+            write(resp,Rythm.render("warn.html","Il ristorante non ha ancora aggiunto un menù"));
+        }
 
     }
 }
