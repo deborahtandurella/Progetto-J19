@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Singleton class (concreteStrategy)
+ */
 public class HomeRequest extends AddressHomeRequest{
 
     private static HomeRequest instance = null;
@@ -17,6 +20,12 @@ public class HomeRequest extends AddressHomeRequest{
     private HomeRequest(){
     }
 
+    /**
+     * 'Pattern Singleton Implementation'
+     *
+     * If class has not been already created it instantiates the class and returns the instance
+     * @return instance(HomeRequest)
+     */
     public static HomeRequest getInstance(){
         if(instance == null)
             instance = new HomeRequest();
@@ -27,6 +36,13 @@ public class HomeRequest extends AddressHomeRequest{
         write(resp, Rythm.render(("home.html")));
     }
 
+    /**
+     * Method which logs the user
+     *
+     * @param req, the HttpServletRequest to get parameter
+     * @param resp, the HttpServletResponse to answer to the requests of the templates
+     * @throws IOException
+     */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String username = req.getParameter("username");
@@ -39,6 +55,15 @@ public class HomeRequest extends AddressHomeRequest{
         }
     }
 
+    /**
+     * Method which checks the credential for the user log in
+     *
+     * @param resp, the HttpServletResponse to answer to the requests of the templates
+     * @param username
+     * @param password
+     * @throws IOException
+     * @throws SQLException
+     */
     private void logIn(HttpServletResponse resp, String username, String password) throws IOException, SQLException {
         try {
             UserType type = HomeUser.getInstance().logIn(username, password);
