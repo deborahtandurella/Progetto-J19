@@ -1,4 +1,4 @@
-﻿@args String name,String address, Map<String, String> overview, List<String> critiques, String votoMedio, String restaurant
+﻿@args String name,String address, Map<String, String> overview, List<String> critiques, String votoMedio, String restaurant,String username
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +28,8 @@
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
                             <span class="fa fa-bars"></span>
                         </button>
-                        <form method="get" action="/home">
+                        <form method="post" action="/homeButton">
+                            <input type="hidden" name="username" value=@username>
                             <button type="submit" class="home-button" ><h3 style="color: white"><i class="fa fa-home"></i> CliQue</h3></button>
                         </form>
                     </div>
