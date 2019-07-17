@@ -1,5 +1,5 @@
-@args String username, Map<String, String> myRest, String exception
-<!DOCTYPE html>
+@args String username, Map< String, String> myRest, String exception
+
 <html lang="en">
 
 <head>
@@ -98,7 +98,7 @@
                         <h2 class="txt-tl">I miei ristoranti</h2>
                     <form method="post" action="/homeRistoratore">
                         @if(exception.equals("false")){
-                            @for(Map.Entry<String,String> rest : myRest.entrySet()){
+                            @for(Map.Entry< String,String> rest : myRest.entrySet()){
                             <input type="radio" name = "restaurant" value =  @rest.getKey() /> @rest.getValue()  <br>
                             }
                             <input type="hidden"  name="switch" value="viewMyRest">
@@ -134,7 +134,6 @@
     </div>
 </section>
 
-<!--->
 <footer class="" id="footer">
     <div class="container">
         <div class="row">

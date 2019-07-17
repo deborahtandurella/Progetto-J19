@@ -1,5 +1,4 @@
-﻿@args String name,String address, Map<String, String> overview, List<String> critiques, String votoMedio, String restaurant,String username
-<!DOCTYPE html>
+﻿@args String name,String address, Map< String, String> overview, List< String> critiques, String votoMedio, String restaurant,String username
 <html lang="en">
 
 <head>
@@ -102,7 +101,7 @@
 
                         </h7>
                         <br><br>
-                        @for(Map.Entry<String, String> ov: overview.entrySet()){
+                        @for(Map.Entry< String, String> ov: overview.entrySet()){
                             <br><br><h8 class="txt-tl">@ov.getKey() @ov.getValue() :&nbsp&nbsp</h8>
                             @for(int i = 1; i <= (Double.parseDouble(ov.getValue()))/2; i++){
                             <span class="fa fa-star checked"></span>

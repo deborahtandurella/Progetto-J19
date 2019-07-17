@@ -1,4 +1,4 @@
-@args  LinkedHashMap<String, String> piatti, String restCode , String username
+@args  LinkedHashMap< String, String> piatti, String restCode , String username
 
 <html lang="en">
 
@@ -111,7 +111,7 @@
 
             <h2>CUCINA:</h2>
           <div style="overflow-y: scroll; height:400px; width: 600px;">
-            @for(Map.Entry<String, String> s: piatti.entrySet()){
+            @for(Map.Entry< String, String> s: piatti.entrySet()){
               <br><h7>@s.getValue(): </h7>
               <br><br><input width="300px" type="range" min="0" max="10" value="0" class="slider" id= @s.getValue() name = @s.getKey() ><br><div class="index"><br>
             <img src="/static/img/slider_ticks.png" alt="ticks" style="width: 100%">
