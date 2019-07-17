@@ -66,11 +66,11 @@
                             <h2>My Critiques</h2>
                             @for(String s : critique){
                                 @for(String st : s.split("£")){
-                                    <h4>@st</h4> <br>
+                                    <h4>@st</h4>
                                 }
-                                <br>
-                                -------------------------
-                                <br>
+
+                            <hr size="4" style="color: #2b2b2b">
+
                             }
                             <input type="hidden"  name="username" value=@username>
                         </form>
