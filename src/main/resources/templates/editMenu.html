@@ -1,4 +1,4 @@
-@args  LinkedHashMap<String, String> piatti, String restCode, String name, String username
+@args  LinkedHashMap< String, String> piatti, String restCode, String name, String username
 
 
 <html lang="en">
@@ -77,7 +77,7 @@
                             <form method="post" action="/editMenu">
                                 <h2>Piatti</h2>
                                 <tbody>
-                                @for(Map.Entry<String,String> p : piatti.entrySet()){
+                                @for(Map.Entry< String,String> p : piatti.entrySet()){
                                 <input type="radio" name = "dishCode" value =  @p.getKey() /> @p.getValue() <br>
                                 }
 
