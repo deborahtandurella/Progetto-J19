@@ -141,10 +141,10 @@
                 <div class="section-title">
                     <h2 class="head-title">CRITICHE</h2>
                     <hr class="botm-line">
-                    <p class="sec-para">Cosa ne pensa la nostra clique?</p>
+                    <p class="sec-para">Puoi filtrare le critiche per vedere solo quello che ti interessa! <br>Scegli la categoria secondo cui vuoi filtrare e seleziona il voto minimo da visualizzare</p>
                 </div>
             </div>
-            <div class="col-md-9 col-sm-12">
+            <div class="col-md-9 col-sm-12" align="left">
                 <div class="col-md-4 col-sm-6 padding-right-zero">
                     <div class="portfolio-box design">
 
@@ -157,16 +157,16 @@
                 </div>
                 <div class="col-md-4 col-sm-6 padding-right-zero">
                     <div class="portfolio-box design">
-                        <!-- <img src="img/port03.jpg" alt="" class="img-responsive"> -->
+
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 padding-right-zero">
 
                 </div>
-                <div class="col-md-4 col-sm-6 padding-right-zero" >
+                <div class="col-md-4 col-sm-6 padding-right-zero">
                     <div class="portfolio-box design" >
 					<form method="post" action="restaurantView">
-                                <h4>Categoria:</h4>
+                                <nobr><h4>Categoria:
                                 <select name="section">
                                     <option value="mean">Media Complessiva</option>
                                     <option value="SERVIZIO">Servizio</option>
@@ -175,7 +175,7 @@
                                     <option value="MENU">Menu</option>
                                     <option value="CUCINA">Cucina</option>
                                 </select>
-                                <h4>Voto:</h4>
+                                Voto:
                                 <select name="grade">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -188,9 +188,12 @@
                                     <option value="9">9</option>
                                     <option value="10">10</option>
                                 </select>
+                                </h4></nobr>
                                 <input type="hidden" name = "restaurant" value=@restaurant>
-                                <button type="submit" class="btn btn-submit" name="action" value="filter">FILTER</button> <button type="submit" class="btn btn-submit" name="action" value="reset">RESET</button>
+                                <nobr><button type="submit" class="btn btn-submit" name="action" value="filter">FILTER</button>
+                                <button type="submit" class="btn btn-submit" name="action" value="reset">RESET</button></nobr>
                             </form>
+                        <br>
                         <div class="portfolio-box design" style="overflow-y: scroll; height:400px; width: 600px;">
                             
                             @for(String crit : critiques){
@@ -202,11 +205,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 padding-right-zero">
-                    <div class="portfolio-box design">
 
-                    </div>
-                </div>
             </div>
 
         </div>
