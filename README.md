@@ -20,7 +20,11 @@ Avvio del server tramite terminale :
 
 ``` $ mvn compile```
 
-- eseguire il progetto :
+- eseguire il progetto usando la porta di default :
+
+``` $  mvn exec:java -Dexec.mainClass=net.Main ```
+
+- eseguire il progetto,  volendo specificare una porta  :
 
 ``` $  mvn exec:java -Dexec.mainClass=net.Main -Dexec.args="portNumber" ```
 
