@@ -46,3 +46,8 @@ In generale, se addressOfMyServer è l'indirizzo del server e ServerPort è la p
 - [MAVEN](https://maven.apache.org/) - Dependecy Management
 - [Free SQL Database](https://www.freesqldatabase.com/) - Database Host
 - [JETTY](https://www.eclipse.org/jetty/) - Web Server
+
+## Informazioni di servizio
+
+Il sistema rende possibile l'accesso dello stesso utente a livello parellelo, ma non supporta tale modalità. Non viene quindi 
+garantito il normale funzionamento dell'applicazione.
