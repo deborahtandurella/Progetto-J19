@@ -14,6 +14,7 @@ Applicazione web  per critici gastronomici , i quali posso esprimere critiche ri
 - [MAVEN](https://maven.apache.org/) - versione 3.6.1
 
 ### Avvio del server
+Avvio del server tramite terminale :
 - il numero della porta del server è configurabile tramite linea di comando(se non specificata il programma usa la porta 8282)
 - scaricare tutte le dipendenze,compilare il progetto e generare la directory **target** :
 
