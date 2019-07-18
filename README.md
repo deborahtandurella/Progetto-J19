@@ -14,12 +14,17 @@ Applicazione web  per critici gastronomici , i quali posso esprimere critiche ri
 - [MAVEN](https://maven.apache.org/) - versione 3.6.1
 
 ### Avvio del server
+Avvio del server tramite terminale :
 - il numero della porta del server è configurabile tramite linea di comando(se non specificata il programma usa la porta 8282)
 - scaricare tutte le dipendenze,compilare il progetto e generare la directory **target** :
 
 ``` $ mvn compile```
 
-- eseguire il progetto :
+- eseguire il progetto usando la porta di default :
+
+``` $  mvn exec:java -Dexec.mainClass=net.Main ```
+
+- eseguire il progetto,  volendo specificare una porta  :
 
 ``` $  mvn exec:java -Dexec.mainClass=net.Main -Dexec.args="portNumber" ```
 
@@ -46,3 +51,8 @@ In generale, se addressOfMyServer è l'indirizzo del server e ServerPort è la p
 - [MAVEN](https://maven.apache.org/) - Dependecy Management
 - [Free SQL Database](https://www.freesqldatabase.com/) - Database Host
 - [JETTY](https://www.eclipse.org/jetty/) - Web Server
+
+## Informazioni di servizio
+
+Il sistema rende possibile l'accesso dello stesso utente a livello parellelo, ma non supporta tale modalità. Non viene quindi 
+garantito il normale funzionamento dell'applicazione.

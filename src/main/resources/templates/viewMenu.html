@@ -1,4 +1,4 @@
-@args  LinkedHashMap<String, List<String>> piatti, String restCode, String name, String username
+@args  LinkedHashMap< String, List< String>> piatti, String restCode, String name, String username
 
 
 <html lang="en">
@@ -74,7 +74,7 @@
 
                     <div class="icon-text" style="width: 600px">
 
-                            @for(Map.Entry<String,List<String>> p : piatti.entrySet()){
+                            @for(Map.Entry< String,List< String>> p : piatti.entrySet()){
                                 <h2>@p.getKey()</h2>
                                 <br>
                                 @for(String piatto : p.getValue()){

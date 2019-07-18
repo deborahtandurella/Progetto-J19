@@ -11,7 +11,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Singleton class (concreteStrategy)
+ */
 public class EditMenuRequest extends AbstractEditMenu {
     private static EditMenuRequest instance = null ;
 
@@ -29,6 +31,13 @@ public class EditMenuRequest extends AbstractEditMenu {
 
     }
 
+    /**
+     * Addresses the user to the page required.
+     *
+     * @param req, the HttpServletRequest to get parameter
+     * @param resp, the HttpServletResponse to answer to the requests of the templates
+     * @throws IOException
+     */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
        try{
@@ -54,6 +63,12 @@ public class EditMenuRequest extends AbstractEditMenu {
 
     }
 
+    /**
+     * Method called when the restaurant owner is modifying the menu and wants remove a dish.
+     * @param resp
+     * @param req
+     * @throws SQLException
+     */
     private void removeDish(HttpServletResponse resp, HttpServletRequest req) throws SQLException {
         String dishCode = req.getParameter("dishCode");
         if(dishCode == null){
@@ -63,6 +78,16 @@ public class EditMenuRequest extends AbstractEditMenu {
                     req.getParameter("restaurant"));
         }
     }
+
+    /**
+     * Method used to address the user to the page to modify the menu of his restaurant
+     *
+     * @param restaurantCode
+     * @param username
+     * @param resp
+     * @throws SQLException
+     * @throws IOException
+     */
     private void sendEditMenuTmpl(String restaurantCode, String username, HttpServletResponse resp)
             throws SQLException, IOException {
         Map<String,Object> conf = new HashMap<>();
@@ -72,6 +97,13 @@ public class EditMenuRequest extends AbstractEditMenu {
         conf.put("name",Home.getInstance().getRestaurantName(restaurantCode));
         write(resp, Rythm.render("editMenu.html",conf));
     }
+
+    /**
+     * Method used to address the restaurant owner to his personal home when he concluded his actions
+     * @param username
+     * @param resp
+     * @throws IOException
+     */
     private void sendHome(String username,HttpServletResponse resp) throws IOException {
         Map<String, Object> conf = new HashMap<>();
         conf.put("myRest", Home.getInstance().getOwnedRestaurant(username));

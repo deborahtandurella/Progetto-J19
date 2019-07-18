@@ -1,4 +1,4 @@
-@args Map<String, String> restaurant, String sw, String username
+@args Map< String, String> restaurant, String sw, String username
 
 
     <html lang="en">
@@ -75,68 +75,68 @@
                         <div class="icon-text">
                             <form method="post" action="/list">
                                                    <h2>Ristoranti</h2>
-                                                  @for(Map.Entry<String,String> s : restaurant.entrySet()){
+                                                  @for(Map.Entry< String,String> s : restaurant.entrySet()){
                                                        <input type="radio" name = "restaurant" value =  @s.getKey() /> @s.getValue() <br>
                                                    }
                                 <input type="hidden"  name="switch" value=@sw>
                                 <input type="hidden"  name="username" value=@username>
                                 <button type="submit" class="btn btn-submit">CONFIRM</button>
                             </form>
-                                                        </div>
+                        </div>
 
 
-                                                    </div>
+                    </div>
 
-                                                </div>
-                                            </div>
-                                        </div>
+                </div>
+            </div>
+        </div>
 
-                                    </section>
+    </section>
 
 
-                                    <section class="section-padding parallax bg-image-2 section wow fadeIn delay-08s" id="cta-2">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class="cta-txt">
+    <section class="section-padding parallax bg-image-2 section wow fadeIn delay-08s" id="cta-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="cta-txt">
 
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 text-center">
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                                    <footer class="" id="footer">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-sm-7 footer-copyright">
+    <footer class="" id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-7 footer-copyright">
 
-                                                    <div class="credits">
+                    <div class="credits">
 
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-5 footer-social">
-                                                    <div class="pull-right hidden-xs hidden-sm">
-                                                        <a><i class="fa fa-facebook"></i></a>
-                                                        <a><i class="fa fa-dribbble"></i></a>
-                                                        <a><i class="fa fa-twitter"></i></a>
-                                                        <a><i class="fa fa-google-plus"></i></a>
-                                                        <a><i class="fa fa-pinterest"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </footer>
+                    </div>
+                </div>
+                <div class="col-sm-5 footer-social">
+                    <div class="pull-right hidden-xs hidden-sm">
+                        <a><i class="fa fa-facebook"></i></a>
+                        <a><i class="fa fa-dribbble"></i></a>
+                        <a><i class="fa fa-twitter"></i></a>
+                        <a><i class="fa fa-google-plus"></i></a>
+                        <a><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-                                    <script src="/static/js/jquery.min.js"></script>
-                                    <script src="/static/js/jquery.easing.min.js"></script>
-                                    <script src="/static/js/bootstrap.min.js"></script>
-                                    <script src="/static/js/wow.js"></script>
-                                    <script src="/static/js/custom.js"></script>
-                                    <script src="/static/contactform/contactform.js"></script>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/jquery.easing.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/wow.js"></script>
+    <script src="/static/js/custom.js"></script>
+    <script src="/static/contactform/contactform.js"></script>
 
-                                    </body>
-                                    </html>
+    </body>
+    </html>
