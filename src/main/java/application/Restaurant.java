@@ -37,7 +37,7 @@ public class Restaurant {
      * Add a new menu to the restaurant.
      * @param menu the menu of the restaurant
      */
-    public void addMenu(HashMap<DishType,ArrayList<MenuEntry>> menu){
+    public synchronized void addMenu(HashMap<DishType,ArrayList<MenuEntry>> menu){
         this.menu = menu;
     }
 
@@ -147,7 +147,7 @@ public class Restaurant {
      * @param dishCode the code by which the system identifies the dish
      * @param restaurantCode the code of the restaurant to whom the MenuEntry has to be added
      */
-    public MenuEntry addMenuEntryToMenu(String dishType,String dish, double price, String dishCode, String restaurantCode){
+    public synchronized MenuEntry addMenuEntryToMenu(String dishType,String dish, double price, String dishCode, String restaurantCode){
         MenuEntry me = new MenuEntry(dish,price,dishCode,restaurantCode,dishType);
         this.menu.get(this.menuHandler.stringConverter(dishType)).add(me);
         return me;
