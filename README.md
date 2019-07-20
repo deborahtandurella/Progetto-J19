@@ -1,5 +1,5 @@
 # Progetto-J19 (Clique)
-Applicazione web  per critici gastronomici , i quali posso esprimere critiche riguardanti la loro esperienza nei ristoranti iscritti al servizio. I proprietari di ristoranti posso iscrivere le loro attività per essere valutate dai critici.
+Applicazione web  per critici gastronomici , i quali posso esprimere critiche riguardanti la loro esperienza nei ristoranti iscritti al servizio. I proprietari di ristoranti posso iscrivere le loro attività perché siano valutate dai critici.
 
 ## Set up del sistema
 
@@ -54,5 +54,5 @@ In generale, se addressOfMyServer è l'indirizzo del server e ServerPort è la p
 
 ## Informazioni di servizio
 
-Il sistema rende possibile l'accesso dello stesso utente a livello parellelo, ma non supporta tale modalità. Non viene quindi 
+Il sistema rende possibile l'accesso dello stesso utente a livello parallelo, ma non supporta tale modalità. Non viene quindi 
 garantito il normale funzionamento dell'applicazione.
