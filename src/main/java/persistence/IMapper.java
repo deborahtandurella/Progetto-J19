@@ -8,9 +8,9 @@ import java.util.List;
  */
 public interface IMapper {
 
-     String DB_URL = "jdbc:mysql://sql7.freesqldatabase.com/sql7298643";
-     String USER = "sql7298643";
-     String PASSWORD = "kJ1S9yUPZ5";
+     String DB_URL = "jdbc:mysql://sql7.freesqldatabase.com/sql7299507";
+     String USER = "sql7299507";
+     String PASSWORD = "BGEPZDMSqs";
 
     /**
      * Method which returns an Object for the table belonging to the Mapper

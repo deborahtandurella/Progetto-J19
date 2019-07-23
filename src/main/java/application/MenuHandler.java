@@ -1,6 +1,7 @@
 package application;
 
 import application.restaurant_exception.DishAlreadyInMenuException;
+import application.restaurant_exception.EmptyMenuException;
 
 import java.util.*;
 
@@ -82,6 +83,7 @@ public class MenuHandler {
      * @return
      */
     public LinkedHashMap<String, List<String>> menuToString(HashMap<DishType,ArrayList<MenuEntry>> menu){
+        checkIfEmpty(menu);
         LinkedHashMap<String, List<String>> menuString = new LinkedHashMap<>();
         for (DishType dt:DishType.values()) {
             menuString.put(dt.toString(),new ArrayList<>());
@@ -91,4 +93,14 @@ public class MenuHandler {
         }
         return menuString;
     }
+
+    private void   checkIfEmpty(HashMap<DishType,ArrayList<MenuEntry>> menu){
+        boolean tmp = true;
+        for (DishType dt : DishType.values()){
+            tmp = tmp && (menu.get(dt).isEmpty());
+            }
+            if(tmp)
+                throw new EmptyMenuException();
+    }
+
 }

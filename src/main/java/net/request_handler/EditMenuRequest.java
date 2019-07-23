@@ -1,6 +1,7 @@
 package net.request_handler;
 
 import application.controller.Home;
+import application.restaurant_exception.EmptyMenuException;
 import net.net_exception.MissingFormParameterException;
 import org.rythmengine.Rythm;
 
@@ -59,6 +60,8 @@ public class EditMenuRequest extends AbstractEditMenu {
        }
        catch (MissingFormParameterException e){
            write(resp,Rythm.render("warn.html",e.getMessage()));
+       }catch (EmptyMenuException e){
+           write(resp,Rythm.render("warn.html","aaa"));
        }
 
     }
