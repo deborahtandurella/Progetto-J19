@@ -53,7 +53,6 @@ public class Critique extends RestaurantOverview{
 
         }catch (InvalidNumberException e){
             System.err.println(e.getMessage());
-            //propagare eccezione
         }
     }
 

@@ -1,6 +1,7 @@
 package net.request_handler;
 
 import application.controller.Home;
+import application.restaurant_exception.EmptyMenuException;
 import application.restaurant_exception.NoCritiquesException;
 import org.rythmengine.Rythm;
 
@@ -41,7 +42,9 @@ public class MyRestaurantActionRequest extends OverviewRequest {
      */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String restName = null;
         try{
+            restName = Home.getInstance().getRestaurantName(req.getParameter("restaurant"));
             if (req.getParameter("switch").equals("discover"))
                 sendRestaurantOverview(req.getParameter("restaurant"), resp, req.getParameter("username"),
                         Home.getInstance().getRestaurantCritiqueToString(req.getParameter("restaurant")));
@@ -56,6 +59,12 @@ public class MyRestaurantActionRequest extends OverviewRequest {
             e.printStackTrace();
             System.out.println(e.getMessage());
             write(resp,Rythm.render("warn.html"));
+        }catch(EmptyMenuException e){
+            HashMap<String,Object> conf = new HashMap<>();
+            conf.put("username",req.getParameter("username"));
+            conf.put("rCode",req.getParameter("restaurant"));
+            conf.put("rName",restName );
+            write(resp,Rythm.render("addMenu.html",conf));
         }
     }
 
